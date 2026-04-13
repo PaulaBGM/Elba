@@ -1,6 +1,5 @@
 using Inventory.Model;
 using Inventory.UI;
-using NUnit.Framework;
 using System;
 using System.Collections.Generic;
 using UnityEngine;

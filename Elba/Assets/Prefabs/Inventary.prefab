@@ -995,7 +995,7 @@ MonoBehaviour:
   m_HandleRect: {fileID: 5051012180821212797}
   m_Direction: 2
   m_Value: 1
-  m_Size: 0.99999994
+  m_Size: 1
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -1624,7 +1624,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2d24a610b10011d469ab4b31f414dd9b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  itemPrefab: {fileID: -4064211824525700181, guid: 6bcf93454f944e144acb39643a5743ac, type: 3}
+  itemPrefab: {fileID: 0}
   contentPanel: {fileID: 5930033583486368756}
   itemDescription: {fileID: 7550616336147231082}
   mouseFollower: {fileID: 0}

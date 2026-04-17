@@ -44,7 +44,7 @@ namespace Inventory.Model
             InformAboutChange();
             return quantity;
         }
-
+        
         private int AddItemToFirstFreeSlot(ItemSO item, int quantity
             , List<ItemParameter> itemState = null)
         {

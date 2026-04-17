@@ -9,11 +9,14 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: dc7bd1f369287e544b474b036509d672, type: 3}
+  m_Script: {fileID: 11500000, guid: 4ae695d3b10bb9e45a5f48fb5b85e416, type: 3}
   m_Name: Spear
   m_EditorClassIdentifier: 
   <IsStackable>k__BackingField: 0
   <MaxStackSize>k__BackingField: 1
   <Name>k__BackingField: Spear
-  <Description>k__BackingField: Stick that cuts stuff
+  <Description>k__BackingField: 
   <ItemImage>k__BackingField: {fileID: 10901, guid: 0000000000000000f000000000000000, type: 0}
+  <DefaultParametersList>k__BackingField:
+  - itemParameter: {fileID: 11400000, guid: 20e17eec5e3dcd24db6078560951cba7, type: 2}
+    value: 0

@@ -38,7 +38,7 @@ namespace Inventory.Model
         bool PerformAction(GameObject character, List<ItemParameter> itemState);
     }
 
-    [Serializable]
+    [System.Serializable]
     public class ModifierData
     {
         public CharacterStatModifierSO statModifier;

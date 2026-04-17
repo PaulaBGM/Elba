@@ -30,23 +30,22 @@ namespace Inventory.Model
         {
             if (item.IsStackable == false)
             {
-                for (int i = 0; i < inventoryItems.Count; i++)
+                while (quantity > 0 && IsInventoryFull() == false)
                 {
-                    while (quantity > 0 && IsInventoryFull() == false)
-                    {
-                        quantity -= AddItemToFirstFreeSlot(item, 1, itemState);
-                    }
-                    InformAboutChange();
-                    return quantity;
+                    quantity -= AddItemToFirstFreeSlot(item, 1, itemState);
                 }
+
+                InformAboutChange();
+                return quantity;
             }
+
             quantity = AddStackableItem(item, quantity);
             InformAboutChange();
             return quantity;
         }
-        
-        private int AddItemToFirstFreeSlot(ItemSO item, int quantity
-            , List<ItemParameter> itemState = null)
+
+        private int AddItemToFirstFreeSlot(ItemSO item, int quantity,
+            List<ItemParameter> itemState = null)
         {
             InventoryItem newItem = new InventoryItem
             {
@@ -76,6 +75,7 @@ namespace Inventory.Model
             {
                 if (inventoryItems[i].IsEmpty)
                     continue;
+
                 if (inventoryItems[i].item.ID == item.ID)
                 {
                     int amountPossibleToTake =
@@ -91,17 +91,18 @@ namespace Inventory.Model
                     {
                         inventoryItems[i] = inventoryItems[i]
                             .ChangeQuantity(inventoryItems[i].quantity + quantity);
-                        InformAboutChange();
                         return 0;
                     }
                 }
             }
+
             while (quantity > 0 && IsInventoryFull() == false)
             {
                 int newQuantity = Mathf.Clamp(quantity, 0, item.MaxStackSize);
                 quantity -= newQuantity;
                 AddItemToFirstFreeSlot(item, newQuantity);
             }
+
             return quantity;
         }
 
@@ -111,7 +112,9 @@ namespace Inventory.Model
             {
                 if (inventoryItems[itemIndex].IsEmpty)
                     return;
+
                 int reminder = inventoryItems[itemIndex].quantity - amount;
+
                 if (reminder <= 0)
                     inventoryItems[itemIndex] = InventoryItem.GetEmptyItem();
                 else
@@ -136,8 +139,10 @@ namespace Inventory.Model
             {
                 if (inventoryItems[i].IsEmpty)
                     continue;
+
                 returnValue[i] = inventoryItems[i];
             }
+
             return returnValue;
         }
 
@@ -151,6 +156,7 @@ namespace Inventory.Model
             InventoryItem item1 = inventoryItems[itemIndex_1];
             inventoryItems[itemIndex_1] = inventoryItems[itemIndex_2];
             inventoryItems[itemIndex_2] = item1;
+
             InformAboutChange();
         }
 
@@ -166,6 +172,7 @@ namespace Inventory.Model
         public int quantity;
         public ItemSO item;
         public List<ItemParameter> itemState;
+
         public bool IsEmpty => item == null;
 
         public InventoryItem ChangeQuantity(int newQuantity)

@@ -1,7 +1,5 @@
 using UnityEngine;
 using UnityEngine.UI;
-using System.Collections;
-using System.Collections.Generic;
 using TMPro;
 
 namespace Inventory.UI
@@ -26,7 +24,6 @@ namespace Inventory.UI
 
         public void SetDescription(Sprite sprite, string itemName, string itemDescription)
         {
-            Debug.Log("Set Description");
             itemImage.gameObject.SetActive(true);
             itemImage.sprite = sprite;
             title.text = itemName;

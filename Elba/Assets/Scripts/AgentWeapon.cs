@@ -27,17 +27,18 @@ public class AgentWeapon : MonoBehaviour
 
     private void ModifyParameters()
     {
-        foreach (var parameter in parametersToModify)
+        foreach (var modifier in parametersToModify)
         {
-            if (itemCurrentState.Contains(parameter))
+            for (int i = 0; i < itemCurrentState.Count; i++)
             {
-                int index = itemCurrentState.IndexOf(parameter);
-                float newValue = itemCurrentState[index].value + parameter.value;
-                itemCurrentState[index] = new ItemParameter
+                if (itemCurrentState[i].itemParameter == modifier.itemParameter)
                 {
-                    itemParameter = parameter.itemParameter,
-                    value = newValue
-                };
+                    itemCurrentState[i] = new ItemParameter
+                    {
+                        itemParameter = modifier.itemParameter,
+                        value = itemCurrentState[i].value + modifier.value
+                    };
+                }
             }
         }
     }

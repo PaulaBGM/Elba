@@ -35,7 +35,8 @@ namespace Inventory.UI
         {
             itemImage.gameObject.SetActive(true);
             itemImage.sprite = sprite;
-            quantityTxt.text = quantity + "";
+            quantityTxt.text = quantity.ToString();
+            empty = false; 
         }
         public void Select()
         {

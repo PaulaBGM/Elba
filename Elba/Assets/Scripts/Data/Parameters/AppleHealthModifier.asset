@@ -9,7 +9,6 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: dafa609ae6be8634b8d26422360bade7, type: 3}
-  m_Name: AppleParameter
+  m_Script: {fileID: 11500000, guid: e934f39ebafa4c5478acd875b5f606cc, type: 3}
+  m_Name: AppleHealthModifier
   m_EditorClassIdentifier: 
-  <ParameterName>k__BackingField: Apple

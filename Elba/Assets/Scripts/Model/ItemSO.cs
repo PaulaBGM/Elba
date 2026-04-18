@@ -5,6 +5,13 @@ using UnityEngine;
 
 namespace Inventory.Model
 {
+    public enum ItemType
+    {
+        Consumable,
+        Equipment,
+        Material,
+        Misc
+    }
     public abstract class ItemSO : ScriptableObject
     {
         [field: SerializeField]
@@ -27,6 +34,8 @@ namespace Inventory.Model
 
         [field: SerializeField]
         public List<ItemParameter> DefaultParametersList { get; set; }
+        [field: SerializeField] public ItemType ItemType { get; private set; }
+
 
     }
 

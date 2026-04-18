@@ -10,10 +10,11 @@ namespace Inventory.UI
         [SerializeField] private RectTransform contentPanel;
         [SerializeField] private UIInventoryDescription itemDescription;
         [SerializeField] private MouseFollower mouseFollower;
-
         [SerializeField] private ItemActionPanel actionPanel;
 
-        private List<UIInventoryItem> listOfUIItems = new List<UIInventoryItem>();
+        [SerializeField] private List<InventoryTab> tabs;
+
+        private List<UIInventoryItem> listOfUIItems = new();
         private int currentlyDraggedItemIndex = -1;
 
         public event Action<int> OnDescriptionRequested,
@@ -22,21 +23,30 @@ namespace Inventory.UI
 
         public event Action<int, int> OnSwapItems;
 
+        public event Action<Inventory.Model.ItemType> OnTabChanged;
+
         private void Awake()
         {
             Hide();
             mouseFollower.Toggle(false);
             itemDescription.ResetDescription();
+
+            foreach (var tab in tabs)
+            {
+                tab.OnTabSelected += HandleTabChanged;
+            }
         }
 
-        public void InitializeInventoryUI(int inventorySize)
+        private void HandleTabChanged(Inventory.Model.ItemType type)
         {
-            for (int i = 0; i < inventorySize; i++)
-            {
-                UIInventoryItem uiItem =
-                    Instantiate(itemPrefab, Vector3.zero, Quaternion.identity);
+            OnTabChanged?.Invoke(type);
+        }
 
-                uiItem.transform.SetParent(contentPanel);
+        public void InitializeInventoryUI(int size)
+        {
+            for (int i = 0; i < size; i++)
+            {
+                UIInventoryItem uiItem = Instantiate(itemPrefab, contentPanel);
                 uiItem.transform.localScale = Vector3.one;
 
                 listOfUIItems.Add(uiItem);
@@ -58,33 +68,24 @@ namespace Inventory.UI
             }
         }
 
-        public void UpdateData(int itemIndex, Sprite sprite, int quantity)
+        public void UpdateData(int index, Sprite sprite, int quantity)
         {
-            if (itemIndex < listOfUIItems.Count)
-                listOfUIItems[itemIndex].SetData(sprite, quantity);
-        }
-
-        public void UpdateDescription(int itemIndex, Sprite image, string name, string description)
-        {
-            itemDescription.SetDescription(image, name, description);
-            DeselectAllItems();
-            listOfUIItems[itemIndex].Select();
+            if (index < listOfUIItems.Count)
+                listOfUIItems[index].SetData(sprite, quantity);
         }
 
         private void HandleItemSelection(UIInventoryItem item)
         {
             int index = listOfUIItems.IndexOf(item);
-            if (index == -1) return;
-
-            OnDescriptionRequested?.Invoke(index);
+            if (index != -1)
+                OnDescriptionRequested?.Invoke(index);
         }
 
         private void HandleShowItemActions(UIInventoryItem item)
         {
             int index = listOfUIItems.IndexOf(item);
-            if (index == -1) return;
-
-            OnItemActionRequested?.Invoke(index);
+            if (index != -1)
+                OnItemActionRequested?.Invoke(index);
         }
 
         private void HandleBeginDrag(UIInventoryItem item)
@@ -98,7 +99,8 @@ namespace Inventory.UI
 
         private void HandleEndDrag(UIInventoryItem item)
         {
-            ResetDraggedItem();
+            mouseFollower.Toggle(false);
+            currentlyDraggedItemIndex = -1;
         }
 
         private void HandleSwap(UIInventoryItem item)
@@ -107,12 +109,6 @@ namespace Inventory.UI
             if (index == -1) return;
 
             OnSwapItems?.Invoke(currentlyDraggedItemIndex, index);
-        }
-
-        private void ResetDraggedItem()
-        {
-            mouseFollower.Toggle(false);
-            currentlyDraggedItemIndex = -1;
         }
 
         public void CreateDraggedItem(Sprite sprite, int quantity)
@@ -132,18 +128,9 @@ namespace Inventory.UI
             actionPanel.transform.position = listOfUIItems[index].transform.position;
         }
 
-        public void ResetSelection()
+        public void UpdateDescription(int index, Sprite img, string name, string desc)
         {
-            itemDescription.ResetDescription();
-            DeselectAllItems();
-        }
-
-        private void DeselectAllItems()
-        {
-            foreach (var item in listOfUIItems)
-                item.Deselect();
-
-            actionPanel.Toggle(false);
+            itemDescription.SetDescription(img, name, desc);
         }
 
         public void Show()
@@ -156,7 +143,11 @@ namespace Inventory.UI
         {
             actionPanel.Toggle(false);
             gameObject.SetActive(false);
-            ResetDraggedItem();
+        }
+
+        public void ResetSelection()
+        {
+            itemDescription.ResetDescription();
         }
     }
 }

@@ -11,6 +11,7 @@ namespace Inventory
     {
         [SerializeField] private UIInventoryPage inventoryUI;
         [SerializeField] private InventorySO inventoryData;
+        private Inventory.Model.ItemType currentTab = Inventory.Model.ItemType.Misc;
 
         public List<InventoryItem> initialItems = new List<InventoryItem>();
 
@@ -55,8 +56,27 @@ namespace Inventory
             inventoryUI.OnSwapItems += HandleSwapItems;
             inventoryUI.OnStartDragging += HandleDragging;
             inventoryUI.OnItemActionRequested += HandleItemActionRequest;
+            inventoryUI.OnTabChanged += HandleTabChanged;
+        }
+        private void HandleTabChanged(Inventory.Model.ItemType type)
+        {
+            currentTab = type;
+            UpdateInventoryUIFiltered();
         }
 
+        private void UpdateInventoryUIFiltered()
+        {
+            inventoryUI.ResetAllItems();
+
+            var items = inventoryData.GetItemsByType(currentTab);
+
+            for (int i = 0; i < items.Count; i++)
+            {
+                inventoryUI.UpdateData(i,
+                    items[i].item.ItemImage,
+                    items[i].quantity);
+            }
+        }
         private void HandleItemActionRequest(int itemIndex)
         {
             InventoryItem inventoryItem = inventoryData.GetItemAt(itemIndex);

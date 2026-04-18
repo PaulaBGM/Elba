@@ -1,5 +1,4 @@
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -20,6 +19,7 @@ namespace Inventory.Model
         public void Initialize()
         {
             inventoryItems = new List<InventoryItem>();
+
             for (int i = 0; i < Size; i++)
             {
                 inventoryItems.Add(InventoryItem.GetEmptyItem());
@@ -28,9 +28,9 @@ namespace Inventory.Model
 
         public int AddItem(ItemSO item, int quantity, List<ItemParameter> itemState = null)
         {
-            if (item.IsStackable == false)
+            if (!item.IsStackable)
             {
-                while (quantity > 0 && IsInventoryFull() == false)
+                while (quantity > 0 && !IsInventoryFull())
                 {
                     quantity -= AddItemToFirstFreeSlot(item, 1, itemState);
                 }
@@ -44,15 +44,14 @@ namespace Inventory.Model
             return quantity;
         }
 
-        private int AddItemToFirstFreeSlot(ItemSO item, int quantity,
-            List<ItemParameter> itemState = null)
+        private int AddItemToFirstFreeSlot(ItemSO item, int quantity, List<ItemParameter> itemState = null)
         {
             InventoryItem newItem = new InventoryItem
             {
                 item = item,
                 quantity = quantity,
-                itemState =
-                new List<ItemParameter>(itemState == null ? item.DefaultParametersList : itemState)
+                itemState = new List<ItemParameter>(
+                    itemState == null ? item.DefaultParametersList : itemState)
             };
 
             for (int i = 0; i < inventoryItems.Count; i++)
@@ -63,11 +62,14 @@ namespace Inventory.Model
                     return quantity;
                 }
             }
+
             return 0;
         }
 
         private bool IsInventoryFull()
-            => inventoryItems.Where(item => item.IsEmpty).Any() == false;
+        {
+            return !inventoryItems.Any(item => item.IsEmpty);
+        }
 
         private int AddStackableItem(ItemSO item, int quantity)
         {
@@ -78,29 +80,30 @@ namespace Inventory.Model
 
                 if (inventoryItems[i].item.ID == item.ID)
                 {
-                    int amountPossibleToTake =
-                        inventoryItems[i].item.MaxStackSize - inventoryItems[i].quantity;
+                    int spaceLeft = inventoryItems[i].item.MaxStackSize - inventoryItems[i].quantity;
 
-                    if (quantity > amountPossibleToTake)
+                    if (quantity > spaceLeft)
                     {
                         inventoryItems[i] = inventoryItems[i]
                             .ChangeQuantity(inventoryItems[i].item.MaxStackSize);
-                        quantity -= amountPossibleToTake;
+
+                        quantity -= spaceLeft;
                     }
                     else
                     {
                         inventoryItems[i] = inventoryItems[i]
                             .ChangeQuantity(inventoryItems[i].quantity + quantity);
+
                         return 0;
                     }
                 }
             }
 
-            while (quantity > 0 && IsInventoryFull() == false)
+            while (quantity > 0 && !IsInventoryFull())
             {
-                int newQuantity = Mathf.Clamp(quantity, 0, item.MaxStackSize);
-                quantity -= newQuantity;
-                AddItemToFirstFreeSlot(item, newQuantity);
+                int newAmount = Mathf.Clamp(quantity, 0, item.MaxStackSize);
+                quantity -= newAmount;
+                AddItemToFirstFreeSlot(item, newAmount);
             }
 
             return quantity;
@@ -108,21 +111,21 @@ namespace Inventory.Model
 
         public void RemoveItem(int itemIndex, int amount)
         {
-            if (inventoryItems.Count > itemIndex)
-            {
-                if (inventoryItems[itemIndex].IsEmpty)
-                    return;
+            if (inventoryItems.Count <= itemIndex)
+                return;
 
-                int reminder = inventoryItems[itemIndex].quantity - amount;
+            if (inventoryItems[itemIndex].IsEmpty)
+                return;
 
-                if (reminder <= 0)
-                    inventoryItems[itemIndex] = InventoryItem.GetEmptyItem();
-                else
-                    inventoryItems[itemIndex] = inventoryItems[itemIndex]
-                        .ChangeQuantity(reminder);
+            int remaining = inventoryItems[itemIndex].quantity - amount;
 
-                InformAboutChange();
-            }
+            if (remaining <= 0)
+                inventoryItems[itemIndex] = InventoryItem.GetEmptyItem();
+            else
+                inventoryItems[itemIndex] = inventoryItems[itemIndex]
+                    .ChangeQuantity(remaining);
+
+            InformAboutChange();
         }
 
         public void AddItem(InventoryItem item)
@@ -132,32 +135,46 @@ namespace Inventory.Model
 
         public Dictionary<int, InventoryItem> GetCurrentInventoryState()
         {
-            Dictionary<int, InventoryItem> returnValue =
-                new Dictionary<int, InventoryItem>();
+            Dictionary<int, InventoryItem> result = new();
 
             for (int i = 0; i < inventoryItems.Count; i++)
             {
-                if (inventoryItems[i].IsEmpty)
-                    continue;
-
-                returnValue[i] = inventoryItems[i];
+                if (!inventoryItems[i].IsEmpty)
+                    result[i] = inventoryItems[i];
             }
 
-            return returnValue;
+            return result;
         }
 
-        public InventoryItem GetItemAt(int itemIndex)
+        public InventoryItem GetItemAt(int index)
         {
-            return inventoryItems[itemIndex];
+            return inventoryItems[index];
         }
 
-        public void SwapItems(int itemIndex_1, int itemIndex_2)
+        public void SwapItems(int indexA, int indexB)
         {
-            InventoryItem item1 = inventoryItems[itemIndex_1];
-            inventoryItems[itemIndex_1] = inventoryItems[itemIndex_2];
-            inventoryItems[itemIndex_2] = item1;
+            InventoryItem temp = inventoryItems[indexA];
+            inventoryItems[indexA] = inventoryItems[indexB];
+            inventoryItems[indexB] = temp;
 
             InformAboutChange();
+        }
+
+        public List<InventoryItem> GetItemsByType(ItemType type)
+        {
+            List<InventoryItem> result = new List<InventoryItem>();
+
+            foreach (var item in inventoryItems)
+            {
+                if (item.IsEmpty) continue;
+
+                if (item.item != null && item.item.ItemType == type)
+                {
+                    result.Add(item);
+                }
+            }
+
+            return result;
         }
 
         private void InformAboutChange()
@@ -186,11 +203,13 @@ namespace Inventory.Model
         }
 
         public static InventoryItem GetEmptyItem()
-            => new InventoryItem
+        {
+            return new InventoryItem
             {
                 item = null,
                 quantity = 0,
                 itemState = new List<ItemParameter>()
             };
+        }
     }
 }

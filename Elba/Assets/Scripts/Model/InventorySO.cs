@@ -78,21 +78,19 @@ namespace Inventory.Model
                 if (inventoryItems[i].IsEmpty)
                     continue;
 
-                if (inventoryItems[i].item.ID == item.ID)
+                if (inventoryItems[i].item.ItemID == item.ItemID)
                 {
                     int spaceLeft = inventoryItems[i].item.MaxStackSize - inventoryItems[i].quantity;
 
                     if (quantity > spaceLeft)
                     {
-                        inventoryItems[i] = inventoryItems[i]
-                            .ChangeQuantity(inventoryItems[i].item.MaxStackSize);
+                        inventoryItems[i].ChangeQuantity(inventoryItems[i].item.MaxStackSize);
 
                         quantity -= spaceLeft;
                     }
                     else
                     {
-                        inventoryItems[i] = inventoryItems[i]
-                            .ChangeQuantity(inventoryItems[i].quantity + quantity);
+                        inventoryItems[i].ChangeQuantity(inventoryItems[i].quantity + quantity);
 
                         return 0;
                     }
@@ -122,8 +120,7 @@ namespace Inventory.Model
             if (remaining <= 0)
                 inventoryItems[itemIndex] = InventoryItem.GetEmptyItem();
             else
-                inventoryItems[itemIndex] = inventoryItems[itemIndex]
-                    .ChangeQuantity(remaining);
+                inventoryItems[itemIndex].ChangeQuantity(remaining);
 
             InformAboutChange();
         }
@@ -180,36 +177,6 @@ namespace Inventory.Model
         private void InformAboutChange()
         {
             OnInventoryUpdated?.Invoke(GetCurrentInventoryState());
-        }
-    }
-
-    [Serializable]
-    public struct InventoryItem
-    {
-        public int quantity;
-        public ItemSO item;
-        public List<ItemParameter> itemState;
-
-        public bool IsEmpty => item == null;
-
-        public InventoryItem ChangeQuantity(int newQuantity)
-        {
-            return new InventoryItem
-            {
-                item = this.item,
-                quantity = newQuantity,
-                itemState = new List<ItemParameter>(this.itemState)
-            };
-        }
-
-        public static InventoryItem GetEmptyItem()
-        {
-            return new InventoryItem
-            {
-                item = null,
-                quantity = 0,
-                itemState = new List<ItemParameter>()
-            };
         }
     }
 }

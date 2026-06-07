@@ -7,17 +7,23 @@ namespace Inventory.Model
 {
     public enum ItemType
     {
-        Consumable,
-        Equipment,
+        Food,
+        Drink,
+        Tool,
+        Weapon,
         Material,
+        Building,
+        Quest,
         Misc
     }
+
     public abstract class ItemSO : ScriptableObject
     {
         [field: SerializeField]
         public bool IsStackable { get; set; }
 
-        public int ID => GetInstanceID();
+        [field: SerializeField]
+        public string ItemID { get; private set; }
 
         [field: SerializeField]
         public int MaxStackSize { get; set; } = 1;

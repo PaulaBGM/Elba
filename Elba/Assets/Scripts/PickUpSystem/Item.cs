@@ -19,7 +19,7 @@ public class Item : MonoBehaviour
 
     private void Start()
     {
-        GetComponent<SpriteRenderer>().sprite = InventoryItem.ItemImage;
+        GetComponentInChildren<SpriteRenderer>().sprite = InventoryItem.ItemImage;
     }
 
     public void DestroyItem()

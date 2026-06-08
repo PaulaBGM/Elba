@@ -3,5 +3,6 @@ public enum StatType
     Health,
     Hunger,
     Thirst,
-    Energy
+    Stamina,
+    Temperature
 }

@@ -1,8 +1,18 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
-public abstract class CharacterStatModifierSO : ScriptableObject
+[CreateAssetMenu(menuName = "Stats/Stat Modifier")]
+public class CharacterStatModifierSO : ScriptableObject
 {
-    public abstract void AffectCharacter(GameObject character, float val);
+    [SerializeField] private StatType statType;
+
+    public void AffectCharacter(GameObject character, float value)
+    {
+        PlayerStatsSystem stats =
+            character.GetComponent<PlayerStatsSystem>();
+
+        if (stats == null)
+            return;
+
+        stats.ModifyStat(statType, value);
+    }
 }

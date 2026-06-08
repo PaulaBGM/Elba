@@ -15,7 +15,11 @@ public class PlayerHealthSystem : MonoBehaviour, IDamageable
         _playerMain = GetComponentInParent<PlayerMain>();
         currentHealth = maxHealth;
     }
-
+    public void AddHealth(int health) 
+    {
+    
+    }
+    
     public void ApplyDamage(float damage)
     {
         currentHealth -= damage;

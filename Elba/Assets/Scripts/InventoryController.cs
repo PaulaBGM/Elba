@@ -11,12 +11,20 @@ namespace Inventory
     {
         [SerializeField] private UIInventoryPage inventoryUI;
         [SerializeField] private InventorySO inventoryData;
-        private Inventory.Model.ItemType currentTab = Inventory.Model.ItemType.Misc;
-
-        public List<InventoryItem> initialItems = new List<InventoryItem>();
 
         [SerializeField] private AudioClip dropClip;
         [SerializeField] private AudioSource audioSource;
+
+        private ItemType currentTab = ItemType.Misc;
+
+        public List<InventoryItem> initialItems = new();
+
+        public InventorySO InventoryData => inventoryData;
+
+        public event Action<InventoryItem> OnItemUsed;
+        public event Action<InventoryItem> OnItemDropped;
+        public event Action OnInventoryOpened;
+        public event Action OnInventoryClosed;
 
         private void Start()
         {
@@ -42,7 +50,8 @@ namespace Inventory
 
             foreach (var item in inventoryState)
             {
-                inventoryUI.UpdateData(item.Key,
+                inventoryUI.UpdateData(
+                    item.Key,
                     item.Value.item.ItemImage,
                     item.Value.quantity);
             }
@@ -58,7 +67,8 @@ namespace Inventory
             inventoryUI.OnItemActionRequested += HandleItemActionRequest;
             inventoryUI.OnTabChanged += HandleTabChanged;
         }
-        private void HandleTabChanged(Inventory.Model.ItemType type)
+
+        private void HandleTabChanged(ItemType type)
         {
             currentTab = type;
             UpdateInventoryUIFiltered();
@@ -68,18 +78,21 @@ namespace Inventory
         {
             inventoryUI.ResetAllItems();
 
-            var items = inventoryData.GetItemsByType(currentTab);
+            List<InventoryItem> items = inventoryData.GetItemsByType(currentTab);
 
             for (int i = 0; i < items.Count; i++)
             {
-                inventoryUI.UpdateData(i,
+                inventoryUI.UpdateData(
+                    i,
                     items[i].item.ItemImage,
                     items[i].quantity);
             }
         }
+
         private void HandleItemActionRequest(int itemIndex)
         {
             InventoryItem inventoryItem = inventoryData.GetItemAt(itemIndex);
+
             if (inventoryItem.IsEmpty)
                 return;
 
@@ -87,53 +100,74 @@ namespace Inventory
 
             if (inventoryItem.item is IItemAction action)
             {
-                inventoryUI.AddAction(action.ActionName,
+                inventoryUI.AddAction(
+                    action.ActionName,
                     () => PerformAction(itemIndex));
             }
 
             if (inventoryItem.item is IDestroyableItem)
             {
-                inventoryUI.AddAction("Drop",
+                inventoryUI.AddAction(
+                    "Drop",
                     () => DropItem(itemIndex, inventoryItem.quantity));
             }
         }
 
         private void DropItem(int itemIndex, int quantity)
         {
+            InventoryItem item = inventoryData.GetItemAt(itemIndex);
+
+            OnItemDropped?.Invoke(item);
+
             inventoryData.RemoveItem(itemIndex, quantity);
+
             inventoryUI.ResetSelection();
-            audioSource.PlayOneShot(dropClip);
+
+            if (audioSource != null && dropClip != null)
+                audioSource.PlayOneShot(dropClip);
         }
 
         public void PerformAction(int itemIndex)
         {
             InventoryItem item = inventoryData.GetItemAt(itemIndex);
+
             if (item.IsEmpty)
                 return;
 
             if (item.item is IItemAction action)
             {
-                bool success = action.PerformAction(gameObject, item.itemState);
+                bool success = action.PerformAction(
+                    gameObject,
+                    item.itemState);
 
-                if (success && item.item is IDestroyableItem)
+                if (success)
                 {
-                    inventoryData.RemoveItem(itemIndex, 1);
+                    OnItemUsed?.Invoke(item);
+
+                    if (item.item is IDestroyableItem)
+                    {
+                        inventoryData.RemoveItem(itemIndex, 1);
+                    }
+
+                    if (audioSource != null && action.actionSFX != null)
+                        audioSource.PlayOneShot(action.actionSFX);
+
+                    if (inventoryData.GetItemAt(itemIndex).IsEmpty)
+                        inventoryUI.ResetSelection();
                 }
-
-                audioSource.PlayOneShot(action.actionSFX);
-
-                if (inventoryData.GetItemAt(itemIndex).IsEmpty)
-                    inventoryUI.ResetSelection();
             }
         }
 
         private void HandleDragging(int itemIndex)
         {
-            var item = inventoryData.GetItemAt(itemIndex);
+            InventoryItem item = inventoryData.GetItemAt(itemIndex);
+
             if (item.IsEmpty)
                 return;
 
-            inventoryUI.CreateDraggedItem(item.item.ItemImage, item.quantity);
+            inventoryUI.CreateDraggedItem(
+                item.item.ItemImage,
+                item.quantity);
         }
 
         private void HandleSwapItems(int a, int b)
@@ -143,7 +177,7 @@ namespace Inventory
 
         private void HandleDescriptionRequest(int index)
         {
-            var item = inventoryData.GetItemAt(index);
+            InventoryItem item = inventoryData.GetItemAt(index);
 
             if (item.IsEmpty)
             {
@@ -151,7 +185,8 @@ namespace Inventory
                 return;
             }
 
-            inventoryUI.UpdateDescription(index,
+            inventoryUI.UpdateDescription(
+                index,
                 item.item.ItemImage,
                 item.item.Name,
                 PrepareDescription(item));
@@ -159,7 +194,8 @@ namespace Inventory
 
         private string PrepareDescription(InventoryItem item)
         {
-            StringBuilder sb = new StringBuilder();
+            StringBuilder sb = new();
+
             sb.AppendLine(item.item.Description);
 
             for (int i = 0; i < item.itemState.Count; i++)
@@ -180,10 +216,85 @@ namespace Inventory
                 {
                     inventoryUI.Show();
                     UpdateInventoryUI(inventoryData.GetCurrentInventoryState());
+
+                    OnInventoryOpened?.Invoke();
                 }
                 else
                 {
                     inventoryUI.Hide();
+
+                    OnInventoryClosed?.Invoke();
+                }
+            }
+        }
+
+        public int AddItem(ItemSO item, int quantity)
+        {
+            return inventoryData.AddItem(item, quantity);
+        }
+
+        public bool ContainsItem(ItemSO item)
+        {
+            foreach (InventoryItem inventoryItem in inventoryData.GetCurrentInventoryState().Values)
+            {
+                if (inventoryItem.item == item)
+                    return true;
+            }
+
+            return false;
+        }
+
+        public int GetItemCount(ItemSO item)
+        {
+            int count = 0;
+
+            foreach (InventoryItem inventoryItem in inventoryData.GetCurrentInventoryState().Values)
+            {
+                if (inventoryItem.item == item)
+                    count += inventoryItem.quantity;
+            }
+
+            return count;
+        }
+
+        public bool HasItems(List<RecipeIngredient> ingredients)
+        {
+            foreach (RecipeIngredient ingredient in ingredients)
+            {
+                if (GetItemCount(ingredient.item) < ingredient.amount)
+                    return false;
+            }
+
+            return true;
+        }
+
+        public void ConsumeIngredients(List<RecipeIngredient> ingredients)
+        {
+            foreach (RecipeIngredient ingredient in ingredients)
+            {
+                int remaining = ingredient.amount;
+
+                Dictionary<int, InventoryItem> inventoryState =
+                    inventoryData.GetCurrentInventoryState();
+
+                foreach (var slot in inventoryState)
+                {
+                    if (remaining <= 0)
+                        break;
+
+                    if (slot.Value.item != ingredient.item)
+                        continue;
+
+                    int amountToRemove =
+                        Mathf.Min(
+                            remaining,
+                            slot.Value.quantity);
+
+                    inventoryData.RemoveItem(
+                        slot.Key,
+                        amountToRemove);
+
+                    remaining -= amountToRemove;
                 }
             }
         }

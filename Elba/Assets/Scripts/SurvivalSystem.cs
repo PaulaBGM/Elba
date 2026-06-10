@@ -5,15 +5,18 @@ public class SurvivalSystem : MonoBehaviour
     [Header("References")]
     [SerializeField] private PlayerStatsSystem stats;
 
-    [Header("Hunger")]
-    [SerializeField] private float hungerDecayPerSecond = 0.15f;
+    [Header("Tick")]
+    [SerializeField] private float tickRate = 1f;
 
-    [Header("Thirst")]
-    [SerializeField] private float thirstDecayPerSecond = 0.25f;
+    [Header("Needs")]
+    [SerializeField] private float hungerDecayPerTick = 0.5f;
+    [SerializeField] private float thirstDecayPerTick = 1f;
 
     [Header("Critical Damage")]
-    [SerializeField] private float starvationDamagePerSecond = 2f;
-    [SerializeField] private float dehydrationDamagePerSecond = 4f;
+    [SerializeField] private float starvationDamagePerTick = 2f;
+    [SerializeField] private float dehydrationDamagePerTick = 4f;
+
+    private float timer;
 
     private void Awake()
     {
@@ -23,23 +26,27 @@ public class SurvivalSystem : MonoBehaviour
 
     private void Update()
     {
-        UpdateHunger();
-        UpdateThirst();
-        ApplyCriticalEffects();
+        timer += Time.deltaTime;
+
+        if (timer < tickRate)
+            return;
+
+        timer = 0f;
+
+        UpdateNeeds();
     }
 
-    private void UpdateHunger()
+    private void UpdateNeeds()
     {
         stats.ModifyStat(
             StatType.Hunger,
-            -hungerDecayPerSecond * Time.deltaTime);
-    }
+            -hungerDecayPerTick);
 
-    private void UpdateThirst()
-    {
         stats.ModifyStat(
             StatType.Thirst,
-            -thirstDecayPerSecond * Time.deltaTime);
+            -thirstDecayPerTick);
+
+        ApplyCriticalEffects();
     }
 
     private void ApplyCriticalEffects()
@@ -48,14 +55,14 @@ public class SurvivalSystem : MonoBehaviour
         {
             stats.ModifyStat(
                 StatType.Health,
-                -starvationDamagePerSecond * Time.deltaTime);
+                -starvationDamagePerTick);
         }
 
         if (stats.IsEmpty(StatType.Thirst))
         {
             stats.ModifyStat(
                 StatType.Health,
-                -dehydrationDamagePerSecond * Time.deltaTime);
+                -dehydrationDamagePerTick);
         }
     }
 }

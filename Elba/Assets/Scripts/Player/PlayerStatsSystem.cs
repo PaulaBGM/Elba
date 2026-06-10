@@ -46,6 +46,7 @@ public class PlayerStatsSystem : MonoBehaviour
 
     public float GetCurrent(StatType stat)
     {
+        Debug.Log(stat + "" + stats[stat].Current);
         return stats[stat].Current;
     }
 
@@ -76,14 +77,9 @@ public class PlayerStatsSystem : MonoBehaviour
         if (Mathf.Approximately(previousValue, statData.Current))
             return;
 
-        eventManager?.NotifyPlayerStatChanged(
-            stat,
-            statData.Current,
-            statData.Max);
+        eventManager?.NotifyPlayerStatChanged(stat, statData.Current,statData.Max);
 
-        if (stat == StatType.Health &&
-            statData.Current <= 0f &&
-            !isDead)
+        if (stat == StatType.Health &&statData.Current <= 0f && !isDead)
         {
             isDead = true;
             OnDeath?.Invoke();
@@ -95,10 +91,30 @@ public class PlayerStatsSystem : MonoBehaviour
     {
         foreach (var stat in stats)
         {
-            eventManager?.NotifyPlayerStatChanged(
-                stat.Key,
-                stat.Value.Current,
-                stat.Value.Max);
+            eventManager?.NotifyPlayerStatChanged(stat.Key, stat.Value.Current,stat.Value.Max);
         }
+    }
+
+    public bool IsLow(StatType stat, float threshold = 0.2f)
+    {
+        return GetPercent(stat) <= threshold;
+    }
+
+    public bool IsFull(StatType stat)
+    {
+        return GetPercent(stat) >= 1f;
+    }
+
+    public void SetStat(StatType stat, float value)
+    {
+        if (!stats.TryGetValue(stat, out Stat statData))
+            return;
+
+        statData.SetCurrent(value);
+
+        eventManager?.NotifyPlayerStatChanged(
+            stat,
+            statData.Current,
+            statData.Max);
     }
 }

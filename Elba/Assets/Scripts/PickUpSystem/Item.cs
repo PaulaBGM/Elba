@@ -1,9 +1,9 @@
 using Inventory.Model;
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
+using Inventory;
 
-public class Item : MonoBehaviour
+public class Item : MonoBehaviour, IInteractable
 {
     [field: SerializeField]
     public ItemSO InventoryItem { get; private set; }
@@ -11,37 +11,66 @@ public class Item : MonoBehaviour
     [field: SerializeField]
     public int Quantity { get; set; } = 1;
 
-    [SerializeField]
-    private AudioSource audioSource;
-
-    [SerializeField]
-    private float duration = 0.3f;
+    [SerializeField] private AudioSource audioSource;
+    [SerializeField] private float duration = 0.3f;
 
     private void Start()
     {
-        GetComponentInChildren<SpriteRenderer>().sprite = InventoryItem.ItemImage;
+        GetComponentInChildren<SpriteRenderer>().sprite =
+            InventoryItem.ItemImage;
+    }
+
+    public void Interact(GameObject interactor)
+    {
+        InventoryController inventory =
+            interactor.GetComponent<InventoryController>();
+
+        if (inventory == null)
+            return;
+
+        int remainder = inventory.InventoryData.AddItem(
+            InventoryItem,
+            Quantity);
+
+        if (remainder == 0)
+        {
+            DestroyItem();
+        }
+        else
+        {
+            Quantity = remainder;
+        }
     }
 
     public void DestroyItem()
     {
         GetComponent<Collider2D>().enabled = false;
         StartCoroutine(AnimateItemPickup());
-
     }
 
     private IEnumerator AnimateItemPickup()
     {
-        audioSource.Play();
+        if (audioSource != null)
+            audioSource.Play();
+
         Vector3 startScale = transform.localScale;
         Vector3 endScale = Vector3.zero;
-        float currentTime = 0;
+
+        float currentTime = 0f;
+
         while (currentTime < duration)
         {
             currentTime += Time.deltaTime;
+
             transform.localScale =
-                Vector3.Lerp(startScale, endScale, currentTime / duration);
+                Vector3.Lerp(
+                    startScale,
+                    endScale,
+                    currentTime / duration);
+
             yield return null;
         }
+
         Destroy(gameObject);
     }
 }

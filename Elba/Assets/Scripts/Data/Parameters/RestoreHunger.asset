@@ -9,6 +9,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e934f39ebafa4c5478acd875b5f606cc, type: 3}
-  m_Name: AppleHealthModifier
+  m_Script: {fileID: 11500000, guid: 974c1b51ba3188041a69ae506f9164a5, type: 3}
+  m_Name: RestoreHunger
   m_EditorClassIdentifier: 
+  statType: 1

@@ -13,12 +13,14 @@ MonoBehaviour:
   m_Name: Apple
   m_EditorClassIdentifier: 
   <IsStackable>k__BackingField: 1
+  <ItemID>k__BackingField: 
   <MaxStackSize>k__BackingField: 95
   <Name>k__BackingField: Apple
   <Description>k__BackingField: fruit, you eat it
   <ItemImage>k__BackingField: {fileID: -2413806693520163455, guid: ebe73ca9363db456bacf42c025bb4847, type: 3}
   <DefaultParametersList>k__BackingField: []
+  <ItemType>k__BackingField: 0
   modifiersData:
-  - statModifier: {fileID: 11400000, guid: a952cf950eb248c4697ffa3eb20b1a12, type: 2}
-    value: 1
+  - statModifier: {fileID: 11400000, guid: de17128eaa1e4a04583f6e3aa788881b, type: 2}
+    value: 25
   <actionSFX>k__BackingField: {fileID: 8300000, guid: 247dfacbdad46944cab9753dc61cc7d1, type: 3}

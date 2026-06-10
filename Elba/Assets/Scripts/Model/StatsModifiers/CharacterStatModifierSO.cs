@@ -7,8 +7,7 @@ public class CharacterStatModifierSO : ScriptableObject
 
     public void AffectCharacter(GameObject character, float value)
     {
-        PlayerStatsSystem stats =
-            character.GetComponent<PlayerStatsSystem>();
+        PlayerStatsSystem stats = character.GetComponent<PlayerStatsSystem>();
 
         if (stats == null)
             return;

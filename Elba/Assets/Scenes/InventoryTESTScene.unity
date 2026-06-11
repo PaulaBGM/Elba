@@ -316,6 +316,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   walkSpeed: 5
   sprintSpeed: 8
+  input: {fileID: 0}
   stats: {fileID: 674537829}
   staminaSystem: {fileID: 674537827}
   animator: {fileID: 1573711525}
@@ -397,24 +398,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   inventoryUI: {fileID: 867672604}
   inventoryData: {fileID: 11400000, guid: c734b1c32c659a94f831915950254762, type: 2}
+  input: {fileID: 2020668882}
   dropClip: {fileID: 8300000, guid: 247dfacbdad46944cab9753dc61cc7d1, type: 3}
   audioSource: {fileID: 674537823}
-  initialItems:
-  - item: {fileID: 11400000, guid: d06ca2502cd513f4c96e9bd238a3344c, type: 2}
-    quantity: 5
-    itemState:
-    - itemParameter: {fileID: 11400000, guid: 20e17eec5e3dcd24db6078560951cba7, type: 2}
-      value: 0
-  - item: {fileID: 11400000, guid: b951cf5ff418a0c459f9eda23f9466b9, type: 2}
-    quantity: 2
-    itemState:
-    - itemParameter: {fileID: 11400000, guid: 20e17eec5e3dcd24db6078560951cba7, type: 2}
-      value: 0
-  - item: {fileID: 11400000, guid: d06ca2502cd513f4c96e9bd238a3344c, type: 2}
-    quantity: 1
-    itemState:
-    - itemParameter: {fileID: 11400000, guid: 20e17eec5e3dcd24db6078560951cba7, type: 2}
-      value: 0
+  initialItems: []
 --- !u!82 &674537823
 AudioSource:
   m_ObjectHideFlags: 0
@@ -1372,9 +1359,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gameplayHUD: {fileID: 1291897239}
-  input: {fileID: 0}
-  playerMovement: {fileID: 0}
-  interactionSystem: {fileID: 0}
+  input: {fileID: 2020668882}
+  playerMovement: {fileID: 674537819}
+  interactionSystem: {fileID: 674537831}
 --- !u!1 &2020668880
 GameObject:
   m_ObjectHideFlags: 0
@@ -1835,6 +1822,10 @@ PrefabInstance:
     m_TransformParent: {fileID: 1909340901}
     m_Modifications:
     - target: {fileID: 717344886654876386, guid: e2032608a7a33c64e8eb7990483be9de, type: 3}
+      propertyPath: input
+      value: 
+      objectReference: {fileID: 2020668882}
+    - target: {fileID: 717344886654876386, guid: e2032608a7a33c64e8eb7990483be9de, type: 3}
       propertyPath: audioSource
       value: 
       objectReference: {fileID: 674537823}
@@ -2032,7 +2023,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6019086003523497152, guid: e2032608a7a33c64e8eb7990483be9de, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6059000768106519791, guid: e2032608a7a33c64e8eb7990483be9de, type: 3}
       propertyPath: m_AnchorMax.y
@@ -2190,7 +2181,8 @@ PrefabInstance:
       propertyPath: mouseFollower
       value: 
       objectReference: {fileID: 1639433492}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 717344886654876386, guid: e2032608a7a33c64e8eb7990483be9de, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []

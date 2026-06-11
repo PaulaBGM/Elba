@@ -6,7 +6,7 @@ public class PlayerMovement : MonoBehaviour
     [Header("Movement")]
     [SerializeField] private float walkSpeed = 5f;
     [SerializeField] private float sprintSpeed = 8f;
-
+    [SerializeField] private InputReader input;
     [Header("References")]
     [SerializeField] private PlayerStatsSystem stats;
     [SerializeField] private PlayerStaminaSystem staminaSystem;
@@ -36,6 +36,8 @@ public class PlayerMovement : MonoBehaviour
 
         if (animator == null)
             animator = GetComponentInChildren<Animator>();
+        if (input == null)
+            input = FindFirstObjectByType<InputReader>();
     }
 
     private void Update()
@@ -66,9 +68,7 @@ public class PlayerMovement : MonoBehaviour
 
     private void ReadInput()
     {
-        movementInput = new Vector2(
-            Input.GetAxisRaw("Horizontal"),
-            Input.GetAxisRaw("Vertical")).normalized;
+        movementInput = input.MoveInput.normalized;
 
         if (movementInput != Vector2.zero)
             lastDirection = movementInput;
@@ -76,34 +76,19 @@ public class PlayerMovement : MonoBehaviour
 
     private void HandleSprint()
     {
-        bool wantsSprint = Input.GetKey(KeyCode.LeftShift);
-
-        bool canSprint =
-            wantsSprint &&
-            movementInput != Vector2.zero &&
-            staminaSystem.CanSprint();
-
+        bool canSprint = input.SprintHeld && movementInput != Vector2.zero && staminaSystem.CanSprint();
         staminaSystem.SetSprinting(canSprint);
     }
 
     private void Move()
     {
-        rb.linearVelocity =
-            movementInput *
-            GetCurrentSpeed() *
-            GetMovementMultiplier();
+        rb.linearVelocity = movementInput * GetCurrentSpeed() * GetMovementMultiplier();
     }
 
     private float GetCurrentSpeed()
     {
-        bool sprinting =
-            Input.GetKey(KeyCode.LeftShift) &&
-            movementInput != Vector2.zero &&
-            staminaSystem.CanSprint();
-
-        return sprinting
-            ? sprintSpeed
-            : walkSpeed;
+        bool sprinting = input.SprintHeld && movementInput != Vector2.zero &&staminaSystem.CanSprint();
+        return sprinting? sprintSpeed: walkSpeed;
     }
 
     private float GetMovementMultiplier()

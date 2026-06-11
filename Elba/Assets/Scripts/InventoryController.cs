@@ -11,7 +11,7 @@ namespace Inventory
     {
         [SerializeField] private UIInventoryPage inventoryUI;
         [SerializeField] private InventorySO inventoryData;
-
+        [SerializeField] private InputReader input;
         [SerializeField] private AudioClip dropClip;
         [SerializeField] private AudioSource audioSource;
 
@@ -26,8 +26,22 @@ namespace Inventory
         public event Action OnInventoryOpened;
         public event Action OnInventoryClosed;
 
+        private void OnEnable()
+        {
+            if (input != null)
+                input.OnInventory += ToggleInventory;
+        }
+
+        private void OnDisable()
+        {
+            if (input != null)
+                input.OnInventory -= ToggleInventory;
+        }
         private void Start()
         {
+            if (input == null)
+                input = FindFirstObjectByType<InputReader>();
+
             PrepareUI();
             PrepareInventoryData();
         }
@@ -208,23 +222,21 @@ namespace Inventory
             return sb.ToString();
         }
 
-        private void Update()
+        private void ToggleInventory()
         {
-            if (Input.GetKeyDown(KeyCode.Tab))
+            if (!inventoryUI.gameObject.activeSelf)
             {
-                if (!inventoryUI.isActiveAndEnabled)
-                {
-                    inventoryUI.Show();
-                    UpdateInventoryUI(inventoryData.GetCurrentInventoryState());
+                inventoryUI.Show();
 
-                    OnInventoryOpened?.Invoke();
-                }
-                else
-                {
-                    inventoryUI.Hide();
+                UpdateInventoryUI(inventoryData.GetCurrentInventoryState());
 
-                    OnInventoryClosed?.Invoke();
-                }
+                OnInventoryOpened?.Invoke();
+            }
+            else
+            {
+                inventoryUI.Hide();
+
+                OnInventoryClosed?.Invoke();
             }
         }
 

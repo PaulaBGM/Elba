@@ -5,9 +5,15 @@ public class UIManager : MonoBehaviour
 {
     public static UIManager Instance { get; private set; }
 
-    [Header("Groups")]
+    [Header("UI")]
     [SerializeField] private GameObject gameplayHUD;
-    [SerializeField] private GameObject inventoryUI;
+
+    [Header("Input")]
+    [SerializeField] private InputReader input;
+
+    [Header("Systems")]
+    [SerializeField] private PlayerMovement playerMovement;
+    [SerializeField] private PlayerInteractionSystem interactionSystem;
 
     public bool IsInventoryOpen { get; private set; }
 
@@ -22,6 +28,32 @@ public class UIManager : MonoBehaviour
         }
 
         Instance = this;
+
+        if (input == null)
+            input = FindFirstObjectByType<InputReader>();
+
+        if (playerMovement == null)
+            playerMovement = FindFirstObjectByType<PlayerMovement>();
+
+        if (interactionSystem == null)
+            interactionSystem = FindFirstObjectByType<PlayerInteractionSystem>();
+    }
+
+    private void OnEnable()
+    {
+        if (input != null)
+            input.OnInventory += HandleInventory;
+    }
+
+    private void OnDisable()
+    {
+        if (input != null)
+            input.OnInventory -= HandleInventory;
+    }
+
+    private void HandleInventory()
+    {
+        ToggleInventory();
     }
 
     public void ToggleInventory()
@@ -36,8 +68,14 @@ public class UIManager : MonoBehaviour
     {
         IsInventoryOpen = true;
 
-        inventoryUI.SetActive(true);
-        gameplayHUD.SetActive(false);
+        if (gameplayHUD != null)
+            gameplayHUD.SetActive(false);
+
+        if (playerMovement != null)
+            playerMovement.SetMovementLocked(true);
+
+        if (interactionSystem != null)
+            interactionSystem.enabled = false;
 
         OnInventoryStateChanged?.Invoke(true);
     }
@@ -46,8 +84,14 @@ public class UIManager : MonoBehaviour
     {
         IsInventoryOpen = false;
 
-        inventoryUI.SetActive(false);
-        gameplayHUD.SetActive(true);
+        if (gameplayHUD != null)
+            gameplayHUD.SetActive(true);
+
+        if (playerMovement != null)
+            playerMovement.SetMovementLocked(false);
+
+        if (interactionSystem != null)
+            interactionSystem.enabled = true;
 
         OnInventoryStateChanged?.Invoke(false);
     }

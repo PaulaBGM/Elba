@@ -786,17 +786,12 @@ MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 8985006097545974041, guid: e2032608a7a33c64e8eb7990483be9de, type: 3}
   m_PrefabInstance: {fileID: 3154918287687700089}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 972477651}
+  m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 2d24a610b10011d469ab4b31f414dd9b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!1 &972477651 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 6019086003523497152, guid: e2032608a7a33c64e8eb7990483be9de, type: 3}
-  m_PrefabInstance: {fileID: 3154918287687700089}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &998907071
 GameObject:
   m_ObjectHideFlags: 0
@@ -1377,7 +1372,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gameplayHUD: {fileID: 1291897239}
-  inventoryUI: {fileID: 972477651}
+  input: {fileID: 0}
+  playerMovement: {fileID: 0}
+  interactionSystem: {fileID: 0}
 --- !u!1 &2020668880
 GameObject:
   m_ObjectHideFlags: 0
@@ -1419,27 +1416,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 2020668880}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 62899f850307741f2a39c98a8b639597, type: 3}
+  m_Script: {fileID: 11500000, guid: 2a03230bff1695a44ad317ddcb2b1b65, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Actions: {fileID: -944628639613478452, guid: e072df8894df3564b958d2cdad803bad, type: 3}
-  m_NotificationBehavior: 0
-  m_UIInputModule: {fileID: 0}
-  m_DeviceLostEvent:
-    m_PersistentCalls:
-      m_Calls: []
-  m_DeviceRegainedEvent:
-    m_PersistentCalls:
-      m_Calls: []
-  m_ControlsChangedEvent:
-    m_PersistentCalls:
-      m_Calls: []
-  m_ActionEvents: []
-  m_NeverAutoSwitchControlSchemes: 0
-  m_DefaultControlScheme: 
-  m_DefaultActionMap: Player
-  m_SplitScreenIndex: -1
-  m_Camera: {fileID: 519420031}
 --- !u!224 &2110973072 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 6949863057156228589, guid: 3cdd5998d33f9f643ad3d774ed91f0d0, type: 3}

@@ -12,6 +12,8 @@ public class CharacterStatModifierSO : ScriptableObject
         if (stats == null)
             return;
 
+        Debug.Log($"MODIFICANDO {statType} +{value}");
+
         stats.ModifyStat(statType, value);
     }
 }

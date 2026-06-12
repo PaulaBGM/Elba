@@ -29,24 +29,7 @@ namespace Inventory.UI
             ResetData();
             Deselect();
         }
-        private void Start()
-        {
-            Debug.Log($"{name} ID={GetInstanceID()}");
-        }
-        private void Update()
-        {
-            if (cg != null)
-            {
-                if (!cg.blocksRaycasts)
-                {
-                    Debug.LogError(
-                        $"{name} BLOQUEADO " +
-                        $"Alpha={cg.alpha} " +
-                        $"Interactable={cg.interactable} " +
-                        $"Blocks={cg.blocksRaycasts}");
-                }
-            }
-        }
+     
         public void ResetData()
         {
             itemImage.gameObject.SetActive(false);
@@ -66,40 +49,23 @@ namespace Inventory.UI
 
         public void SetData(Sprite sprite, int quantity)
         {
-            Debug.Log($"SET DATA -> {gameObject.name} Qty:{quantity}");
-            Debug.Log($"SET DATA -> {name} ID={GetInstanceID()}");
             itemImage.gameObject.SetActive(true);
             itemImage.sprite = sprite;
             quantityTxt.text = quantity.ToString();
 
             empty = false;
-
-            Debug.Log($"EMPTY = {empty}");
         }
 
         public void OnPointerClick(PointerEventData eventData)
         {
-            Debug.Log($"CLICK ITEM {name}");
-            Debug.Log($"CLICK SLOT: {gameObject.name}");
-            Debug.Log($"EMPTY = {empty}");
-            Debug.Log($"INSTANCE ID = {GetInstanceID()}");
-
             if (empty)
-            {
-                Debug.Log("SLOT VACIO");
                 return;
-            }
-
-            Debug.Log("SLOT CON ITEM");
-
             if (eventData.button == PointerEventData.InputButton.Right)
             {
-                Debug.Log("RIGHT CLICK");
                 OnRightMouseBtnClick?.Invoke(this);
             }
             else if (eventData.button == PointerEventData.InputButton.Left)
             {
-                Debug.Log("LEFT CLICK");
                 OnItemClicked?.Invoke(this);
             }
         }

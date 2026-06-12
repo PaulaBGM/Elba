@@ -462,7 +462,7 @@ GameObject:
   - component: {fileID: 2983298917006388844}
   - component: {fileID: 773183035619950588}
   m_Layer: 5
-  m_Name: Tab_Consumable (3)
+  m_Name: Tab_Quest
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -583,7 +583,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   button: {fileID: 2983298917006388844}
-  tabType: 0
+  tabType: 3
 --- !u!1 &1522333298866430527
 GameObject:
   m_ObjectHideFlags: 0
@@ -1853,7 +1853,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   button: {fileID: 1360393086470456324}
-  tabType: 0
+  tabType: 1
 --- !u!1 &6000234995276879487
 GameObject:
   m_ObjectHideFlags: 0
@@ -2074,7 +2074,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   button: {fileID: 6359389941476277355}
-  tabType: 0
+  tabType: 2
 --- !u!1 &6019086003523497152
 GameObject:
   m_ObjectHideFlags: 0
@@ -2198,7 +2198,11 @@ MonoBehaviour:
   itemDescription: {fileID: 6255664079070047284}
   mouseFollower: {fileID: 0}
   actionPanel: {fileID: 0}
-  tabs: []
+  tabs:
+  - {fileID: 2363639788502548472}
+  - {fileID: 4196612988713180115}
+  - {fileID: 826731173261993312}
+  - {fileID: 773183035619950588}
 --- !u!1 &6081960084966595538
 GameObject:
   m_ObjectHideFlags: 0

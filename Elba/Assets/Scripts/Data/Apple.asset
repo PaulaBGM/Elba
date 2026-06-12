@@ -18,6 +18,7 @@ MonoBehaviour:
   <Name>k__BackingField: Apple
   <Description>k__BackingField: fruit, you eat it
   <ItemImage>k__BackingField: {fileID: -2413806693520163455, guid: ebe73ca9363db456bacf42c025bb4847, type: 3}
+  <WorldPrefab>k__BackingField: {fileID: 6094749979129503835, guid: 14d95a0d8d64c8748bc044f709258d55, type: 3}
   <DefaultParametersList>k__BackingField: []
   <ItemType>k__BackingField: 0
   modifiersData:

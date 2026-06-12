@@ -27,8 +27,6 @@ namespace Inventory.UI
 
         private void Awake()
         {
-            Debug.Log("[UIInventoryPage] Awake");
-
             Hide();
             mouseFollower.Toggle(false);
             itemDescription.ResetDescription();
@@ -41,21 +39,15 @@ namespace Inventory.UI
 
         private void HandleTabChanged(Inventory.Model.ItemType type)
         {
-            Debug.Log($"[UIInventoryPage] Cambio de pestaña: {type}");
-
             OnTabChanged?.Invoke(type);
         }
 
         public void InitializeInventoryUI(int size)
         {
-            Debug.Log($"[UIInventoryPage] Inicializando {size} slots");
-
             for (int i = 0; i < size; i++)
             {
                 UIInventoryItem uiItem = Instantiate(itemPrefab, contentPanel);
                 uiItem.transform.localScale = Vector3.one;
-
-                Debug.Log($"[UIInventoryPage] Slot creado -> {uiItem.name} ({i})");
 
                 listOfUIItems.Add(uiItem);
 
@@ -64,16 +56,12 @@ namespace Inventory.UI
                 uiItem.OnItemDroppedOn += HandleSwap;
                 uiItem.OnItemEndDrag += HandleEndDrag;
                 uiItem.OnRightMouseBtnClick += HandleShowItemActions;
-
-                Debug.Log($"[UIInventoryPage] Eventos conectados al slot {i}");
             }
 
-            Debug.Log($"[UIInventoryPage] Total slots registrados: {listOfUIItems.Count}");
         }
 
         public void ResetAllItems()
         {
-            Debug.Log("[UIInventoryPage] ResetAllItems");
 
             foreach (var item in listOfUIItems)
             {
@@ -84,15 +72,9 @@ namespace Inventory.UI
 
         public void UpdateData(int index, Sprite sprite, int quantity)
         {
-            Debug.Log($"[UIInventoryPage] UpdateData -> Index:{index} Qty:{quantity}");
-
             if (index < listOfUIItems.Count)
             {
                 listOfUIItems[index].SetData(sprite, quantity);
-            }
-            else
-            {
-                Debug.LogWarning($"[UIInventoryPage] Index fuera de rango: {index}");
             }
         }
 
@@ -117,14 +99,15 @@ namespace Inventory.UI
 
         private void HandleShowItemActions(UIInventoryItem item)
         {
-            Debug.Log($"[UIInventoryPage] Click derecho en {item.name}");
-
             int index = listOfUIItems.IndexOf(item);
-
-            Debug.Log($"[UIInventoryPage] INDEX = {index}");
 
             if (index != -1)
                 OnItemActionRequested?.Invoke(index);
+        }
+        
+        public void HideItemActionPanel()
+        {
+            actionPanel.Toggle(false);
         }
 
         private void HandleBeginDrag(UIInventoryItem item)
@@ -184,15 +167,11 @@ namespace Inventory.UI
 
         public void AddAction(string name, Action action)
         {
-            Debug.Log($"[UIInventoryPage] Añadiendo acción: {name}");
-
             actionPanel.AddButon(name, action);
         }
 
         public void ShowItemAction(int index)
         {
-            Debug.Log($"[UIInventoryPage] Mostrar acciones para index {index}");
-
             actionPanel.Toggle(true);
             actionPanel.transform.position =
                 listOfUIItems[index].transform.position;
@@ -200,33 +179,24 @@ namespace Inventory.UI
 
         public void UpdateDescription(int index, Sprite img, string name, string desc)
         {
-            Debug.Log($"[UIInventoryPage] UpdateDescription -> {name}");
-
             itemDescription.SetDescription(img, name, desc);
         }
 
         public void Show()
         {
-            Debug.Log("[UIInventoryPage] SHOW");
 
             gameObject.SetActive(true);
             ResetSelection();
-
-            Debug.Log($"[UIInventoryPage] Slots registrados: {listOfUIItems.Count}");
         }
 
         public void Hide()
         {
-            Debug.Log("[UIInventoryPage] HIDE");
-
             actionPanel.Toggle(false);
             gameObject.SetActive(false);
         }
 
         public void ResetSelection()
         {
-            Debug.Log("[UIInventoryPage] ResetSelection");
-
             itemDescription.ResetDescription();
         }
     }

@@ -34,7 +34,10 @@ namespace Inventory.Model
 
         [field: SerializeField]
         public Sprite ItemImage { get; set; }
-
+        
+        [field: SerializeField]
+        public GameObject WorldPrefab { get; private set; }
+        
         [field: SerializeField]
         public List<ItemParameter> DefaultParametersList { get; set; }
         [field: SerializeField] public ItemType ItemType { get; private set; }

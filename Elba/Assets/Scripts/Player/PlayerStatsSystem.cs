@@ -69,7 +69,6 @@ public class PlayerStatsSystem : MonoBehaviour
     {
         if (!stats.TryGetValue(stat, out Stat statData))
             return;
-
         float previousValue = statData.Current;
 
         statData.Modify(amount);

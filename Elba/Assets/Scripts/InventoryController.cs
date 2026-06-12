@@ -126,15 +126,18 @@ namespace Inventory
                     () => DropItem(itemIndex, inventoryItem.quantity));
             }
         }
-
         private void DropItem(int itemIndex, int quantity)
         {
-            InventoryItem item = inventoryData.GetItemAt(itemIndex);
+            InventoryItem inventoryItem =
+                inventoryData.GetItemAt(itemIndex);
 
-            OnItemDropped?.Invoke(item);
+            SpawnDroppedItem(inventoryItem);
+
+            OnItemDropped?.Invoke(inventoryItem);
 
             inventoryData.RemoveItem(itemIndex, quantity);
 
+            inventoryUI.HideItemActionPanel();
             inventoryUI.ResetSelection();
 
             if (audioSource != null && dropClip != null)
@@ -162,6 +165,8 @@ namespace Inventory
                     {
                         inventoryData.RemoveItem(itemIndex, 1);
                     }
+
+                    inventoryUI.HideItemActionPanel();
 
                     if (audioSource != null && action.actionSFX != null)
                         audioSource.PlayOneShot(action.actionSFX);
@@ -279,7 +284,36 @@ namespace Inventory
 
             return true;
         }
+        private void SpawnDroppedItem(InventoryItem inventoryItem)
+        {
+            if (inventoryItem.item == null)
+                return;
 
+            if (inventoryItem.item.WorldPrefab == null)
+            {
+                Debug.LogWarning(
+                    $"El item {inventoryItem.item.Name} no tiene WorldPrefab asignado");
+                return;
+            }
+
+            Vector3 spawnPosition =
+                transform.position +
+                transform.right * 1.5f;
+
+            GameObject droppedObject =
+                Instantiate(
+                    inventoryItem.item.WorldPrefab,
+                    spawnPosition,
+                    Quaternion.identity);
+
+            Item worldItem =
+                droppedObject.GetComponent<Item>();
+
+            if (worldItem != null)
+            {
+                worldItem.Quantity = 1;
+            }
+        }
         public void ConsumeIngredients(List<RecipeIngredient> ingredients)
         {
             foreach (RecipeIngredient ingredient in ingredients)

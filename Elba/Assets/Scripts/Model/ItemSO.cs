@@ -8,13 +8,10 @@ namespace Inventory.Model
     public enum ItemType
     {
         Food,
-        Drink,
         Tool,
-        Weapon,
         Material,
-        Building,
         Quest,
-        Misc
+        
     }
 
     public abstract class ItemSO : ScriptableObject

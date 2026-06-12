@@ -15,7 +15,7 @@ namespace Inventory
         [SerializeField] private AudioClip dropClip;
         [SerializeField] private AudioSource audioSource;
 
-        private ItemType currentTab = ItemType.Misc;
+        private ItemType currentTab = ItemType.Food;
 
         public List<InventoryItem> initialItems = new();
 

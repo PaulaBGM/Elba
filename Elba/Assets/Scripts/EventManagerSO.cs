@@ -10,11 +10,9 @@ public class EventManagerSO : ScriptableObject
 
     public void NotifyPlayerStatChanged(StatType stat,float current, float max)
     {
-        Debug.Log($"EVENT MANAGER RECIBE {stat} {current}/{max}");
 
         OnPlayerStatChanged?.Invoke(stat, current, max);
 
-        Debug.Log($"EVENT MANAGER TERMINA {stat}");
     }
 
     public void EnemyNotifiesDamaged(GameObject enemy,float currentHealth,float maxHealth)

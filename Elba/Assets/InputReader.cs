@@ -11,6 +11,7 @@ public class InputReader : MonoBehaviour
     public event Action OnInteract;
     public event Action OnInventory;
     public event Action OnAttack;
+    public event Action OnConsumePickup;
 
     public bool SprintHeld =>
         inputActions.Player.Sprint.IsPressed();
@@ -31,6 +32,8 @@ public class InputReader : MonoBehaviour
         inputActions.Player.Attack.performed += _ => OnAttack?.Invoke();
 
         inputActions.UI.ToggleInventory.performed += _ => OnInventory?.Invoke();
+        inputActions.Player.Consume.performed +=
+    _ => OnConsumePickup?.Invoke();
     }
 
     private void OnDisable()

@@ -10,7 +10,9 @@ public class Item : MonoBehaviour, IInteractable
 
     [field: SerializeField]
     public int Quantity { get; set; } = 1;
-
+    
+    public bool IsEdible =>InventoryItem is Inventory.Model.EdibleItemSO;
+    
     [SerializeField] private AudioSource audioSource;
     [SerializeField] private float duration = 0.3f;
 

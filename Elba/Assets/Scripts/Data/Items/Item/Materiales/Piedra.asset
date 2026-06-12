@@ -17,7 +17,7 @@ MonoBehaviour:
   <MaxStackSize>k__BackingField: 50
   <Name>k__BackingField: piedra
   <Description>k__BackingField: 
-  <ItemImage>k__BackingField: {fileID: 0}
-  <WorldPrefab>k__BackingField: {fileID: 0}
+  <ItemImage>k__BackingField: {fileID: 10905, guid: 0000000000000000f000000000000000, type: 0}
+  <WorldPrefab>k__BackingField: {fileID: 862322508388049533, guid: e53400c43088a1d468da86b5c07b0198, type: 3}
   <DefaultParametersList>k__BackingField: []
   <Categories>k__BackingField: 4

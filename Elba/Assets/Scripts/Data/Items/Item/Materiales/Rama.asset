@@ -17,7 +17,7 @@ MonoBehaviour:
   <MaxStackSize>k__BackingField: 50
   <Name>k__BackingField: rama
   <Description>k__BackingField: 
-  <ItemImage>k__BackingField: {fileID: 0}
-  <WorldPrefab>k__BackingField: {fileID: 0}
+  <ItemImage>k__BackingField: {fileID: 21300000, guid: 4d69921b3ce7ba74db2c0a618eae766d, type: 3}
+  <WorldPrefab>k__BackingField: {fileID: 862322508388049533, guid: e53400c43088a1d468da86b5c07b0198, type: 3}
   <DefaultParametersList>k__BackingField: []
   <Categories>k__BackingField: 4

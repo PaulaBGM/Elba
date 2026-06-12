@@ -14,7 +14,7 @@ public class InteractionPromptUI : MonoBehaviour
     public void Show(string text)
     {
         root.SetActive(true);
-        promptText.text = $"[E] {text}";
+        promptText.text = text;
     }
 
     public void Hide()

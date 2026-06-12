@@ -46,10 +46,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a1379e7bcb929d645b34346ab4e549ed, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  durability: 1
+  requiredTool: 2
   rewards:
   - item: {fileID: 11400000, guid: 90829d6876ad4254bb83efef18f13e78, type: 2}
-    amount: 3
-  durability: 1
+    minAmount: 1
+    maxAmount: 3
+    dropChance: 60.6
+  spriteRenderer: {fileID: 0}
+  flashDuration: 0.1
 --- !u!61 &56993330022858359
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -80,7 +85,7 @@ BoxCollider2D:
   m_CallbackLayers:
     serializedVersion: 2
     m_Bits: 4294967295
-  m_IsTrigger: 1
+  m_IsTrigger: 0
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0

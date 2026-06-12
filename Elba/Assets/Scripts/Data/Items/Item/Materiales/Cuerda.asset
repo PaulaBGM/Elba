@@ -17,7 +17,7 @@ MonoBehaviour:
   <MaxStackSize>k__BackingField: 20
   <Name>k__BackingField: cuerda
   <Description>k__BackingField: 
-  <ItemImage>k__BackingField: {fileID: 0}
-  <WorldPrefab>k__BackingField: {fileID: 0}
+  <ItemImage>k__BackingField: {fileID: 10901, guid: 0000000000000000f000000000000000, type: 0}
+  <WorldPrefab>k__BackingField: {fileID: 9091656748291410208, guid: 05ee0b90ed9696041bf530d5b1256272, type: 3}
   <DefaultParametersList>k__BackingField: []
   <Categories>k__BackingField: 4

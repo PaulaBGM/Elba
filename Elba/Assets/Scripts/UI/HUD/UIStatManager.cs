@@ -13,29 +13,24 @@ public class UIStatsManager : MonoBehaviour
 
     private void OnEnable()
     {
-        Debug.Log("UIStatsManager SUBSCRIBE");
         eventManager.OnPlayerStatChanged += UpdateStat;
     }
 
     private void OnDisable()
     {
-        Debug.Log("UIStatsManager UNSUBSCRIBE");
         eventManager.OnPlayerStatChanged -= UpdateStat;
     }
 
     private void UpdateStat( StatType stat,float current,float max)
     {
-        Debug.Log($"UI RECIBE {stat}: {current}/{max}");
 
         switch (stat)
         {
             case StatType.Health:
 
-                Debug.Log("ENTRANDO EN HEALTH");
 
                 healthBar.UpdateBar(current, max);
 
-                Debug.Log("SALIENDO DE HEALTH");
 
                 break;
 

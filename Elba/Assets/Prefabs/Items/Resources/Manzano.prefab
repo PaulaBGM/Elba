@@ -133,14 +133,23 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a1379e7bcb929d645b34346ab4e549ed, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  durability: 2
+  requiredTool: 1
   rewards:
   - item: {fileID: 11400000, guid: d06ca2502cd513f4c96e9bd238a3344c, type: 2}
-    amount: 3
+    minAmount: 1
+    maxAmount: 3
+    dropChance: 60.6
   - item: {fileID: 11400000, guid: 617c69ae3c9aa07469ec5e1f8abdd19f, type: 2}
-    amount: 3
+    minAmount: 1
+    maxAmount: 2
+    dropChance: 64.5
   - item: {fileID: 11400000, guid: 9016102364878634e959756e222666de, type: 2}
-    amount: 2
-  durability: 2
+    minAmount: 1
+    maxAmount: 4
+    dropChance: 51.6
+  spriteRenderer: {fileID: 0}
+  flashDuration: 0.1
 --- !u!61 &9104328379036483147
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -171,7 +180,7 @@ BoxCollider2D:
   m_CallbackLayers:
     serializedVersion: 2
     m_Bits: 4294967295
-  m_IsTrigger: 1
+  m_IsTrigger: 0
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0

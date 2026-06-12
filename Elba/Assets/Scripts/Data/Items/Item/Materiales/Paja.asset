@@ -17,7 +17,7 @@ MonoBehaviour:
   <MaxStackSize>k__BackingField: 50
   <Name>k__BackingField: paja
   <Description>k__BackingField: 
-  <ItemImage>k__BackingField: {fileID: 0}
-  <WorldPrefab>k__BackingField: {fileID: 0}
+  <ItemImage>k__BackingField: {fileID: 10901, guid: 0000000000000000f000000000000000, type: 0}
+  <WorldPrefab>k__BackingField: {fileID: 113030120346613229, guid: 21b083fa693fd9547903bd9e90f2029c, type: 3}
   <DefaultParametersList>k__BackingField: []
   <Categories>k__BackingField: 4

@@ -1,0 +1,27 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c99cc5c8bf1f7044dab5fb5a50837b19, type: 3}
+  m_Name: Mora
+  m_EditorClassIdentifier: 
+  <IsStackable>k__BackingField: 1
+  <ItemID>k__BackingField: blackberry
+  <MaxStackSize>k__BackingField: 20
+  <Name>k__BackingField: Mora
+  <Description>k__BackingField: it's a blackberry, you eat it
+  <ItemImage>k__BackingField: {fileID: -2413806693520163455, guid: ebe73ca9363db456bacf42c025bb4847, type: 3}
+  <WorldPrefab>k__BackingField: {fileID: 6094749979129503835, guid: c02bcff6ace108e47ad403b0dffcb0aa, type: 3}
+  <DefaultParametersList>k__BackingField: []
+  <Categories>k__BackingField: 1
+  modifiersData:
+  - statModifier: {fileID: 11400000, guid: de17128eaa1e4a04583f6e3aa788881b, type: 2}
+    value: 10
+  <actionSFX>k__BackingField: {fileID: 8300000, guid: 247dfacbdad46944cab9753dc61cc7d1, type: 3}

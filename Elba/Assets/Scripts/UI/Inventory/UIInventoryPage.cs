@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using UnityEngine;
+using Inventory.Model;
 
 namespace Inventory.UI
 {
@@ -23,7 +24,7 @@ namespace Inventory.UI
 
         public event Action<int, int> OnSwapItems;
 
-        public event Action<Inventory.Model.ItemType> OnTabChanged;
+        public event Action<ItemCategory> OnTabChanged;
 
         private void Awake()
         {
@@ -37,9 +38,9 @@ namespace Inventory.UI
             }
         }
 
-        private void HandleTabChanged(Inventory.Model.ItemType type)
+        private void HandleTabChanged(ItemCategory category)
         {
-            OnTabChanged?.Invoke(type);
+            OnTabChanged?.Invoke(category);
         }
 
         public void InitializeInventoryUI(int size)

@@ -14,8 +14,8 @@ namespace Inventory
         [SerializeField] private InputReader input;
         [SerializeField] private AudioClip dropClip;
         [SerializeField] private AudioSource audioSource;
-
-        private ItemType currentTab = ItemType.Food;
+        private List<int> displayedSlots = new();
+        private ItemCategory currentTab = ItemCategory.Food;
 
         public List<InventoryItem> initialItems = new();
 
@@ -82,9 +82,9 @@ namespace Inventory
             inventoryUI.OnTabChanged += HandleTabChanged;
         }
 
-        private void HandleTabChanged(ItemType type)
+        private void HandleTabChanged(ItemCategory category)
         {
-            currentTab = type;
+            currentTab = category;
             UpdateInventoryUIFiltered();
         }
 
@@ -92,14 +92,29 @@ namespace Inventory
         {
             inventoryUI.ResetAllItems();
 
-            List<InventoryItem> items = inventoryData.GetItemsByType(currentTab);
+            displayedSlots.Clear();
 
-            for (int i = 0; i < items.Count; i++)
+            Dictionary<int, InventoryItem> inventory =
+                inventoryData.GetCurrentInventoryState();
+
+            int visualIndex = 0;
+
+            foreach (var pair in inventory)
             {
+                if (pair.Value.IsEmpty)
+                    continue;
+
+                if ((pair.Value.item.Categories & currentTab) == 0)
+                    continue;
+
+                displayedSlots.Add(pair.Key);
+
                 inventoryUI.UpdateData(
-                    i,
-                    items[i].item.ItemImage,
-                    items[i].quantity);
+                    visualIndex,
+                    pair.Value.item.ItemImage,
+                    pair.Value.quantity);
+
+                visualIndex++;
             }
         }
 

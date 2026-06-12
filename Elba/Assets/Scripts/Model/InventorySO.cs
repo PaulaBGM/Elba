@@ -157,15 +157,16 @@ namespace Inventory.Model
             InformAboutChange();
         }
 
-        public List<InventoryItem> GetItemsByType(ItemType type)
+        public List<InventoryItem> GetItemsByCategory(ItemCategory category)
         {
-            List<InventoryItem> result = new List<InventoryItem>();
+            List<InventoryItem> result = new();
 
-            foreach (var item in inventoryItems)
+            foreach (InventoryItem item in inventoryItems)
             {
-                if (item.IsEmpty) continue;
+                if (item.IsEmpty)
+                    continue;
 
-                if (item.item != null && item.item.ItemType == type)
+                if ((item.item.Categories & category) != 0)
                 {
                     result.Add(item);
                 }

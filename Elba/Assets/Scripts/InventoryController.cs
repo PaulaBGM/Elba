@@ -41,7 +41,9 @@ namespace Inventory
         {
             if (input == null)
                 input = FindFirstObjectByType<InputReader>();
-
+            
+            currentTab = ItemCategory.Food;
+            UpdateInventoryUIFiltered();
             PrepareUI();
             PrepareInventoryData();
         }
@@ -60,15 +62,7 @@ namespace Inventory
 
         private void UpdateInventoryUI(Dictionary<int, InventoryItem> inventoryState)
         {
-            inventoryUI.ResetAllItems();
-
-            foreach (var item in inventoryState)
-            {
-                inventoryUI.UpdateData(
-                    item.Key,
-                    item.Value.item.ItemImage,
-                    item.Value.quantity);
-            }
+            UpdateInventoryUIFiltered();
         }
 
         private void PrepareUI()
@@ -109,38 +103,42 @@ namespace Inventory
 
                 displayedSlots.Add(pair.Key);
 
-                inventoryUI.UpdateData(
-                    visualIndex,
-                    pair.Value.item.ItemImage,
-                    pair.Value.quantity);
+                inventoryUI.UpdateData(visualIndex,pair.Value.item.ItemImage, pair.Value.quantity);
 
                 visualIndex++;
             }
         }
 
-        private void HandleItemActionRequest(int itemIndex)
+        private void HandleItemActionRequest(int visualIndex)
         {
-            InventoryItem inventoryItem = inventoryData.GetItemAt(itemIndex);
+            int realSlot = GetRealSlot(visualIndex);
+
+            if (realSlot < 0)
+                return;
+
+            InventoryItem inventoryItem =
+                inventoryData.GetItemAt(realSlot);
 
             if (inventoryItem.IsEmpty)
                 return;
 
-            inventoryUI.ShowItemAction(itemIndex);
+            inventoryUI.ShowItemAction(visualIndex);
 
             if (inventoryItem.item is IItemAction action)
             {
                 inventoryUI.AddAction(
                     action.ActionName,
-                    () => PerformAction(itemIndex));
+                    () => PerformAction(realSlot));
             }
 
             if (inventoryItem.item is IDestroyableItem)
             {
                 inventoryUI.AddAction(
                     "Drop",
-                    () => DropItem(itemIndex, inventoryItem.quantity));
+                    () => DropItem(realSlot, inventoryItem.quantity));
             }
         }
+
         private void DropItem(int itemIndex, int quantity)
         {
             InventoryItem inventoryItem =
@@ -192,9 +190,15 @@ namespace Inventory
             }
         }
 
-        private void HandleDragging(int itemIndex)
+        private void HandleDragging(int visualIndex)
         {
-            InventoryItem item = inventoryData.GetItemAt(itemIndex);
+            int realSlot = GetRealSlot(visualIndex);
+
+            if (realSlot < 0)
+                return;
+
+            InventoryItem item =
+                inventoryData.GetItemAt(realSlot);
 
             if (item.IsEmpty)
                 return;
@@ -204,14 +208,33 @@ namespace Inventory
                 item.quantity);
         }
 
-        private void HandleSwapItems(int a, int b)
+        private void HandleSwapItems(int visualA, int visualB)
         {
-            inventoryData.SwapItems(a, b);
+            int realA = GetRealSlot(visualA);
+            int realB = GetRealSlot(visualB);
+
+            if (realA < 0 || realB < 0)
+                return;
+
+            inventoryData.SwapItems(realA, realB);
         }
 
-        private void HandleDescriptionRequest(int index)
+        private int GetRealSlot(int visualIndex)
         {
-            InventoryItem item = inventoryData.GetItemAt(index);
+            if (visualIndex < 0 || visualIndex >= displayedSlots.Count)
+                return -1;
+
+            return displayedSlots[visualIndex];
+        }
+
+        private void HandleDescriptionRequest(int visualIndex)
+        {
+            int realSlot = GetRealSlot(visualIndex);
+
+            if (realSlot < 0)
+                return;
+
+            InventoryItem item = inventoryData.GetItemAt(realSlot);
 
             if (item.IsEmpty)
             {
@@ -219,11 +242,7 @@ namespace Inventory
                 return;
             }
 
-            inventoryUI.UpdateDescription(
-                index,
-                item.item.ItemImage,
-                item.item.Name,
-                PrepareDescription(item));
+            inventoryUI.UpdateDescription(visualIndex, item.item.ItemImage,item.item.Name,PrepareDescription(item));
         }
 
         private string PrepareDescription(InventoryItem item)
@@ -247,8 +266,7 @@ namespace Inventory
             if (!inventoryUI.gameObject.activeSelf)
             {
                 inventoryUI.Show();
-
-                UpdateInventoryUI(inventoryData.GetCurrentInventoryState());
+                UpdateInventoryUIFiltered();
 
                 OnInventoryOpened?.Invoke();
             }

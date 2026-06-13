@@ -2,39 +2,96 @@ using UnityEngine;
 
 public class PlayerAttackSystem : MonoBehaviour
 {
+    [Header("References")]
     [SerializeField] private InputReader input;
+    [SerializeField] private PlayerMovement movement;
+    [SerializeField] private Transform attackPoint;
 
-    [SerializeField] private float attackRange = 1.5f;
-
+    [Header("Attack")]
+    [SerializeField] private float attackDistance = 1.5f;
     [SerializeField] private LayerMask attackLayer;
+
+    private void Awake()
+    {
+        if (input == null)
+            input = FindFirstObjectByType<InputReader>();
+
+        if (movement == null)
+            movement = GetComponent<PlayerMovement>();
+    }
 
     private void OnEnable()
     {
-        input.OnAttack += Attack;
+        if (input != null)
+            input.OnAttack += Attack;
     }
 
     private void OnDisable()
     {
-        input.OnAttack -= Attack;
+        if (input != null)
+            input.OnAttack -= Attack;
     }
 
     private void Attack()
     {
-        Collider2D[] hits =
-            Physics2D.OverlapCircleAll(
-                transform.position,
-                attackRange,
+        if (UIManager.Instance != null &&
+            UIManager.Instance.IsInventoryOpen)
+            return;
+
+        Vector2 direction = movement.LastDirection.normalized;
+
+        Vector3 origin =
+            attackPoint != null
+            ? attackPoint.position
+            : transform.position;
+
+        RaycastHit2D hit =
+            Physics2D.Raycast(
+                origin,
+                direction,
+                attackDistance,
                 attackLayer);
 
-        foreach (Collider2D hit in hits)
-        {
-            IAttackable attackable =
-                hit.GetComponentInParent<IAttackable>();
+        Debug.DrawRay(
+            origin,
+            direction * attackDistance,
+            Color.red,
+            0.25f);
 
-            if (attackable == null)
-                continue;
+        if (!hit.collider)
+            return;
 
-            attackable.ReceiveHit(gameObject);
-        }
+        IAttackable attackable =
+            hit.collider.GetComponentInParent<IAttackable>();
+
+        if (attackable == null)
+            attackable =
+                hit.collider.GetComponentInChildren<IAttackable>();
+
+        if (attackable == null)
+            return;
+
+        attackable.ReceiveHit(gameObject);
+    }
+
+    private void OnDrawGizmosSelected()
+    {
+        if (movement == null)
+            movement = GetComponent<PlayerMovement>();
+
+        if (movement == null)
+            return;
+
+        Vector3 origin =
+            attackPoint != null
+            ? attackPoint.position
+            : transform.position;
+
+        Gizmos.color = Color.red;
+
+        Gizmos.DrawLine(
+            origin,
+            origin +
+            (Vector3)(movement.LastDirection.normalized * attackDistance));
     }
 }

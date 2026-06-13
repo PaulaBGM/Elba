@@ -1,44 +1,91 @@
-using Inventory.Model;
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Inventory.Model;
 
 public class AgentWeapon : MonoBehaviour
 {
+    [Header("Current Weapon")]
     [SerializeField] private EquippableItemSO weapon;
 
-    [SerializeField]
-    private InventorySO inventoryData;
+    [Header("Inventory")]
+    [SerializeField] private InventorySO inventoryData;
 
-    [SerializeField]
-    private List<ItemParameter> parametersToModify, itemCurrentState;
+    [Header("Parameters")]
+    [SerializeField] private List<ItemParameter> parametersToModify = new();
+    [SerializeField] private List<ItemParameter> itemCurrentState = new();
 
-    public void SetWeapon(EquippableItemSO weaponItemSO, List<ItemParameter> itemState)
+    public EquippableItemSO CurrentWeapon => weapon;
+
+    public ToolType CurrentToolType
+    {
+        get
+        {
+            if (weapon is ToolItemSO tool)
+                return tool.ToolType;
+
+            return ToolType.None;
+        }
+    }
+
+    public bool HasTool(ToolType toolType)
+    {
+        return CurrentToolType == toolType;
+    }
+
+    public void SetWeapon(
+        EquippableItemSO weaponItemSO,
+        List<ItemParameter> itemState)
     {
         if (weapon != null)
         {
-            inventoryData.AddItem(weapon, 1, itemCurrentState);
+            inventoryData.AddItem(
+                weapon,
+                1,
+                itemCurrentState);
         }
 
-        this.weapon = weaponItemSO;
-        this.itemCurrentState = new List<ItemParameter>(itemState);
+        weapon = weaponItemSO;
+
+        itemCurrentState =
+            itemState != null
+            ? new List<ItemParameter>(itemState)
+            : new List<ItemParameter>();
+
         ModifyParameters();
+
+        Debug.Log($"Equipada herramienta: {weapon.Name}");
+    }
+
+    public void UnequipWeapon()
+    {
+        if (weapon == null)
+            return;
+
+        inventoryData.AddItem(
+            weapon,
+            1,
+            itemCurrentState);
+
+        Debug.Log($"Desequipada herramienta: {weapon.Name}");
+
+        weapon = null;
+        itemCurrentState.Clear();
     }
 
     private void ModifyParameters()
     {
-        foreach (var modifier in parametersToModify)
+        foreach (ItemParameter modifier in parametersToModify)
         {
             for (int i = 0; i < itemCurrentState.Count; i++)
             {
-                if (itemCurrentState[i].itemParameter == modifier.itemParameter)
+                if (itemCurrentState[i].itemParameter != modifier.itemParameter)
+                    continue;
+
+                itemCurrentState[i] = new ItemParameter
                 {
-                    itemCurrentState[i] = new ItemParameter
-                    {
-                        itemParameter = modifier.itemParameter,
-                        value = itemCurrentState[i].value + modifier.value
-                    };
-                }
+                    itemParameter = modifier.itemParameter,
+                    value = itemCurrentState[i].value + modifier.value
+                };
             }
         }
     }

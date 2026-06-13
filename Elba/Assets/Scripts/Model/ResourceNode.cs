@@ -29,9 +29,14 @@ public class ResourceNode : MonoBehaviour, IAttackable
 
     public void ReceiveHit(GameObject attacker)
     {
+        if (!CanBeDamagedBy(attacker))
+            return;
+
         durability--;
 
         Debug.Log($"{name} Durabilidad restante: {durability}");
+
+        StartCoroutine(HitFeedback());
 
         if (durability > 0)
             return;
@@ -39,6 +44,27 @@ public class ResourceNode : MonoBehaviour, IAttackable
         SpawnRewards();
 
         Destroy(gameObject);
+    }
+
+    private bool CanBeDamagedBy(GameObject attacker)
+    {
+        if (requiredTool == ToolType.None)
+            return true;
+
+        AgentWeapon weapon =
+            attacker.GetComponent<AgentWeapon>();
+
+        if (weapon == null)
+            return false;
+
+        if (weapon.CurrentToolType != requiredTool)
+        {
+            Debug.Log(
+                $"Necesitas una herramienta tipo {requiredTool}");
+            return false;
+        }
+
+        return true;
     }
 
     private IEnumerator HitFeedback()
@@ -66,11 +92,7 @@ public class ResourceNode : MonoBehaviour, IAttackable
 
             for (int i = 0; i < amount; i++)
             {
-                Instantiate(
-                    reward.item.WorldPrefab,
-                    transform.position +
-                    (Vector3)Random.insideUnitCircle * 0.75f,
-                    Quaternion.identity);
+                Instantiate(reward.item.WorldPrefab,transform.position +(Vector3)Random.insideUnitCircle * 0.75f, Quaternion.identity);
             }
         }
     }

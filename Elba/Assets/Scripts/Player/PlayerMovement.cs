@@ -47,6 +47,11 @@ public class PlayerMovement : MonoBehaviour
 
     private void Update()
     {
+        if (InteractionPromptUI.Instance != null && InteractionPromptUI.Instance.IsOpen)
+        {
+            movementInput = Vector2.zero;
+            return;
+        }
         if (movementLocked)
         {
             movementInput = Vector2.zero;

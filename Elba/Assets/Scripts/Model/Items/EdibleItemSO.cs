@@ -9,19 +9,20 @@ namespace Inventory.Model
     public class EdibleItemSO : ItemSO, IDestroyableItem, IItemAction
     {
         [SerializeField]
-        private List<ModifierData> modifiersData = new List<ModifierData>();
+        private List<ModifierData> modifiersData = new();
 
         public string ActionName => "Consume";
 
         [field: SerializeField]
         public AudioClip actionSFX { get; private set; }
 
-        public bool PerformAction(GameObject character, List<ItemParameter> itemState = null)
+        public virtual bool PerformAction( GameObject character,List<ItemParameter> itemState = null)
         {
             foreach (ModifierData data in modifiersData)
             {
-                data.statModifier.AffectCharacter(character, data.value);
+                data.statModifier.AffectCharacter(character,data.value);
             }
+
             return true;
         }
     }

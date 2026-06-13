@@ -21,6 +21,20 @@ public class PlayerInteractionSystem : MonoBehaviour
 
     private void Interact()
     {
+        if (currentInteractable is Item item)
+        {
+            if (item.IsEdible)
+            {
+                promptUI.Show(item, gameObject);
+            }
+            else
+            {
+                item.Interact(gameObject);
+            }
+
+            return;
+        }
+
         currentInteractable?.Interact(gameObject);
     }
 
@@ -41,15 +55,7 @@ public class PlayerInteractionSystem : MonoBehaviour
 
         if (item != null)
         {
-            if (item.IsEdible)
-            {
-                promptUI.Show("[E] Guardar\n[F] Consumir");
-            }
-            else
-            {
-                promptUI.Show("[E] Recoger");
-            }
-
+            promptUI.Show("[E] Interactuar");
             return;
         }
 

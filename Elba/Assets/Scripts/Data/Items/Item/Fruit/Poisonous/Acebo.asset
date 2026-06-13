@@ -18,12 +18,12 @@ MonoBehaviour:
   <Name>k__BackingField: Acebo
   <Description>k__BackingField: Acebo
   <ItemImage>k__BackingField: {fileID: 21300000, guid: c719e98e2af96cc4e94ff06c294833e0, type: 3}
-  <WorldPrefab>k__BackingField: {fileID: 6094749979129503835, guid: bd56a4033499afc4381a3c614eda6bad, type: 3}
+  <WorldPrefab>k__BackingField: {fileID: 8411602724978275039, guid: a86bc1e003fef5c429c9ae3985b18fba, type: 3}
   <DefaultParametersList>k__BackingField: []
   <Categories>k__BackingField: 1
   modifiersData:
   - statModifier: {fileID: 11400000, guid: a108b4b6caf20d14f8c89a19329b2b39, type: 2}
     value: -10
   <actionSFX>k__BackingField: {fileID: 8300000, guid: 247dfacbdad46944cab9753dc61cc7d1, type: 3}
-  poisonDamage: 2
+  poisonDamage: 20
   poisonDuration: 30

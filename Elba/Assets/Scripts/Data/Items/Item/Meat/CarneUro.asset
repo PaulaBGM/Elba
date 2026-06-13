@@ -10,18 +10,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: c99cc5c8bf1f7044dab5fb5a50837b19, type: 3}
-  m_Name: Amanita
+  m_Name: CarneUro
   m_EditorClassIdentifier: 
-  <IsStackable>k__BackingField: 1
-  <ItemID>k__BackingField: amanitac
-  <MaxStackSize>k__BackingField: 2
-  <Name>k__BackingField: Amanita Caesarea
+  <IsStackable>k__BackingField: 0
+  <ItemID>k__BackingField: carneuro
+  <MaxStackSize>k__BackingField: 1
+  <Name>k__BackingField: Carne de Uro
   <Description>k__BackingField: 
-  <ItemImage>k__BackingField: {fileID: 21300000, guid: c719e98e2af96cc4e94ff06c294833e0, type: 3}
-  <WorldPrefab>k__BackingField: {fileID: 6583846839510121956, guid: 07c8a0f36a460a44dae3a7596d020137, type: 3}
+  <ItemImage>k__BackingField: {fileID: 0}
+  <WorldPrefab>k__BackingField: {fileID: 0}
   <DefaultParametersList>k__BackingField: []
   <Categories>k__BackingField: 1
   modifiersData:
   - statModifier: {fileID: 11400000, guid: de17128eaa1e4a04583f6e3aa788881b, type: 2}
-    value: 35
+    value: 60
   <actionSFX>k__BackingField: {fileID: 0}

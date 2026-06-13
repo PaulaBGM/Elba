@@ -17,8 +17,8 @@ MonoBehaviour:
   <MaxStackSize>k__BackingField: 2
   <Name>k__BackingField: Trompeta de los Muertos
   <Description>k__BackingField: 
-  <ItemImage>k__BackingField: {fileID: 0}
-  <WorldPrefab>k__BackingField: {fileID: 0}
+  <ItemImage>k__BackingField: {fileID: 21300000, guid: c719e98e2af96cc4e94ff06c294833e0, type: 3}
+  <WorldPrefab>k__BackingField: {fileID: 4249340770792938105, guid: 6265221709bbf064fab182c4162e9b62, type: 3}
   <DefaultParametersList>k__BackingField: []
   <Categories>k__BackingField: 1
   modifiersData:

@@ -9,21 +9,19 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8348c6e0f5f2af44ebb13d20649768e1, type: 3}
-  m_Name: NaboDiablo
+  m_Script: {fileID: 11500000, guid: c99cc5c8bf1f7044dab5fb5a50837b19, type: 3}
+  m_Name: CarneLobo
   m_EditorClassIdentifier: 
   <IsStackable>k__BackingField: 1
-  <ItemID>k__BackingField: nabodiablo
+  <ItemID>k__BackingField: carnelobo
   <MaxStackSize>k__BackingField: 20
-  <Name>k__BackingField: Nabo del Diablo
+  <Name>k__BackingField: Carne de lobo
   <Description>k__BackingField: 
-  <ItemImage>k__BackingField: {fileID: 21300000, guid: c719e98e2af96cc4e94ff06c294833e0, type: 3}
-  <WorldPrefab>k__BackingField: {fileID: 8411602724978275039, guid: a86bc1e003fef5c429c9ae3985b18fba, type: 3}
+  <ItemImage>k__BackingField: {fileID: 0}
+  <WorldPrefab>k__BackingField: {fileID: 0}
   <DefaultParametersList>k__BackingField: []
   <Categories>k__BackingField: 1
   modifiersData:
-  - statModifier: {fileID: 11400000, guid: a108b4b6caf20d14f8c89a19329b2b39, type: 2}
-    value: -10
+  - statModifier: {fileID: 11400000, guid: de17128eaa1e4a04583f6e3aa788881b, type: 2}
+    value: 50
   <actionSFX>k__BackingField: {fileID: 0}
-  poisonDamage: 10
-  poisonDuration: 40

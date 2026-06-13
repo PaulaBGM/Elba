@@ -24,24 +24,29 @@ public class Item : MonoBehaviour, IInteractable
 
     public void Interact(GameObject interactor)
     {
-        InventoryController inventory =
-            interactor.GetComponent<InventoryController>();
+     
+        InventoryController inventory = interactor.GetComponent<InventoryController>();
 
         if (inventory == null)
             return;
 
-        int remainder = inventory.InventoryData.AddItem(
-            InventoryItem,
-            Quantity);
+        int remainder =  inventory.InventoryData.AddItem(InventoryItem, Quantity);
 
         if (remainder == 0)
-        {
             DestroyItem();
-        }
         else
-        {
             Quantity = remainder;
+    }
+
+    public void InteractOrConsume(GameObject interactor)
+    {
+        if (InventoryItem is EdibleItemSO)
+        {
+            InteractionPromptUI.Instance.Show(this, interactor);
+            return;
         }
+
+        Interact(interactor);
     }
 
     public void DestroyItem()
@@ -63,16 +68,43 @@ public class Item : MonoBehaviour, IInteractable
         while (currentTime < duration)
         {
             currentTime += Time.deltaTime;
-
-            transform.localScale =
-                Vector3.Lerp(
-                    startScale,
-                    endScale,
-                    currentTime / duration);
+            transform.localScale = Vector3.Lerp(startScale,endScale, currentTime / duration);
 
             yield return null;
         }
 
         Destroy(gameObject);
+    }
+    public void Store(GameObject interactor)
+    {
+        InventoryController inventory =
+            interactor.GetComponent<InventoryController>();
+
+        if (inventory == null)
+            return;
+
+        int remainder =
+            inventory.InventoryData.AddItem(
+                InventoryItem,
+                Quantity);
+
+        if (remainder == 0)
+        {
+            DestroyItem();
+        }
+        else
+        {
+            Quantity = remainder;
+        }
+    }
+
+    public void Consume(GameObject interactor)
+    {
+        if (InventoryItem is not EdibleItemSO edible)
+            return;
+
+        edible.PerformAction(interactor);
+
+        DestroyItem();
     }
 }

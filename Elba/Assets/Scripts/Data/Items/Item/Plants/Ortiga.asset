@@ -9,19 +9,19 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c99cc5c8bf1f7044dab5fb5a50837b19, type: 3}
+  m_Script: {fileID: 11500000, guid: b51f6ede0afb96c43b55492f5add36d6, type: 3}
   m_Name: Ortiga
   m_EditorClassIdentifier: 
-  <IsStackable>k__BackingField: 0
+  <IsStackable>k__BackingField: 1
   <ItemID>k__BackingField: ortiga
   <MaxStackSize>k__BackingField: 1
-  <Name>k__BackingField: Ortiga
+  <Name>k__BackingField: ortiga
   <Description>k__BackingField: 
-  <ItemImage>k__BackingField: {fileID: 21300000, guid: c223e6fd1088c3e44b7c78982e1c2da3, type: 3}
-  <WorldPrefab>k__BackingField: {fileID: 0}
+  <ItemImage>k__BackingField: {fileID: 21300000, guid: c719e98e2af96cc4e94ff06c294833e0, type: 3}
+  <WorldPrefab>k__BackingField: {fileID: 3779483868435256953, guid: fe01fc6ca33ea054ba717aabddc51527, type: 3}
   <DefaultParametersList>k__BackingField: []
   <Categories>k__BackingField: 5
   modifiersData:
   - statModifier: {fileID: 11400000, guid: de17128eaa1e4a04583f6e3aa788881b, type: 2}
-    value: 5
+    value: 10
   <actionSFX>k__BackingField: {fileID: 0}

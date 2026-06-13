@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 
 public class PlayerAttackSystem : MonoBehaviour
@@ -10,6 +11,11 @@ public class PlayerAttackSystem : MonoBehaviour
     [Header("Attack")]
     [SerializeField] private float attackDistance = 1.5f;
     [SerializeField] private LayerMask attackLayer;
+    [SerializeField] private float attackDuration = 0.3f;
+
+    private bool isAttacking;
+
+    public bool IsAttacking => isAttacking;
 
     private void Awake()
     {
@@ -34,10 +40,29 @@ public class PlayerAttackSystem : MonoBehaviour
 
     private void Attack()
     {
+        if (isAttacking)
+            return;
+
         if (UIManager.Instance != null &&
             UIManager.Instance.IsInventoryOpen)
             return;
 
+        StartCoroutine(AttackRoutine());
+    }
+
+    private IEnumerator AttackRoutine()
+    {
+        isAttacking = true;
+
+        PerformAttack();
+
+        yield return new WaitForSeconds(attackDuration);
+
+        isAttacking = false;
+    }
+
+    private void PerformAttack()
+    {
         Vector2 direction = movement.LastDirection.normalized;
 
         Vector3 origin =
@@ -89,9 +114,6 @@ public class PlayerAttackSystem : MonoBehaviour
 
         Gizmos.color = Color.red;
 
-        Gizmos.DrawLine(
-            origin,
-            origin +
-            (Vector3)(movement.LastDirection.normalized * attackDistance));
+        Gizmos.DrawLine(origin,  origin + (Vector3)(movement.LastDirection.normalized * attackDistance));
     }
 }

@@ -10,6 +10,7 @@ public class PlayerMovement : MonoBehaviour
     [Header("References")]
     [SerializeField] private PlayerStatsSystem stats;
     [SerializeField] private PlayerStaminaSystem staminaSystem;
+    [SerializeField] private PlayerAttackSystem attackSystem;
     [SerializeField] private Animator animator;
 
     private Rigidbody2D rb;
@@ -36,6 +37,10 @@ public class PlayerMovement : MonoBehaviour
 
         if (animator == null)
             animator = GetComponentInChildren<Animator>();
+
+        if (attackSystem == null)
+            attackSystem = GetComponent<PlayerAttackSystem>();
+
         if (input == null)
             input = FindFirstObjectByType<InputReader>();
     }
@@ -49,7 +54,16 @@ public class PlayerMovement : MonoBehaviour
             UpdateAnimator();
             return;
         }
+        if (attackSystem != null && attackSystem.IsAttacking)
+        {
+            movementInput = Vector2.zero;
 
+            staminaSystem.SetSprinting(false);
+
+            UpdateAnimator();
+
+            return;
+        }
         ReadInput();
         HandleSprint();
         UpdateAnimator();
@@ -62,7 +76,11 @@ public class PlayerMovement : MonoBehaviour
             rb.linearVelocity = Vector2.zero;
             return;
         }
-
+        if (attackSystem != null && attackSystem.IsAttacking)
+        {
+            rb.linearVelocity = Vector2.zero;
+            return;
+        }
         Move();
     }
 

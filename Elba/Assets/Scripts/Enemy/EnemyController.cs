@@ -1,60 +1,77 @@
 using UnityEngine;
 
-public class EnemyController : FSMController<EnemyController>, IDamageable
+public class EnemyController : FSMController<EnemyController>
 {
     [Header("References")]
-    [field: SerializeField] public Rigidbody2D Rigidbody { get; private set; }
     [field: SerializeField] public EnemySensor Sensor { get; private set; }
-    [field: SerializeField] public Animator Animator { get; private set; }
-
-    [Header("Stats")]
-    [SerializeField] private float maxHealth = 100f;
-
-    [Header("States")]
-    [SerializeField] private PatrolState patrolState;
-    [SerializeField] private ChaseState chaseState;
-    [SerializeField] private AttackState attackState;
-
-    [Header("Behaviour")]
-    [SerializeField] private MonoBehaviour animalBehaviour;
-
-    private IAnimalBehaviour behaviour;
-    private float currentHealth;
+    [field: SerializeField] public Rigidbody2D Rigidbody { get; private set; }
 
     public Transform Target { get; set; }
 
-    public PatrolState PatrolState => patrolState;
-    public ChaseState ChaseState => chaseState;
-    public AttackState AttackState => attackState;
+    public PatrolState PatrolState { get; private set; }
+    public ChaseState ChaseState { get; private set; }
+    public AttackState AttackState { get; private set; }
 
-    public IAnimalBehaviour AnimalBehaviour => behaviour;
+    private EnemyHealthSystem healthSystem;
+    private EnemyLoot enemyLoot;
 
+    [SerializeField] private float timeToDestroy = 2f;
+    
+    [SerializeField] private MonoBehaviour animalBehaviour;
+    public IAnimalBehaviour AnimalBehaviour =>animalBehaviour as IAnimalBehaviour;
+   
     private void Awake()
     {
-        currentHealth = maxHealth;
+        if (Rigidbody == null)
+            Rigidbody = GetComponent<Rigidbody2D>();
 
-        behaviour = animalBehaviour as IAnimalBehaviour;
+        healthSystem = GetComponentInParent<EnemyHealthSystem>();
+        enemyLoot = GetComponent<EnemyLoot>();
 
-        patrolState.InitController(this);
-        chaseState.InitController(this);
-        attackState.InitController(this);
+        PatrolState = GetComponent<PatrolState>();
+        ChaseState = GetComponent<ChaseState>();
+        AttackState = GetComponent<AttackState>();
+
+        PatrolState?.InitController(this);
+        ChaseState?.InitController(this);
+        AttackState?.InitController(this);
+
+        SetState(PatrolState);
     }
 
-    private void Start()
+    private void OnEnable()
     {
-        SetState(patrolState);
+        if (healthSystem != null)
+            healthSystem.OnEnemyDied += EnemyDead;
     }
 
-    public void ApplyDamage(float damage)
+    private void OnDisable()
     {
-        currentHealth -= damage;
-
-        if (currentHealth <= 0f)
-            Die();
+        if (healthSystem != null)
+            healthSystem.OnEnemyDied -= EnemyDead;
     }
 
-    private void Die()
+    private void EnemyDead()
     {
-        Destroy(gameObject);
+        enemyLoot?.DropLoot();
+
+        if (Sensor != null)
+            Sensor.enabled = false;
+
+        if (PatrolState != null)
+            PatrolState.enabled = false;
+
+        if (ChaseState != null)
+            ChaseState.enabled = false;
+
+        if (AttackState != null)
+            AttackState.enabled = false;
+
+        if (Rigidbody != null)
+            Rigidbody.linearVelocity = Vector2.zero;
+
+        enabled = false;
+
+        Destroy(gameObject, timeToDestroy);
     }
 }

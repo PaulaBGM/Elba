@@ -2,18 +2,17 @@ using UnityEngine;
 
 public class AttackState : States<EnemyController>
 {
-    [SerializeField] private float attackCooldown = 2f;
     [SerializeField] private float attackRange = 1.25f;
 
     private float attackRangeSqr;
-    private float cooldownTimer;
 
     public override void OnEnter()
     {
         attackRangeSqr = attackRange * attackRange;
-        cooldownTimer = 0f;
 
         _controller.Rigidbody.linearVelocity = Vector2.zero;
+
+        _controller.Sensor.OnPlayerLost += LoseTarget;
     }
 
     public override void OnUpdate()
@@ -34,17 +33,33 @@ public class AttackState : States<EnemyController>
             return;
         }
 
-        cooldownTimer -= Time.deltaTime;
+        _controller.Rigidbody.linearVelocity = Vector2.zero;
 
-        if (cooldownTimer > 0f)
+        if (_controller.AnimalBehaviour.IsBusy)
             return;
-
-        cooldownTimer = attackCooldown;
 
         _controller.AnimalBehaviour.Attack(_controller);
     }
 
+    private void LoseTarget(Transform target)
+    {
+        if (_controller.Target != target)
+            return;
+
+        _controller.Target = null;
+        _controller.SetState(_controller.PatrolState);
+    }
+
     public override void OnExit()
     {
+        _controller.Sensor.OnPlayerLost -= LoseTarget;
+    }
+
+    private void OnDisable()
+    {
+        if (_controller?.Sensor == null)
+            return;
+
+        _controller.Sensor.OnPlayerLost -= LoseTarget;
     }
 }

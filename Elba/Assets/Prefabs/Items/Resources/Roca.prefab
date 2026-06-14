@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 5521440922737832366}
   - component: {fileID: 56993330022858359}
   m_Layer: 3
-  m_Name: Piedra
+  m_Name: Roca
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

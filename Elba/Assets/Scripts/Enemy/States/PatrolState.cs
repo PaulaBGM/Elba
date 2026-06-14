@@ -1,19 +1,34 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 public class PatrolState : States<EnemyController>
 {
-    [SerializeField] private Transform[] patrolPoints;
+    [SerializeField] private Transform patrolPath;
     [SerializeField] private float patrolSpeed = 2f;
+    [SerializeField] private float arrivalDistance = 0.2f;
     [SerializeField] private float waitTime = 1f;
+
+    private readonly List<Vector2> patrolPoints = new();
 
     private int currentPoint;
     private float waitTimer;
-
-    private const float ArrivalDistanceSqr = 0.05f;
+    private float arrivalDistanceSqr;
 
     public override void InitController(EnemyController controller)
     {
         base.InitController(controller);
+
+        patrolPoints.Clear();
+
+        if (patrolPath != null)
+        {
+            foreach (Transform point in patrolPath)
+            {
+                patrolPoints.Add(point.position);
+            }
+        }
+
+        arrivalDistanceSqr = arrivalDistance * arrivalDistance;
 
         controller.Sensor.OnPlayerDetected -= StartChase;
         controller.Sensor.OnPlayerDetected += StartChase;
@@ -28,19 +43,20 @@ public class PatrolState : States<EnemyController>
     public override void OnEnter()
     {
         waitTimer = 0f;
+        _controller.Rigidbody.linearVelocity = Vector2.zero;
     }
 
     public override void OnUpdate()
     {
-        if (patrolPoints == null || patrolPoints.Length == 0)
+        if (patrolPoints.Count == 0)
             return;
 
         Vector2 currentPosition = transform.position;
-        Vector2 targetPosition = patrolPoints[currentPoint].position;
+        Vector2 targetPosition = patrolPoints[currentPoint];
 
         Vector2 offset = targetPosition - currentPosition;
 
-        if (offset.sqrMagnitude <= ArrivalDistanceSqr)
+        if (offset.sqrMagnitude <= arrivalDistanceSqr)
         {
             _controller.Rigidbody.linearVelocity = Vector2.zero;
 
@@ -53,7 +69,7 @@ public class PatrolState : States<EnemyController>
 
             currentPoint++;
 
-            if (currentPoint >= patrolPoints.Length)
+            if (currentPoint >= patrolPoints.Count)
                 currentPoint = 0;
 
             return;
@@ -70,10 +86,12 @@ public class PatrolState : States<EnemyController>
 
     private void StartChase(Transform player)
     {
+        if (_controller.Target == player)
+            return;
+
         Debug.Log("PATROL -> CHASE");
 
         _controller.Target = player;
-
         _controller.SetState(_controller.ChaseState);
     }
 }

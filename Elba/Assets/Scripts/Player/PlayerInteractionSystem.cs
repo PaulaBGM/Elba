@@ -38,7 +38,7 @@ public class PlayerInteractionSystem : MonoBehaviour
         currentInteractable?.Interact(gameObject);
     }
 
-    private void OnTriggerEnter2D(Collider2D other)
+    private void OnTriggerStay2D(Collider2D other)
     {
         IInteractable interactable =
             other.GetComponentInParent<IInteractable>();

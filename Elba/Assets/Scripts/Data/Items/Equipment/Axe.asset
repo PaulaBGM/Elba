@@ -17,10 +17,10 @@ MonoBehaviour:
   <MaxStackSize>k__BackingField: 1
   <Name>k__BackingField: Axe
   <Description>k__BackingField: pointy stick
-  <ItemImage>k__BackingField: {fileID: 10901, guid: 0000000000000000f000000000000000, type: 0}
+  <ItemImage>k__BackingField: {fileID: 21300000, guid: 0ad1e43993e12d54cb531961ae739739, type: 3}
   <WorldPrefab>k__BackingField: {fileID: 0}
   <DefaultParametersList>k__BackingField:
   - itemParameter: {fileID: 11400000, guid: fbdaa81e02e233e4f858d0c346e62148, type: 2}
     value: 5
-  <ItemType>k__BackingField: 1
+  <Categories>k__BackingField: 2
   <actionSFX>k__BackingField: {fileID: 8300000, guid: 247dfacbdad46944cab9753dc61cc7d1, type: 3}

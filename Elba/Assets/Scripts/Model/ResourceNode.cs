@@ -4,76 +4,31 @@ using Inventory.Model;
 
 public class ResourceNode : MonoBehaviour, IAttackable
 {
-    [Header("Stats")]
-    [SerializeField] private int durability = 3;
-
-    [Header("Tools")]
-    [SerializeField] private ToolType requiredTool = ToolType.None;
-
+    [SerializeField] private int maxDurability = 3;
     [Header("Drops")]
     [SerializeField] private ResourceReward[] rewards;
+    private int currentDurability;
 
-    [Header("Feedback")]
-    [SerializeField] private SpriteRenderer spriteRenderer;
-    [SerializeField] private float flashDuration = 0.1f;
-
-    private Color originalColor;
-
-    private void Awake()
+    private void OnEnable()
     {
-        if (spriteRenderer == null)
-            spriteRenderer = GetComponentInChildren<SpriteRenderer>();
+        ResetNode();
+    }
 
-        originalColor = spriteRenderer.color;
+    public void ResetNode()
+    {
+        currentDurability = maxDurability;
     }
 
     public void ReceiveHit(GameObject attacker)
     {
-        if (!CanBeDamagedBy(attacker))
-            return;
+        currentDurability--;
 
-        durability--;
-
-        Debug.Log($"{name} Durabilidad restante: {durability}");
-
-        StartCoroutine(HitFeedback());
-
-        if (durability > 0)
+        if (currentDurability > 0)
             return;
 
         SpawnRewards();
 
-        Destroy(gameObject);
-    }
-
-    private bool CanBeDamagedBy(GameObject attacker)
-    {
-        if (requiredTool == ToolType.None)
-            return true;
-
-        AgentWeapon weapon =
-            attacker.GetComponent<AgentWeapon>();
-
-        if (weapon == null)
-            return false;
-
-        if (weapon.CurrentToolType != requiredTool)
-        {
-            Debug.Log(
-                $"Necesitas una herramienta tipo {requiredTool}");
-            return false;
-        }
-
-        return true;
-    }
-
-    private IEnumerator HitFeedback()
-    {
-        spriteRenderer.color = Color.red;
-
-        yield return new WaitForSeconds(flashDuration);
-
-        spriteRenderer.color = originalColor;
+        gameObject.SetActive(false);
     }
 
     private void SpawnRewards()
@@ -85,10 +40,7 @@ public class ResourceNode : MonoBehaviour, IAttackable
             if (roll > reward.dropChance)
                 continue;
 
-            int amount =
-                Random.Range(
-                    reward.minAmount,
-                    reward.maxAmount + 1);
+            int amount = Random.Range(reward.minAmount,reward.maxAmount + 1);
 
             for (int i = 0; i < amount; i++)
             {

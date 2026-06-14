@@ -14,6 +14,9 @@ public class AgentWeapon : MonoBehaviour
     [SerializeField] private List<ItemParameter> parametersToModify = new();
     [SerializeField] private List<ItemParameter> itemCurrentState = new();
 
+    [Header("Visual")]
+    [SerializeField] private SpriteRenderer armPointRenderer;
+
     public EquippableItemSO CurrentWeapon => weapon;
 
     public ToolType CurrentToolType
@@ -25,6 +28,11 @@ public class AgentWeapon : MonoBehaviour
 
             return ToolType.None;
         }
+    }
+
+    private void Awake()
+    {
+        UpdateWeaponVisual();
     }
 
     public bool HasTool(ToolType toolType)
@@ -53,6 +61,8 @@ public class AgentWeapon : MonoBehaviour
 
         ModifyParameters();
 
+        UpdateWeaponVisual();
+
         Debug.Log($"Equipada herramienta: {weapon.Name}");
     }
 
@@ -70,6 +80,8 @@ public class AgentWeapon : MonoBehaviour
 
         weapon = null;
         itemCurrentState.Clear();
+
+        UpdateWeaponVisual();
     }
 
     private void ModifyParameters()
@@ -88,5 +100,21 @@ public class AgentWeapon : MonoBehaviour
                 };
             }
         }
+    }
+
+    private void UpdateWeaponVisual()
+    {
+        if (armPointRenderer == null)
+            return;
+
+        if (weapon == null)
+        {
+            armPointRenderer.sprite = null;
+            armPointRenderer.enabled = false;
+            return;
+        }
+
+        armPointRenderer.sprite = weapon.ItemImage;
+        armPointRenderer.enabled = true;
     }
 }

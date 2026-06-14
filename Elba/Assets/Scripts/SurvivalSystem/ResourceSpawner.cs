@@ -3,31 +3,35 @@ using UnityEngine;
 
 public class ResourceSpawner : MonoBehaviour
 {
-    [SerializeField] private GameObject prefab;
+    [SerializeField] private ResourceNode prefab;
+    [SerializeField] private float respawnTime = 300f;
 
-    [SerializeField]
-    private float respawnTime = 300f;
-
-    private GameObject currentNode;
+    private ResourceNode node;
 
     private void Start()
     {
-        Spawn();
+        node = Instantiate(
+            prefab,
+            transform.position,
+            Quaternion.identity);
+
+        StartCoroutine(RespawnRoutine());
     }
 
-    private void Spawn()
+    private IEnumerator RespawnRoutine()
     {
-        currentNode = Instantiate(prefab,transform.position,Quaternion.identity);
+        while (true)
+        {
+            if (!node.gameObject.activeSelf)
+            {
+                yield return new WaitForSeconds(respawnTime);
 
-        StartCoroutine(CheckDestroyed());
-    }
+                node.transform.position = transform.position;
+                node.ResetNode();
+                node.gameObject.SetActive(true);
+            }
 
-    private IEnumerator CheckDestroyed()
-    {
-        yield return new WaitUntil(() => currentNode == null);
-
-        yield return new WaitForSeconds(respawnTime);
-
-        Spawn();
+            yield return null;
+        }
     }
 }

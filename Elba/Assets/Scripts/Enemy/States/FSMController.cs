@@ -11,8 +11,8 @@ public class FSMController<T> : MonoBehaviour where T : FSMController<T>
 
     public void SetState(States<T> state)
     {
-        Debug.Log(
-            $"STATE CHANGE: " + $"{currentState?.GetType().Name ?? "NULL"} -> {state.GetType().Name}");
+        if (currentState == state)
+            return;
 
         currentState?.OnExit();
 

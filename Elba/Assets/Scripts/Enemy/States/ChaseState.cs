@@ -9,17 +9,19 @@ public class ChaseState : States<EnemyController>
 
     public override void OnEnter()
     {
-        Debug.Log("ENTER CHASE");
         attackRangeSqr = attackRange * attackRange;
     }
 
     public override void OnUpdate()
     {
-        if (_controller.Target == null)
+        if (_controller.Sensor.CurrentTarget == null)
         {
+            _controller.Target = null;
             _controller.SetState(_controller.PatrolState);
             return;
         }
+
+        _controller.Target = _controller.Sensor.CurrentTarget;
 
         Vector2 offset =
             (Vector2)_controller.Target.position -

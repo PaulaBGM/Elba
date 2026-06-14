@@ -1,0 +1,29 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8348c6e0f5f2af44ebb13d20649768e1, type: 3}
+  m_Name: Cicuta
+  m_EditorClassIdentifier: 
+  <IsStackable>k__BackingField: 1
+  <ItemID>k__BackingField: cicuta
+  <MaxStackSize>k__BackingField: 20
+  <Name>k__BackingField: Cicuta
+  <Description>k__BackingField: 
+  <ItemImage>k__BackingField: {fileID: 21300000, guid: 2aaf38ac9cb88fe49aa017f3b9869b75, type: 3}
+  <WorldPrefab>k__BackingField: {fileID: 3893283076602086125, guid: 3d4b22f8fa9f3334db8d16ad7d8fbb82, type: 3}
+  <DefaultParametersList>k__BackingField: []
+  <Categories>k__BackingField: 1
+  modifiersData:
+  - statModifier: {fileID: 11400000, guid: a108b4b6caf20d14f8c89a19329b2b39, type: 2}
+    value: -10
+  <actionSFX>k__BackingField: {fileID: 0}
+  poisonDamage: 10
+  poisonDuration: 40

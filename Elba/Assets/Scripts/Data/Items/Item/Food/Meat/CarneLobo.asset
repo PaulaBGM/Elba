@@ -1,0 +1,27 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c99cc5c8bf1f7044dab5fb5a50837b19, type: 3}
+  m_Name: CarneLobo
+  m_EditorClassIdentifier: 
+  <IsStackable>k__BackingField: 1
+  <ItemID>k__BackingField: carnelobo
+  <MaxStackSize>k__BackingField: 20
+  <Name>k__BackingField: Carne de lobo
+  <Description>k__BackingField: 
+  <ItemImage>k__BackingField: {fileID: 21300000, guid: 04d78f12053c9a54d9984108770b5074, type: 3}
+  <WorldPrefab>k__BackingField: {fileID: 3911143015674868831, guid: 5333fe212b3398740b9b35ab76c402e3, type: 3}
+  <DefaultParametersList>k__BackingField: []
+  <Categories>k__BackingField: 1
+  modifiersData:
+  - statModifier: {fileID: 11400000, guid: de17128eaa1e4a04583f6e3aa788881b, type: 2}
+    value: 50
+  <actionSFX>k__BackingField: {fileID: 0}

@@ -47,7 +47,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4111c69f844622244b8c3c86d3bea044, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  <InventoryItem>k__BackingField: {fileID: 11400000, guid: e57ac8e23aec2d444b9a299a27ba55a4, type: 2}
+  <InventoryItem>k__BackingField: {fileID: 11400000, guid: dfbe18f7fc2661e40add8e4d83df48f2, type: 2}
   <Quantity>k__BackingField: 1
   audioSource: {fileID: 3436644956228477622}
   duration: 0.3
@@ -228,8 +228,8 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: -2413806693520163455, guid: a86470a33a6bf42c4b3595704624658b, type: 3}
-  m_Color: {r: 0.4339623, g: 0, b: 0.01329252, a: 1}
+  m_Sprite: {fileID: 21300000, guid: 5d58142afc3184647a88a87caedf428d, type: 3}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0

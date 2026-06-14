@@ -1,0 +1,27 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b51f6ede0afb96c43b55492f5add36d6, type: 3}
+  m_Name: Ortiga
+  m_EditorClassIdentifier: 
+  <IsStackable>k__BackingField: 1
+  <ItemID>k__BackingField: ortiga
+  <MaxStackSize>k__BackingField: 1
+  <Name>k__BackingField: ortiga
+  <Description>k__BackingField: 
+  <ItemImage>k__BackingField: {fileID: 21300000, guid: aa552797d13ab734dabcea96f130b1ea, type: 3}
+  <WorldPrefab>k__BackingField: {fileID: 3779483868435256953, guid: fe01fc6ca33ea054ba717aabddc51527, type: 3}
+  <DefaultParametersList>k__BackingField: []
+  <Categories>k__BackingField: 5
+  modifiersData:
+  - statModifier: {fileID: 11400000, guid: de17128eaa1e4a04583f6e3aa788881b, type: 2}
+    value: 10
+  <actionSFX>k__BackingField: {fileID: 0}

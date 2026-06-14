@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ec5de9769a667284d8d21d13b12c473c, type: 3}
+  m_Name: Piedra
+  m_EditorClassIdentifier: 
+  <IsStackable>k__BackingField: 1
+  <ItemID>k__BackingField: piedra
+  <MaxStackSize>k__BackingField: 50
+  <Name>k__BackingField: piedra
+  <Description>k__BackingField: 
+  <ItemImage>k__BackingField: {fileID: 21300000, guid: c696390d66c8eda4e8b6ebda0c8493d6, type: 3}
+  <WorldPrefab>k__BackingField: {fileID: 2327505127333388803, guid: c2b463d4031a82d4298450ccf2a40e56, type: 3}
+  <DefaultParametersList>k__BackingField: []
+  <Categories>k__BackingField: 4

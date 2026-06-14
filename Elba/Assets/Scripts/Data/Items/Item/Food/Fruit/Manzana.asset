@@ -17,7 +17,7 @@ MonoBehaviour:
   <MaxStackSize>k__BackingField: 10
   <Name>k__BackingField: Apple
   <Description>k__BackingField: it's an apple, you eat it
-  <ItemImage>k__BackingField: {fileID: 21300000, guid: aa29adf248f592a46ac7efdf976af470, type: 3}
+  <ItemImage>k__BackingField: {fileID: -803305277, guid: c8cc1ca7d8ac84a4d8c084d62b1e507b, type: 3}
   <WorldPrefab>k__BackingField: {fileID: 6094749979129503835, guid: 14d95a0d8d64c8748bc044f709258d55, type: 3}
   <DefaultParametersList>k__BackingField: []
   <Categories>k__BackingField: 1

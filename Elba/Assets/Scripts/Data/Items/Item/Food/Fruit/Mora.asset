@@ -17,7 +17,7 @@ MonoBehaviour:
   <MaxStackSize>k__BackingField: 20
   <Name>k__BackingField: Mora
   <Description>k__BackingField: it's a blackberry, you eat it
-  <ItemImage>k__BackingField: {fileID: 21300000, guid: c0e10d08df954c749b18f3d4104b1594, type: 3}
+  <ItemImage>k__BackingField: {fileID: 7104812, guid: c8cc1ca7d8ac84a4d8c084d62b1e507b, type: 3}
   <WorldPrefab>k__BackingField: {fileID: 6094749979129503835, guid: c02bcff6ace108e47ad403b0dffcb0aa, type: 3}
   <DefaultParametersList>k__BackingField: []
   <Categories>k__BackingField: 1

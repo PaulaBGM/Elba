@@ -17,7 +17,7 @@ MonoBehaviour:
   <MaxStackSize>k__BackingField: 2
   <Name>k__BackingField: Amanita Caesarea
   <Description>k__BackingField: 
-  <ItemImage>k__BackingField: {fileID: 21300000, guid: 93ae339593edb9b4ea1a82b32c31286c, type: 3}
+  <ItemImage>k__BackingField: {fileID: -1578599348, guid: c8cc1ca7d8ac84a4d8c084d62b1e507b, type: 3}
   <WorldPrefab>k__BackingField: {fileID: 6583846839510121956, guid: 07c8a0f36a460a44dae3a7596d020137, type: 3}
   <DefaultParametersList>k__BackingField: []
   <Categories>k__BackingField: 1

@@ -17,7 +17,7 @@ MonoBehaviour:
   <MaxStackSize>k__BackingField: 1
   <Name>k__BackingField: ortiga
   <Description>k__BackingField: 
-  <ItemImage>k__BackingField: {fileID: 21300000, guid: aa552797d13ab734dabcea96f130b1ea, type: 3}
+  <ItemImage>k__BackingField: {fileID: -433282539, guid: c8cc1ca7d8ac84a4d8c084d62b1e507b, type: 3}
   <WorldPrefab>k__BackingField: {fileID: 3779483868435256953, guid: fe01fc6ca33ea054ba717aabddc51527, type: 3}
   <DefaultParametersList>k__BackingField: []
   <Categories>k__BackingField: 5

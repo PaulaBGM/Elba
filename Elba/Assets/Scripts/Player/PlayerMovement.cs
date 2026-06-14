@@ -1,4 +1,5 @@
 using UnityEngine;
+using System.Collections;
 
 [RequireComponent(typeof(Rigidbody2D))]
 public class PlayerMovement : MonoBehaviour
@@ -12,7 +13,9 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private PlayerStaminaSystem staminaSystem;
     [SerializeField] private PlayerAttackSystem attackSystem;
     [SerializeField] private Animator animator;
+    [SerializeField] private float knockbackRecoveryTime = 0.2f;
 
+    private Coroutine knockbackRoutine;
     private Rigidbody2D rb;
 
     private Vector2 movementInput;
@@ -170,4 +173,33 @@ public class PlayerMovement : MonoBehaviour
     {
         return GetCurrentSpeed() * GetMovementMultiplier();
     }
+
+    public void ApplyKnockback(Vector2 direction, float force)
+    {
+        if (knockbackRoutine != null)
+            StopCoroutine(knockbackRoutine);
+
+        knockbackRoutine =
+            StartCoroutine(
+                KnockbackRoutine(direction, force));
+    }
+
+    private IEnumerator KnockbackRoutine(
+        Vector2 direction,
+        float force)
+    {
+        movementLocked = true;
+
+        rb.linearVelocity = Vector2.zero;
+
+        rb.AddForce(
+            direction.normalized * force,
+            ForceMode2D.Impulse);
+
+        yield return new WaitForSeconds(
+            knockbackRecoveryTime);
+
+        movementLocked = false;
+    }
 }
+

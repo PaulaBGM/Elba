@@ -17,7 +17,7 @@ MonoBehaviour:
   <MaxStackSize>k__BackingField: 1
   <Name>k__BackingField: Carne de Uro
   <Description>k__BackingField: 
-  <ItemImage>k__BackingField: {fileID: 21300000, guid: 33286cbd3748de542b7bbf0ea217b802, type: 3}
+  <ItemImage>k__BackingField: {fileID: 44106403, guid: c8cc1ca7d8ac84a4d8c084d62b1e507b, type: 3}
   <WorldPrefab>k__BackingField: {fileID: 5230507843730509073, guid: 8f9bc3a1b7d1693479e23a8b3f36336c, type: 3}
   <DefaultParametersList>k__BackingField: []
   <Categories>k__BackingField: 1

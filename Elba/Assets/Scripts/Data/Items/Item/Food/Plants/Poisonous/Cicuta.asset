@@ -17,13 +17,13 @@ MonoBehaviour:
   <MaxStackSize>k__BackingField: 20
   <Name>k__BackingField: Cicuta
   <Description>k__BackingField: 
-  <ItemImage>k__BackingField: {fileID: 21300000, guid: 2aaf38ac9cb88fe49aa017f3b9869b75, type: 3}
+  <ItemImage>k__BackingField: {fileID: -1300925848, guid: cdcadffb5e21b8848a6931f4f24208c0, type: 3}
   <WorldPrefab>k__BackingField: {fileID: 3893283076602086125, guid: 3d4b22f8fa9f3334db8d16ad7d8fbb82, type: 3}
   <DefaultParametersList>k__BackingField: []
   <Categories>k__BackingField: 1
   modifiersData:
   - statModifier: {fileID: 11400000, guid: a108b4b6caf20d14f8c89a19329b2b39, type: 2}
-    value: -10
+    value: -100
   <actionSFX>k__BackingField: {fileID: 0}
-  poisonDamage: 10
-  poisonDuration: 40
+  poisonDamage: 0
+  poisonDuration: 0

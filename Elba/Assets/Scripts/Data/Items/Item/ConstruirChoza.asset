@@ -17,7 +17,7 @@ MonoBehaviour:
   <MaxStackSize>k__BackingField: 1
   <Name>k__BackingField: Construye tu primera choza
   <Description>k__BackingField: 
-  <ItemImage>k__BackingField: {fileID: 0}
+  <ItemImage>k__BackingField: {fileID: 21300000, guid: c223e6fd1088c3e44b7c78982e1c2da3, type: 3}
   <WorldPrefab>k__BackingField: {fileID: 0}
   <DefaultParametersList>k__BackingField: []
   <Categories>k__BackingField: 8

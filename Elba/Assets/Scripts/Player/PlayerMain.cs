@@ -4,6 +4,7 @@ using UnityEngine;
 public class PlayerMain : MonoBehaviour
 {
     [SerializeField] private PlayerStatsSystem playerStatsSystem;
+    [SerializeField] private Rigidbody2D rb;
 
     public event Action OnPlayerDeath;
 
@@ -11,6 +12,9 @@ public class PlayerMain : MonoBehaviour
     {
         if (playerStatsSystem == null)
             playerStatsSystem = GetComponent<PlayerStatsSystem>();
+
+        if (rb == null)
+            rb = GetComponent<Rigidbody2D>();
     }
 
     public void Damage(float amount)
@@ -19,6 +23,14 @@ public class PlayerMain : MonoBehaviour
 
         if (playerStatsSystem.IsEmpty(StatType.Health))
             NotifyDeath();
+    }
+
+    public void ApplyKnockback(Vector2 direction, float force)
+    {
+        if (rb == null)
+            return;
+
+        rb.AddForce(direction.normalized * force, ForceMode2D.Impulse);
     }
 
     public void Heal(float amount)

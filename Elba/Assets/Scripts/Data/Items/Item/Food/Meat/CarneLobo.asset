@@ -17,7 +17,7 @@ MonoBehaviour:
   <MaxStackSize>k__BackingField: 20
   <Name>k__BackingField: Carne de lobo
   <Description>k__BackingField: 
-  <ItemImage>k__BackingField: {fileID: 21300000, guid: 04d78f12053c9a54d9984108770b5074, type: 3}
+  <ItemImage>k__BackingField: {fileID: 939123077, guid: c8cc1ca7d8ac84a4d8c084d62b1e507b, type: 3}
   <WorldPrefab>k__BackingField: {fileID: 3911143015674868831, guid: 5333fe212b3398740b9b35ab76c402e3, type: 3}
   <DefaultParametersList>k__BackingField: []
   <Categories>k__BackingField: 1

@@ -17,7 +17,7 @@ MonoBehaviour:
   <MaxStackSize>k__BackingField: 1
   <Name>k__BackingField: Cuchillo
   <Description>k__BackingField: Cuchillo
-  <ItemImage>k__BackingField: {fileID: 21300000, guid: 2d5f5b3e4c588284c9f1bebb95deb136, type: 3}
+  <ItemImage>k__BackingField: {fileID: -1928098604, guid: c8cc1ca7d8ac84a4d8c084d62b1e507b, type: 3}
   <WorldPrefab>k__BackingField: {fileID: 3710388715342165931, guid: 490d27610f37f44419c40202ddeaa248, type: 3}
   <DefaultParametersList>k__BackingField:
   - itemParameter: {fileID: 11400000, guid: fbdaa81e02e233e4f858d0c346e62148, type: 2}

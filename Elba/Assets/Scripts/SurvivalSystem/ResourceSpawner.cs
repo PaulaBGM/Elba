@@ -3,18 +3,21 @@ using UnityEngine;
 
 public class ResourceSpawner : MonoBehaviour
 {
+    [Header("Resource")]
     [SerializeField] private ResourceNode prefab;
+
+    [Header("Respawn")]
     [SerializeField] private float respawnTime = 300f;
 
-    private ResourceNode node;
+    [Header("Random Respawn")]
+    [SerializeField] private bool useRandomSpawnPoint;
+    [SerializeField] private Transform[] spawnPoints;
+
+    private ResourceNode currentNode;
 
     private void Start()
     {
-        node = Instantiate(
-            prefab,
-            transform.position,
-            Quaternion.identity);
-
+        SpawnNode(GetSpawnPosition());
         StartCoroutine(RespawnRoutine());
     }
 
@@ -22,16 +25,36 @@ public class ResourceSpawner : MonoBehaviour
     {
         while (true)
         {
-            if (!node.gameObject.activeSelf)
+            if (currentNode == null || !currentNode.gameObject.activeSelf)
             {
                 yield return new WaitForSeconds(respawnTime);
 
-                node.transform.position = transform.position;
-                node.ResetNode();
-                node.gameObject.SetActive(true);
+                if (currentNode == null)
+                {
+                    SpawnNode(GetSpawnPosition());
+                }
+                else
+                {
+                    currentNode.transform.position = GetSpawnPosition();
+                    currentNode.ResetNode();
+                    currentNode.gameObject.SetActive(true);
+                }
             }
 
             yield return null;
         }
+    }
+
+    private void SpawnNode(Vector3 position)
+    {
+        currentNode = Instantiate(prefab, position, Quaternion.identity);
+    }
+
+    private Vector3 GetSpawnPosition()
+    {
+        if (!useRandomSpawnPoint || spawnPoints == null || spawnPoints.Length == 0)
+            return transform.position;
+
+        return spawnPoints[Random.Range(0, spawnPoints.Length)].position;
     }
 }

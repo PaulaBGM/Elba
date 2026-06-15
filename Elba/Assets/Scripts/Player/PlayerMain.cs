@@ -19,7 +19,15 @@ public class PlayerMain : MonoBehaviour
 
     public void Damage(float amount)
     {
-        playerStatsSystem.ModifyStat(StatType.Health, -amount);
+        if (ShelterManager.Instance != null &&
+            ShelterManager.Instance.IsInsideShelter)
+        {
+            return;
+        }
+
+        playerStatsSystem.ModifyStat(
+            StatType.Health,
+            -amount);
 
         if (playerStatsSystem.IsEmpty(StatType.Health))
             NotifyDeath();
@@ -57,4 +65,6 @@ public class PlayerMain : MonoBehaviour
     {
         OnPlayerDeath?.Invoke();
     }
+
+    
 }

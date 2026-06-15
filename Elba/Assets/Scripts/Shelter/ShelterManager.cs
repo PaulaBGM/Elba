@@ -1,13 +1,19 @@
 using UnityEngine;
 
-public class ShelterSystem : MonoBehaviour
+public class ShelterManager : MonoBehaviour
 {
-    public static ShelterSystem Instance { get; private set; }
+    public static ShelterManager Instance { get; private set; }
 
     public bool IsInsideShelter { get; private set; }
 
     private void Awake()
     {
+        if (Instance != null && Instance != this)
+        {
+            Destroy(gameObject);
+            return;
+        }
+
         Instance = this;
     }
 

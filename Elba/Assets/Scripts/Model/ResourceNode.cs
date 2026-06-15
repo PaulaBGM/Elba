@@ -1,25 +1,25 @@
-using System.Collections;
 using UnityEngine;
-using Inventory.Model;
 
 public class ResourceNode : MonoBehaviour, IAttackable
 {
     [SerializeField] private int maxDurability = 3;
+
     [Header("Drops")]
     [SerializeField] private ResourceReward[] rewards;
-    private int currentDurability;
+
+    protected int currentDurability;
 
     private void OnEnable()
     {
         ResetNode();
     }
 
-    public void ResetNode()
+    public virtual void ResetNode()
     {
         currentDurability = maxDurability;
     }
 
-    public void ReceiveHit(GameObject attacker)
+    public virtual void ReceiveHit(GameObject attacker)
     {
         currentDurability--;
 
@@ -31,7 +31,7 @@ public class ResourceNode : MonoBehaviour, IAttackable
         gameObject.SetActive(false);
     }
 
-    private void SpawnRewards()
+    protected virtual void SpawnRewards()
     {
         foreach (ResourceReward reward in rewards)
         {
@@ -40,11 +40,14 @@ public class ResourceNode : MonoBehaviour, IAttackable
             if (roll > reward.dropChance)
                 continue;
 
-            int amount = Random.Range(reward.minAmount,reward.maxAmount + 1);
+            int amount = Random.Range(reward.minAmount, reward.maxAmount + 1);
 
             for (int i = 0; i < amount; i++)
             {
-                Instantiate(reward.item.WorldPrefab,transform.position +(Vector3)Random.insideUnitCircle * 0.75f, Quaternion.identity);
+                Instantiate(
+                    reward.item.WorldPrefab,
+                    transform.position + (Vector3)Random.insideUnitCircle * 0.75f,
+                    Quaternion.identity);
             }
         }
     }

@@ -1,4 +1,5 @@
 using UnityEngine;
+using System.Collections;
 
 public class Shelter : MonoBehaviour, IInteractable
 {
@@ -28,22 +29,30 @@ public class Shelter : MonoBehaviour, IInteractable
 
     public void Sleep()
     {
-        if (currentPlayer == null)
-            return;
+        StartCoroutine(SleepRoutine());
+    }
+
+    private IEnumerator SleepRoutine()
+    {
+        yield return UIFader.Instance.FadeOut();
 
         PlayerStatsSystem stats =
             currentPlayer.GetComponent<PlayerStatsSystem>();
 
-        if (stats == null)
-            return;
+        if (stats != null)
+        {
+            stats.SetStat(
+                StatType.Health,
+                stats.GetMax(StatType.Health));
 
-        stats.SetStat(
-            StatType.Health,
-            stats.GetMax(StatType.Health));
+            stats.SetStat(
+                StatType.Stamina,
+                stats.GetMax(StatType.Stamina));
+        }
 
-        stats.SetStat(
-            StatType.Stamina,
-            stats.GetMax(StatType.Stamina));
+        yield return new WaitForSecondsRealtime(0.5f);
+
+        yield return UIFader.Instance.FadeIn();
     }
 
     public void ExitShelter()
@@ -55,4 +64,6 @@ public class Shelter : MonoBehaviour, IInteractable
 
         ShelterUI.Instance.Close();
     }
+
+
 }

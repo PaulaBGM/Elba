@@ -5,7 +5,7 @@ public class ShelterUI : MonoBehaviour
     public static ShelterUI Instance { get; private set; }
 
     [SerializeField] private GameObject root;
-
+    [SerializeField] private CraftingUI craftingUI;
     private Shelter currentShelter;
 
     private void Awake()
@@ -42,5 +42,9 @@ public class ShelterUI : MonoBehaviour
     public void ExitShelter()
     {
         currentShelter?.ExitShelter();
+    }
+    public void OpenCrafting()
+    {
+        craftingUI.Open();
     }
 }

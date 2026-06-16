@@ -17,15 +17,19 @@ public class AttackState : States<EnemyController>
 
     public override void OnUpdate()
     {
+        if (_controller.IsBusy)
+        {
+            _controller.Rigidbody.linearVelocity = Vector2.zero;
+            return;
+        }
+
         if (_controller.Target == null)
         {
             _controller.SetState(_controller.PatrolState);
             return;
         }
 
-        Vector2 offset =
-            (Vector2)_controller.Target.position -
-            (Vector2)transform.position;
+        Vector2 offset = (Vector2)_controller.Target.position - (Vector2)transform.position;
 
         if (offset.sqrMagnitude > attackRangeSqr)
         {

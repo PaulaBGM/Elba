@@ -7,15 +7,27 @@ public class ChaseState : States<EnemyController>
 
     private float attackRangeSqr;
 
+    public override void InitController(EnemyController controller)
+    {
+        base.InitController(controller);
+
+        controller.Sensor.OnPlayerLost -= OnPlayerLost;
+        controller.Sensor.OnPlayerLost += OnPlayerLost;
+    }
+
     public override void OnEnter()
     {
         attackRangeSqr = attackRange * attackRange;
-
-        _controller.Sensor.OnPlayerLost += LoseTarget;
     }
 
     public override void OnUpdate()
     {
+        if (_controller.IsBusy)
+        {
+            _controller.Rigidbody.linearVelocity = Vector2.zero;
+            return;
+        }
+
         if (_controller.Target == null)
         {
             _controller.SetState(_controller.PatrolState);
@@ -36,18 +48,22 @@ public class ChaseState : States<EnemyController>
             offset.normalized * chaseSpeed;
     }
 
-    private void LoseTarget(Transform target)
+    public override void OnExit()
+    {
+        _controller.Rigidbody.linearVelocity = Vector2.zero;
+    }
+
+    private void OnPlayerLost(Transform target)
     {
         if (_controller.Target != target)
             return;
 
         _controller.Target = null;
-        _controller.SetState(_controller.PatrolState);
     }
 
-    public override void OnExit()
+    private void OnDestroy()
     {
-        _controller.Sensor.OnPlayerLost -= LoseTarget;
-        _controller.Rigidbody.linearVelocity = Vector2.zero;
+        if (_controller != null && _controller.Sensor != null)
+            _controller.Sensor.OnPlayerLost -= OnPlayerLost;
     }
 }

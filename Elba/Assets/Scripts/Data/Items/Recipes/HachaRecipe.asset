@@ -12,5 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c5f2a775e4a44e549a12a1e48bb948e8, type: 3}
   m_Name: HachaRecipe
   m_EditorClassIdentifier: 
-  result: {fileID: 11400000, guid: 153fbb9b6703cfc46ae759843c800dc8, type: 2}
+  ingredients:
+  - item: {fileID: 0}
+    amount: 0
+  result: {fileID: 11400000, guid: 321c4eebcd3631a4f85b60c719485bf7, type: 2}
   amount: 1

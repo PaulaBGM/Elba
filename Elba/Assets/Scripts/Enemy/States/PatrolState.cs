@@ -48,6 +48,11 @@ public class PatrolState : States<EnemyController>
 
     public override void OnUpdate()
     {
+        if (_controller.IsBusy)
+        {
+            _controller.Rigidbody.linearVelocity = Vector2.zero;
+            return;
+        }
         if (patrolPoints.Count == 0)
             return;
 

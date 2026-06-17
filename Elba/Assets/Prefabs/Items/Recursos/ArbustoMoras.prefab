@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7644586295303292028}
   - component: {fileID: 8990059612705115350}
-  - component: {fileID: 8910883398435988005}
+  - component: {fileID: 607143559735617795}
   m_Layer: 3
   m_Name: ArbustoMoras
   m_TagString: Untagged
@@ -68,7 +68,7 @@ BoxCollider2D:
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
-  m_Offset: {x: 0, y: 0}
+  m_Offset: {x: 0, y: -0.33}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -78,9 +78,9 @@ BoxCollider2D:
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
-  m_Size: {x: 1, y: 1}
+  m_Size: {x: 2.61, y: 1.24}
   m_EdgeRadius: 0
---- !u!114 &8910883398435988005
+--- !u!114 &607143559735617795
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -89,19 +89,22 @@ MonoBehaviour:
   m_GameObject: {fileID: 2296775454013756302}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a1379e7bcb929d645b34346ab4e549ed, type: 3}
+  m_Script: {fileID: 11500000, guid: b889d5cfcdb8f4b4698aea04ace6de55, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   maxDurability: 3
   rewards:
-  - item: {fileID: 11400000, guid: 10a5ce2cf385acb40b995fedd2b9f4ee, type: 2}
-    minAmount: 1
-    maxAmount: 3
-    dropChance: 75
-  - item: {fileID: 11400000, guid: 617c69ae3c9aa07469ec5e1f8abdd19f, type: 2}
+  - item: {fileID: 11400000, guid: 0eaa5afa9e04daa41967950b01c16136, type: 2}
     minAmount: 1
     maxAmount: 2
-    dropChance: 45.4
+    dropChance: 100
+  fruits:
+  - fruit: {fileID: 11400000, guid: 10a5ce2cf385acb40b995fedd2b9f4ee, type: 2}
+    dropChance: 100
+    minAmount: 1
+    maxAmount: 5
+  fruitVisuals:
+  - {fileID: 6094749979129503835, guid: c02bcff6ace108e47ad403b0dffcb0aa, type: 3}
 --- !u!1 &2975426113261120399
 GameObject:
   m_ObjectHideFlags: 0

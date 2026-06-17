@@ -96,8 +96,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3030080068410656772}
-  - component: {fileID: 5424689615222613770}
   - component: {fileID: 9104328379036483147}
+  - component: {fileID: 8139261564140262442}
   m_Layer: 3
   m_Name: Manzano
   m_TagString: Untagged
@@ -121,24 +121,6 @@ Transform:
   - {fileID: 4929642533571984740}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &5424689615222613770
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4258950170984437586}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a1379e7bcb929d645b34346ab4e549ed, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  maxDurability: 3
-  rewards:
-  - item: {fileID: 11400000, guid: 617c69ae3c9aa07469ec5e1f8abdd19f, type: 2}
-    minAmount: 1
-    maxAmount: 2
-    dropChance: 64.5
 --- !u!61 &9104328379036483147
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -173,7 +155,7 @@ BoxCollider2D:
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
-  m_Offset: {x: 0, y: 0}
+  m_Offset: {x: 0, y: -1.08}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -185,3 +167,32 @@ BoxCollider2D:
   m_AutoTiling: 0
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
+--- !u!114 &8139261564140262442
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4258950170984437586}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b889d5cfcdb8f4b4698aea04ace6de55, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxDurability: 3
+  rewards:
+  - item: {fileID: 11400000, guid: 617c69ae3c9aa07469ec5e1f8abdd19f, type: 2}
+    minAmount: 1
+    maxAmount: 2
+    dropChance: 100
+  - item: {fileID: 11400000, guid: 0eaa5afa9e04daa41967950b01c16136, type: 2}
+    minAmount: 1
+    maxAmount: 3
+    dropChance: 52.8
+  fruits:
+  - fruit: {fileID: 11400000, guid: d06ca2502cd513f4c96e9bd238a3344c, type: 2}
+    dropChance: 69.1
+    minAmount: 1
+    maxAmount: 4
+  fruitVisuals:
+  - {fileID: 6094749979129503835, guid: 14d95a0d8d64c8748bc044f709258d55, type: 3}

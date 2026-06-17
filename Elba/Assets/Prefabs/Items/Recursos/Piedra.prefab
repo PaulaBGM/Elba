@@ -9,8 +9,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5828811531185798626}
-  - component: {fileID: 5521440922737832366}
   - component: {fileID: 56993330022858359}
+  - component: {fileID: 2068450724165020891}
   m_Layer: 3
   m_Name: Piedra
   m_TagString: Untagged
@@ -34,24 +34,6 @@ Transform:
   - {fileID: 7396935203275922501}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &5521440922737832366
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2327505127333388803}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a1379e7bcb929d645b34346ab4e549ed, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  maxDurability: 3
-  rewards:
-  - item: {fileID: 11400000, guid: 90829d6876ad4254bb83efef18f13e78, type: 2}
-    minAmount: 1
-    maxAmount: 3
-    dropChance: 37.8
 --- !u!61 &56993330022858359
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -96,8 +78,24 @@ BoxCollider2D:
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
-  m_Size: {x: 1, y: 1}
+  m_Size: {x: 0.5, y: 0.5}
   m_EdgeRadius: 0
+--- !u!114 &2068450724165020891
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2327505127333388803}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4111c69f844622244b8c3c86d3bea044, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  <InventoryItem>k__BackingField: {fileID: 11400000, guid: 90829d6876ad4254bb83efef18f13e78, type: 2}
+  <Quantity>k__BackingField: 1
+  audioSource: {fileID: 0}
+  duration: 0.3
 --- !u!1 &8805174881783601038
 GameObject:
   m_ObjectHideFlags: 0

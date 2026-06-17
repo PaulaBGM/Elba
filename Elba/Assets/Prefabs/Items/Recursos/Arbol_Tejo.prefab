@@ -96,8 +96,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5008375842632081558}
-  - component: {fileID: 8947617883496788386}
   - component: {fileID: 3753256174639486878}
+  - component: {fileID: 7149490906756326193}
   m_Layer: 0
   m_Name: Arbol_Tejo
   m_TagString: Untagged
@@ -121,32 +121,6 @@ Transform:
   - {fileID: 109600545769576404}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &8947617883496788386
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8801135577485049021}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a1379e7bcb929d645b34346ab4e549ed, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  maxDurability: 3
-  rewards:
-  - item: {fileID: 11400000, guid: dfbe18f7fc2661e40add8e4d83df48f2, type: 2}
-    minAmount: 1
-    maxAmount: 3
-    dropChance: 68.1
-  - item: {fileID: 11400000, guid: 0eaa5afa9e04daa41967950b01c16136, type: 2}
-    minAmount: 1
-    maxAmount: 3
-    dropChance: 51.3
-  - item: {fileID: 11400000, guid: 617c69ae3c9aa07469ec5e1f8abdd19f, type: 2}
-    minAmount: 1
-    maxAmount: 3
-    dropChance: 100
 --- !u!61 &3753256174639486878
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -193,3 +167,32 @@ BoxCollider2D:
   m_AutoTiling: 0
   m_Size: {x: 1.5, y: 1.34}
   m_EdgeRadius: 0
+--- !u!114 &7149490906756326193
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8801135577485049021}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b889d5cfcdb8f4b4698aea04ace6de55, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxDurability: 3
+  rewards:
+  - item: {fileID: 11400000, guid: 617c69ae3c9aa07469ec5e1f8abdd19f, type: 2}
+    minAmount: 1
+    maxAmount: 3
+    dropChance: 100
+  - item: {fileID: 11400000, guid: 0eaa5afa9e04daa41967950b01c16136, type: 2}
+    minAmount: 1
+    maxAmount: 3
+    dropChance: 75
+  fruits:
+  - fruit: {fileID: 11400000, guid: dfbe18f7fc2661e40add8e4d83df48f2, type: 2}
+    dropChance: 100
+    minAmount: 1
+    maxAmount: 3
+  fruitVisuals:
+  - {fileID: 6094749979129503835, guid: bd56a4033499afc4381a3c614eda6bad, type: 3}

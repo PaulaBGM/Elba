@@ -9,8 +9,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1167290121721543602}
-  - component: {fileID: 3138261732717184904}
   - component: {fileID: 2744218311294764568}
+  - component: {fileID: 4301692225758563637}
   m_Layer: 0
   m_Name: Arbol_trompeta
   m_TagString: Untagged
@@ -34,28 +34,6 @@ Transform:
   - {fileID: 2776575566782433803}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &3138261732717184904
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 215840600424789343}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a1379e7bcb929d645b34346ab4e549ed, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  maxDurability: 3
-  rewards:
-  - item: {fileID: 11400000, guid: 0eaa5afa9e04daa41967950b01c16136, type: 2}
-    minAmount: 1
-    maxAmount: 3
-    dropChance: 100
-  - item: {fileID: 11400000, guid: 3e5c23606519b974485a6e12b1bb5044, type: 2}
-    minAmount: 1
-    maxAmount: 3
-    dropChance: 70
 --- !u!61 &2744218311294764568
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -102,6 +80,31 @@ BoxCollider2D:
   m_AutoTiling: 0
   m_Size: {x: 1, y: 1.12}
   m_EdgeRadius: 0
+--- !u!114 &4301692225758563637
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 215840600424789343}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b889d5cfcdb8f4b4698aea04ace6de55, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxDurability: 3
+  rewards:
+  - item: {fileID: 11400000, guid: 617c69ae3c9aa07469ec5e1f8abdd19f, type: 2}
+    minAmount: 1
+    maxAmount: 3
+    dropChance: 100
+  fruits:
+  - fruit: {fileID: 11400000, guid: 3e5c23606519b974485a6e12b1bb5044, type: 2}
+    dropChance: 0
+    minAmount: 1
+    maxAmount: 3
+  fruitVisuals:
+  - {fileID: 5385949389920963901, guid: 9ac20a2e178938d4ba67b7a2971c7592, type: 3}
 --- !u!1 &9175978310431171789
 GameObject:
   m_ObjectHideFlags: 0

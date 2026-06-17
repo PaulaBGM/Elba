@@ -12,6 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c5f2a775e4a44e549a12a1e48bb948e8, type: 3}
   m_Name: CuerdaRecipe
   m_EditorClassIdentifier: 
-  ingredients: []
+  ingredients:
+  - item: {fileID: 11400000, guid: b2a58b70685845d4e91451c723dc734c, type: 2}
+    amount: 1
+  - item: {fileID: 11400000, guid: 97d49e4b311e806418de7a71e112f455, type: 2}
+    amount: 1
   result: {fileID: 11400000, guid: f578b2e99696ffa4c8644e58722ee894, type: 2}
   amount: 1

@@ -12,5 +12,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c5f2a775e4a44e549a12a1e48bb948e8, type: 3}
   m_Name: CuchilloRecipe
   m_EditorClassIdentifier: 
-  result: {fileID: 11400000, guid: 986f03f7855336a4b8ec20cfd85991e9, type: 2}
+  ingredients:
+  - item: {fileID: 11400000, guid: 90829d6876ad4254bb83efef18f13e78, type: 2}
+    amount: 1
+  - item: {fileID: 11400000, guid: 617c69ae3c9aa07469ec5e1f8abdd19f, type: 2}
+    amount: 1
+  - item: {fileID: 11400000, guid: f578b2e99696ffa4c8644e58722ee894, type: 2}
+    amount: 1
+  result: {fileID: 11400000, guid: 5633849bb0a1db14e97b51a499d03930, type: 2}
   amount: 1

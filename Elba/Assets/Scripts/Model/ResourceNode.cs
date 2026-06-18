@@ -21,7 +21,12 @@ public class ResourceNode : MonoBehaviour, IAttackable
 
     public virtual void ReceiveHit(GameObject attacker)
     {
-        currentDurability--;
+        AgentWeapon weapon = attacker.GetComponent<AgentWeapon>();
+
+        if (weapon != null)
+        {
+            weapon.DamageTool(1);
+        }
 
         if (currentDurability > 0)
             return;

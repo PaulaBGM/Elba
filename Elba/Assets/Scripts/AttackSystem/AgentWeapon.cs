@@ -13,6 +13,8 @@ public class AgentWeapon : MonoBehaviour
     [Header("Parameters")]
     [SerializeField] private List<ItemParameter> parametersToModify = new();
     [SerializeField] private List<ItemParameter> itemCurrentState = new();
+    [SerializeField]
+    private ItemParameterSO durabilityParameter;
 
     [Header("Visual")]
     [SerializeField] private SpriteRenderer armPointRenderer;
@@ -40,9 +42,7 @@ public class AgentWeapon : MonoBehaviour
         return CurrentToolType == toolType;
     }
 
-    public void SetWeapon(
-        EquippableItemSO weaponItemSO,
-        List<ItemParameter> itemState)
+    public void SetWeapon( EquippableItemSO weaponItemSO,List<ItemParameter> itemState)
     {
         if (weapon != null)
         {
@@ -65,7 +65,10 @@ public class AgentWeapon : MonoBehaviour
 
         Debug.Log($"Equipada herramienta: {weapon.Name}");
     }
-
+    public bool IsBroken()
+    {
+        return GetDurability() <= 0;
+    }
     public void UnequipWeapon()
     {
         if (weapon == null)
@@ -116,5 +119,37 @@ public class AgentWeapon : MonoBehaviour
 
         armPointRenderer.sprite = weapon.ItemImage;
         armPointRenderer.enabled = true;
+    }
+    public float GetDurability()
+    {
+        foreach (ItemParameter parameter in itemCurrentState)
+        {
+            if (parameter.itemParameter == durabilityParameter)
+                return parameter.value;
+        }
+
+        return 0;
+    }
+
+    public void DamageTool(float amount)
+    {
+        for (int i = 0; i < itemCurrentState.Count; i++)
+        {
+            if (itemCurrentState[i].itemParameter != durabilityParameter)
+                continue;
+
+            itemCurrentState[i] = new ItemParameter
+            {
+                itemParameter = durabilityParameter,
+                value = Mathf.Max(
+                    0,
+                    itemCurrentState[i].value - amount)
+            };
+
+            Debug.Log(
+                $"Durabilidad restante: {itemCurrentState[i].value}");
+
+            break;
+        }
     }
 }

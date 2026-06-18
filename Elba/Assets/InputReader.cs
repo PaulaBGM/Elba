@@ -15,6 +15,7 @@ public class InputReader : MonoBehaviour
     public event Action OnConsumePickup;
     public event Action OnUISelect;
     public event Action OnUIRightClick;
+    public event Action OnSubmitPressed;
 
     public bool SprintHeld =>
         inputActions.Player.Sprint.IsPressed();
@@ -31,14 +32,14 @@ public class InputReader : MonoBehaviour
         inputActions.Player.Move.performed += OnMove;
         inputActions.Player.Move.canceled += OnMove;
 
-        inputActions.Player.Interact.performed += _ => OnInteract?.Invoke();
-        inputActions.Player.Attack.performed += _ => OnAttack?.Invoke();
-        inputActions.Player.Consume.performed += _ => OnConsumePickup?.Invoke();
+        inputActions.Player.Interact.performed += OnInteractPerformed;
+        inputActions.Player.Attack.performed += OnAttackPerformed;
+        inputActions.Player.Consume.performed += OnConsumePerformed;
 
-        inputActions.UI.ToggleInventory.performed += _ => OnInventory?.Invoke();
-
-        inputActions.UI.Select.performed += _ => OnUISelect?.Invoke();
-        inputActions.UI.RightClick.performed += _ => OnUIRightClick?.Invoke();
+        inputActions.UI.ToggleInventory.performed += OnInventoryPerformed;
+        inputActions.UI.Select.performed += OnUISelectPerformed;
+        inputActions.UI.RightClick.performed += OnUIRightClickPerformed;
+        inputActions.UI.Submit.performed += OnSubmitPerformed;
 
         inputActions.UI.Point.performed += OnPoint;
         inputActions.UI.Point.canceled += OnPoint;
@@ -48,6 +49,15 @@ public class InputReader : MonoBehaviour
     {
         inputActions.Player.Move.performed -= OnMove;
         inputActions.Player.Move.canceled -= OnMove;
+
+        inputActions.Player.Interact.performed -= OnInteractPerformed;
+        inputActions.Player.Attack.performed -= OnAttackPerformed;
+        inputActions.Player.Consume.performed -= OnConsumePerformed;
+
+        inputActions.UI.ToggleInventory.performed -= OnInventoryPerformed;
+        inputActions.UI.Select.performed -= OnUISelectPerformed;
+        inputActions.UI.RightClick.performed -= OnUIRightClickPerformed;
+        inputActions.UI.Submit.performed -= OnSubmitPerformed;
 
         inputActions.UI.Point.performed -= OnPoint;
         inputActions.UI.Point.canceled -= OnPoint;
@@ -63,5 +73,40 @@ public class InputReader : MonoBehaviour
     private void OnPoint(InputAction.CallbackContext context)
     {
         MousePosition = context.ReadValue<Vector2>();
+    }
+
+    private void OnInteractPerformed(InputAction.CallbackContext context)
+    {
+        OnInteract?.Invoke();
+    }
+
+    private void OnAttackPerformed(InputAction.CallbackContext context)
+    {
+        OnAttack?.Invoke();
+    }
+
+    private void OnConsumePerformed(InputAction.CallbackContext context)
+    {
+        OnConsumePickup?.Invoke();
+    }
+
+    private void OnInventoryPerformed(InputAction.CallbackContext context)
+    {
+        OnInventory?.Invoke();
+    }
+
+    private void OnUISelectPerformed(InputAction.CallbackContext context)
+    {
+        OnUISelect?.Invoke();
+    }
+
+    private void OnUIRightClickPerformed(InputAction.CallbackContext context)
+    {
+        OnUIRightClick?.Invoke();
+    }
+
+    private void OnSubmitPerformed(InputAction.CallbackContext context)
+    {
+        OnSubmitPressed?.Invoke();
     }
 }

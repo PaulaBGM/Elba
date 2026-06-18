@@ -37,6 +37,7 @@ namespace Inventory
             if (input != null)
                 input.OnInventory -= ToggleInventory;
         }
+       
         private void Start()
         {
             if (input == null)
@@ -317,6 +318,7 @@ namespace Inventory
 
             return true;
         }
+       
         private void SpawnDroppedItem(InventoryItem inventoryItem)
         {
             if (inventoryItem.item == null)
@@ -347,6 +349,7 @@ namespace Inventory
                 worldItem.Quantity = 1;
             }
         }
+        
         public void ConsumeIngredients(List<RecipeIngredient> ingredients)
         {
             foreach (RecipeIngredient ingredient in ingredients)
@@ -377,5 +380,13 @@ namespace Inventory
                 }
             }
         }
+        
+        public Dictionary<int, InventoryItem> GetInventory()
+        {
+            return inventoryData.GetCurrentInventoryState();
+        }
+        
+       
     }
-}
+   
+    }

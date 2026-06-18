@@ -18,6 +18,7 @@ public class UIManager : MonoBehaviour
     public bool IsInventoryOpen { get; private set; }
 
     public event Action<bool> OnInventoryStateChanged;
+    public event Action OnSubmitPressed;
 
     private void Awake()
     {
@@ -26,8 +27,7 @@ public class UIManager : MonoBehaviour
             Destroy(gameObject);
             return;
         }
-
-        Instance = this;
+        
 
         if (input == null)
             input = FindFirstObjectByType<InputReader>();
@@ -42,13 +42,19 @@ public class UIManager : MonoBehaviour
     private void OnEnable()
     {
         if (input != null)
+        {
             input.OnInventory += HandleInventory;
+            input.OnSubmitPressed += HandleSubmit;
+        }
     }
 
     private void OnDisable()
     {
         if (input != null)
+        {
             input.OnInventory -= HandleInventory;
+            input.OnSubmitPressed -= HandleSubmit;
+        }
     }
 
     private void HandleInventory()
@@ -94,5 +100,9 @@ public class UIManager : MonoBehaviour
             interactionSystem.enabled = true;
 
         OnInventoryStateChanged?.Invoke(false);
+    }
+    private void HandleSubmit()
+    {
+        OnSubmitPressed?.Invoke();
     }
 }

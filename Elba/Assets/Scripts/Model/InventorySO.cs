@@ -179,5 +179,10 @@ namespace Inventory.Model
         {
             OnInventoryUpdated?.Invoke(GetCurrentInventoryState());
         }
+        public void AddInventoryItem(InventoryItem item)
+        {
+            AddItem(item.item, item.quantity, item.itemState);
+        }
     }
+    
 }

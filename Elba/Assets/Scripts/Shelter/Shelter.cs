@@ -4,6 +4,8 @@ using System.Collections;
 public class Shelter : MonoBehaviour, IInteractable
 {
     [SerializeField] private Transform shelterPoint;
+    [SerializeField] private ShelterStorage storage;
+    public ShelterStorage Storage => storage;
 
     private GameObject currentPlayer;
     private PlayerMovement currentMovement;

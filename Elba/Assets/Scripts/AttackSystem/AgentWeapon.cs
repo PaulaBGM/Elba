@@ -152,4 +152,28 @@ public class AgentWeapon : MonoBehaviour
             break;
         }
     }
+    public int GetResourceDamage()
+    {
+        if (weapon is ToolItemSO tool)
+            return tool.ResourceDamage;
+
+        return 1;
+    }
+
+    public float GetAnimalDamage()
+    {
+        if (weapon is ToolItemSO tool)
+            return tool.AnimalDamage;
+
+        return 5f;
+    }
+
+    public int GetDurabilityCost()
+    {
+        if (weapon is ToolItemSO tool)
+            return tool.DurabilityCost;
+
+        return 1;
+    }
+   
 }

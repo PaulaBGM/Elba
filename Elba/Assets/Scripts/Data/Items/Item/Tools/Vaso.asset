@@ -23,3 +23,6 @@ MonoBehaviour:
   <Categories>k__BackingField: 2
   <actionSFX>k__BackingField: {fileID: 0}
   <ToolType>k__BackingField: 0
+  <ResourceDamage>k__BackingField: 0
+  <AnimalDamage>k__BackingField: 0
+  <DurabilityCost>k__BackingField: 0

@@ -86,8 +86,7 @@ public class PlayerAttackSystem : MonoBehaviour
         if (!hit.collider)
             return;
 
-        IAttackable attackable =
-            hit.collider.GetComponentInParent<IAttackable>();
+        IAttackable attackable = hit.collider.GetComponentInParent<IAttackable>();
 
         if (attackable == null)
             attackable =

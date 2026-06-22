@@ -269,7 +269,7 @@ MonoBehaviour:
   <Sensor>k__BackingField: {fileID: 1997107234283939119}
   <Rigidbody>k__BackingField: {fileID: 748049623833084646}
   timeToDestroy: 2
-  animalBehaviour: {fileID: 0}
+  animalBehaviour: {fileID: 7360896929594965585}
 --- !u!114 &7360896929594965585
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -538,7 +538,7 @@ Transform:
   m_GameObject: {fileID: 6146922703321701479}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -4, y: 2.92, z: 0}
+  m_LocalPosition: {x: -7.73, y: 5.14, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -569,7 +569,7 @@ Transform:
   m_GameObject: {fileID: 8131623368149293830}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: -17.34, y: 0.76, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []

@@ -21,27 +21,12 @@ public class PlayerInteractionSystem : MonoBehaviour
 
     private void Interact()
     {
-        if (currentInteractable is Item item)
-        {
-            if (item.IsEdible)
-            {
-                promptUI.Show(item, gameObject);
-            }
-            else
-            {
-                item.Interact(gameObject);
-            }
-
-            return;
-        }
-
         currentInteractable?.Interact(gameObject);
     }
 
     private void OnTriggerStay2D(Collider2D other)
     {
-        IInteractable interactable =
-            other.GetComponentInParent<IInteractable>();
+        IInteractable interactable = other.GetComponentInParent<IInteractable>();
 
         if (interactable == null)
             interactable = other.GetComponentInChildren<IInteractable>();
@@ -51,21 +36,7 @@ public class PlayerInteractionSystem : MonoBehaviour
 
         currentInteractable = interactable;
 
-        Item item = other.GetComponentInParent<Item>();
-
-        if (item != null)
-        {
-            promptUI.Show("[E] Interactuar");
-            return;
-        }
-
-        ResourceNode resourceNode =
-            other.GetComponentInParent<ResourceNode>();
-
-        if (resourceNode != null)
-        {
-            promptUI.Show("[Click Izq] Recolectar");
-        }
+        promptUI.Show( interactable.InteractionAnchor);
     }
 
     private void OnTriggerExit2D(Collider2D other)
@@ -74,7 +45,8 @@ public class PlayerInteractionSystem : MonoBehaviour
             other.GetComponentInParent<IInteractable>();
 
         if (interactable == null)
-            interactable = other.GetComponentInChildren<IInteractable>();
+            interactable =
+                other.GetComponentInChildren<IInteractable>();
 
         if (interactable == null)
             return;

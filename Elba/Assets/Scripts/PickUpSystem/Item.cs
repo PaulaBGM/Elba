@@ -10,72 +10,25 @@ public class Item : MonoBehaviour, IInteractable
 
     [field: SerializeField]
     public int Quantity { get; set; } = 1;
-    
-    public bool IsEdible =>InventoryItem is Inventory.Model.EdibleItemSO;
-    
-    [SerializeField] private AudioSource audioSource;
+
+    [Header("Interaction")]
+    [SerializeField] private Transform interactionAnchor;
+
+    [Header("Feedback")]
     [SerializeField] private float duration = 0.3f;
+
+    public Transform InteractionAnchor => interactionAnchor;
 
     private void Start()
     {
-        GetComponentInChildren<SpriteRenderer>().sprite =
-            InventoryItem.ItemImage;
+        SpriteRenderer spriteRenderer =
+            GetComponentInChildren<SpriteRenderer>();
+
+        if (spriteRenderer != null)
+            spriteRenderer.sprite = InventoryItem.ItemImage;
     }
 
     public void Interact(GameObject interactor)
-    {
-     
-        InventoryController inventory = interactor.GetComponent<InventoryController>();
-
-        if (inventory == null)
-            return;
-
-        int remainder =  inventory.InventoryData.AddItem(InventoryItem, Quantity);
-
-        if (remainder == 0)
-            DestroyItem();
-        else
-            Quantity = remainder;
-    }
-
-    public void InteractOrConsume(GameObject interactor)
-    {
-        if (InventoryItem is EdibleItemSO)
-        {
-            InteractionPromptUI.Instance.Show(this, interactor);
-            return;
-        }
-
-        Interact(interactor);
-    }
-
-    public void DestroyItem()
-    {
-        GetComponent<Collider2D>().enabled = false;
-        StartCoroutine(AnimateItemPickup());
-    }
-
-    private IEnumerator AnimateItemPickup()
-    {
-        if (audioSource != null)
-            audioSource.Play();
-
-        Vector3 startScale = transform.localScale;
-        Vector3 endScale = Vector3.zero;
-
-        float currentTime = 0f;
-
-        while (currentTime < duration)
-        {
-            currentTime += Time.deltaTime;
-            transform.localScale = Vector3.Lerp(startScale,endScale, currentTime / duration);
-
-            yield return null;
-        }
-
-        Destroy(gameObject);
-    }
-    public void Store(GameObject interactor)
     {
         InventoryController inventory =
             interactor.GetComponent<InventoryController>();
@@ -98,13 +51,49 @@ public class Item : MonoBehaviour, IInteractable
         }
     }
 
-    public void Consume(GameObject interactor)
+    public void DestroyItem()
     {
-        if (InventoryItem is not EdibleItemSO edible)
+        Collider2D col = GetComponent<Collider2D>();
+
+        if (col != null)
+            col.enabled = false;
+
+        StartCoroutine(AnimateItemPickup());
+    }
+
+    private IEnumerator AnimateItemPickup()
+    {
+        Vector3 startScale = transform.localScale;
+        Vector3 endScale = Vector3.zero;
+
+        float currentTime = 0f;
+
+        while (currentTime < duration)
+        {
+            currentTime += Time.deltaTime;
+
+            transform.localScale =
+                Vector3.Lerp(
+                    startScale,
+                    endScale,
+                    currentTime / duration);
+
+            yield return null;
+        }
+
+        Destroy(gameObject);
+    }
+
+#if UNITY_EDITOR
+    private void OnDrawGizmosSelected()
+    {
+        if (interactionAnchor == null)
             return;
 
-        edible.PerformAction(interactor);
-
-        DestroyItem();
+        Gizmos.color = Color.yellow;
+        Gizmos.DrawWireSphere(
+            interactionAnchor.position,
+            0.1f);
     }
+#endif
 }

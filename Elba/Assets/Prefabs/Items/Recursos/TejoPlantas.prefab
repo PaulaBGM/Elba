@@ -31,6 +31,37 @@ Transform:
   m_Children: []
   m_Father: {fileID: 109600545769576404}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &3552326653271179674
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1391244955523194257}
+  m_Layer: 0
+  m_Name: InteractionPoint
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1391244955523194257
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3552326653271179674}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 2.1, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 1
+  m_Children: []
+  m_Father: {fileID: 5008375842632081558}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &7946353871140584949
 GameObject:
   m_ObjectHideFlags: 0
@@ -165,6 +196,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 1
   m_Children:
+  - {fileID: 1391244955523194257}
   - {fileID: 109600545769576404}
   - {fileID: 838134904991960954}
   - {fileID: 3504154110022142046}
@@ -240,6 +272,7 @@ MonoBehaviour:
     minAmount: 1
     maxAmount: 3
     dropChance: 75
+  interactionAnchor: {fileID: 1391244955523194257}
   fruits:
   - fruit: {fileID: 11400000, guid: dfbe18f7fc2661e40add8e4d83df48f2, type: 2}
     dropChance: 100
@@ -366,18 +399,6 @@ PrefabInstance:
     - target: {fileID: 3852610372841180237, guid: d21d9d5f8c60c4c4fbc0f3c9e49ecef2, type: 3}
       propertyPath: m_Name
       value: Planta_Cicuta
-      objectReference: {fileID: 0}
-    - target: {fileID: 5528577587815746741, guid: d21d9d5f8c60c4c4fbc0f3c9e49ecef2, type: 3}
-      propertyPath: m_LocalScale.x
-      value: 1.2
-      objectReference: {fileID: 0}
-    - target: {fileID: 5528577587815746741, guid: d21d9d5f8c60c4c4fbc0f3c9e49ecef2, type: 3}
-      propertyPath: m_LocalScale.y
-      value: 1.2
-      objectReference: {fileID: 0}
-    - target: {fileID: 5528577587815746741, guid: d21d9d5f8c60c4c4fbc0f3c9e49ecef2, type: 3}
-      propertyPath: m_LocalScale.z
-      value: 1.2
       objectReference: {fileID: 0}
     - target: {fileID: 5528577587815746741, guid: d21d9d5f8c60c4c4fbc0f3c9e49ecef2, type: 3}
       propertyPath: m_LocalPosition.x

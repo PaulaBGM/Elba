@@ -1,97 +1,43 @@
-using TMPro;
 using UnityEngine;
-using UnityEngine.UI;
-using Inventory.Model;
-using Inventory;
 
 public class InteractionPromptUI : MonoBehaviour
 {
     public static InteractionPromptUI Instance { get; private set; }
-    public bool IsOpen => root.activeSelf;
-    [SerializeField] private GameObject root;
-    [SerializeField] private TMP_Text itemName;
 
-    [SerializeField] private Button saveButton;
-    [SerializeField] private Button consumeButton;
+    [SerializeField] private RectTransform root;
 
-    private Item currentItem;
-    private GameObject currentPlayer;
+    private Transform target;
+    private Camera mainCamera;
 
     private void Awake()
     {
-        Instance = this;
+        if (Instance == null)
+            Instance = this;
+        else
+            Destroy(gameObject);
 
-        root.SetActive(false);
+        mainCamera = Camera.main;
+
+        Hide();
     }
 
-    public void Show(Item item, GameObject player)
+    private void LateUpdate()
     {
-        currentItem = item;
-        currentPlayer = player;
+        if (target == null)
+            return;
 
-        itemName.text = item.InventoryItem.Name;
+        root.position =  mainCamera.WorldToScreenPoint(  target.position);
+    }
 
-        saveButton.gameObject.SetActive(true);
-        consumeButton.gameObject.SetActive(true);
-
-        saveButton.onClick.RemoveAllListeners();
-        consumeButton.onClick.RemoveAllListeners();
-
-        saveButton.onClick.AddListener(SaveItem);
-        consumeButton.onClick.AddListener(ConsumeItem);
-
-        root.SetActive(true);
+    public void Show(Transform anchor)
+    {
+        target = anchor;
+        root.gameObject.SetActive(true);
     }
 
     public void Hide()
     {
-        root.SetActive(false);
-
-        currentItem = null;
-        currentPlayer = null;
-    }
-
-    private void SaveItem()
-    {
-        if (currentItem == null)
-            return;
-
-        InventoryController inventory =
-            currentPlayer.GetComponent<InventoryController>();
-
-        int remainder =
-            inventory.InventoryData.AddItem(
-                currentItem.InventoryItem,
-                currentItem.Quantity);
-
-        if (remainder == 0)
-            currentItem.DestroyItem();
-
-        Hide();
-    }
-
-    public void Show(string text)
-    {
-        root.SetActive(true);
-
-        itemName.text = text;
-
-        saveButton.gameObject.SetActive(false);
-        consumeButton.gameObject.SetActive(false);
-    }
-
-    private void ConsumeItem()
-    {
-        if (currentItem == null)
-            return;
-
-        if (currentItem.InventoryItem is not EdibleItemSO edible)
-            return;
-
-        edible.PerformAction(currentPlayer);
-
-        currentItem.DestroyItem();
-
-        Hide();
+        target = null;
+        root.gameObject.SetActive(false);
     }
 }

@@ -284,7 +284,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerStatsSystem: {fileID: 1888820010737167267}
-  playerMovement: {fileID: 0}
+  playerMovement: {fileID: 2671821299160581760}
 --- !u!114 &7187390391256041867
 MonoBehaviour:
   m_ObjectHideFlags: 0

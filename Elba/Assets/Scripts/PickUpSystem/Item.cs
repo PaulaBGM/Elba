@@ -11,10 +11,12 @@ public class Item : MonoBehaviour, IInteractable
     [field: SerializeField]
     public int Quantity { get; set; } = 1;
     
-    public bool IsEdible =>InventoryItem is Inventory.Model.EdibleItemSO;
+    //public bool IsEdible =>InventoryItem is Inventory.Model.EdibleItemSO;
     
-    [SerializeField] private AudioSource audioSource;
     [SerializeField] private float duration = 0.3f;
+    [SerializeField] private Transform interactionAnchor;
+
+    public Transform InteractionAnchor => interactionAnchor;
 
     private void Start()
     {
@@ -24,13 +26,12 @@ public class Item : MonoBehaviour, IInteractable
 
     public void Interact(GameObject interactor)
     {
-     
-        InventoryController inventory = interactor.GetComponent<InventoryController>();
+        InventoryController inventory =  interactor.GetComponent<InventoryController>();
 
         if (inventory == null)
             return;
 
-        int remainder =  inventory.InventoryData.AddItem(InventoryItem, Quantity);
+        int remainder = inventory.InventoryData.AddItem(InventoryItem, Quantity);
 
         if (remainder == 0)
             DestroyItem();
@@ -38,7 +39,7 @@ public class Item : MonoBehaviour, IInteractable
             Quantity = remainder;
     }
 
-    public void InteractOrConsume(GameObject interactor)
+    /*public void InteractOrConsume(GameObject interactor)
     {
         if (InventoryItem is EdibleItemSO)
         {
@@ -47,7 +48,7 @@ public class Item : MonoBehaviour, IInteractable
         }
 
         Interact(interactor);
-    }
+    }*/
 
     public void DestroyItem()
     {
@@ -57,8 +58,6 @@ public class Item : MonoBehaviour, IInteractable
 
     private IEnumerator AnimateItemPickup()
     {
-        if (audioSource != null)
-            audioSource.Play();
 
         Vector3 startScale = transform.localScale;
         Vector3 endScale = Vector3.zero;
@@ -75,7 +74,7 @@ public class Item : MonoBehaviour, IInteractable
 
         Destroy(gameObject);
     }
-    public void Store(GameObject interactor)
+    /*public void Store(GameObject interactor)
     {
         InventoryController inventory =
             interactor.GetComponent<InventoryController>();
@@ -106,5 +105,5 @@ public class Item : MonoBehaviour, IInteractable
         edible.PerformAction(interactor);
 
         DestroyItem();
-    }
+    }*/
 }

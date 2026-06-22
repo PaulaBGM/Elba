@@ -10,6 +10,9 @@ public class Shelter : MonoBehaviour, IInteractable
     private GameObject currentPlayer;
     private PlayerMovement currentMovement;
 
+    [SerializeField] private Transform interactionAnchor;
+    public Transform InteractionAnchor => interactionAnchor;
+
     public void Interact(GameObject interactor)
     {
         currentPlayer = interactor;

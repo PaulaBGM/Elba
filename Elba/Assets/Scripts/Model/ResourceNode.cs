@@ -9,6 +9,9 @@ public class ResourceNode : MonoBehaviour, IAttackable
 
     protected int currentDurability;
 
+    [SerializeField] private Transform interactionAnchor;
+    public Transform InteractionAnchor => interactionAnchor;
+
     private void OnEnable()
     {
         ResetNode();

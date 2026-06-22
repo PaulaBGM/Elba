@@ -60,7 +60,7 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 1.2420663, y: 1.26, z: -0.027153477}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
+  m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 531492216377834470}
   - {fileID: 7396935203275922501}
@@ -127,7 +127,6 @@ MonoBehaviour:
   <InventoryItem>k__BackingField: {fileID: 11400000, guid: 90829d6876ad4254bb83efef18f13e78, type: 2}
   <Quantity>k__BackingField: 1
   interactionAnchor: {fileID: 531492216377834470}
-  audioSource: {fileID: 0}
   duration: 0.3
 --- !u!1 &5976096850099073374
 GameObject:

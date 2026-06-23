@@ -26,17 +26,25 @@ public class PlayerInteractionSystem : MonoBehaviour
 
     private void OnTriggerStay2D(Collider2D other)
     {
-        IInteractable interactable = other.GetComponentInParent<IInteractable>();
+        IInteractable interactable =
+            other.GetComponentInParent<IInteractable>();
 
         if (interactable == null)
-            interactable = other.GetComponentInChildren<IInteractable>();
+            interactable =
+                other.GetComponentInChildren<IInteractable>();
 
         if (interactable == null)
             return;
 
+        if (currentInteractable == interactable)
+            return;
+
         currentInteractable = interactable;
 
-        promptUI.Show( interactable.InteractionAnchor);
+        promptUI.Show(
+            interactable.InteractionAnchor);
+
+        UIActionBar.Instance.ShowActions(interactable.GetActions());
     }
 
     private void OnTriggerExit2D(Collider2D other)
@@ -51,10 +59,13 @@ public class PlayerInteractionSystem : MonoBehaviour
         if (interactable == null)
             return;
 
-        if (currentInteractable == interactable)
-        {
-            currentInteractable = null;
-            promptUI.Hide();
-        }
+        if (currentInteractable != interactable)
+            return;
+
+        currentInteractable = null;
+
+        promptUI.Hide();
+
+        UIActionBar.Instance.Hide();
     }
 }

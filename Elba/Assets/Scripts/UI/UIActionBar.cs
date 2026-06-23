@@ -3,10 +3,18 @@ using UnityEngine;
 
 public class UIActionBar : MonoBehaviour
 {
+    public static UIActionBar Instance { get; private set; }
+
     [SerializeField] private UIActionSlot slotPrefab;
     [SerializeField] private Transform container;
 
     private readonly List<UIActionSlot> activeSlots = new();
+
+    private void Awake()
+    {
+        Instance = this;
+        Hide();
+    }
 
     public void ShowActions(List<ActionData> actions)
     {
@@ -37,7 +45,8 @@ public class UIActionBar : MonoBehaviour
     {
         foreach (UIActionSlot slot in activeSlots)
         {
-            Destroy(slot.gameObject);
+            if (slot != null)
+                Destroy(slot.gameObject);
         }
 
         activeSlots.Clear();

@@ -63,10 +63,18 @@ public class Item : MonoBehaviour, IInteractable
     }
     public List<ActionData> GetActions()
     {
-        return new List<ActionData>()
-    {
-        new("Recoger", "E")
-    };
+        List<ActionData> actions = new();
+
+        actions.Add( new ActionData("Guardar","R"));
+
+        if (InventoryItem is EdibleItemSO)
+        {
+            actions.Add( new ActionData( "Consumir",   "F"));
+        }
+
+        actions.Add( new ActionData("Tirar","Q"));
+
+        return actions;
     }
     private IEnumerator AnimateItemPickup()
     {

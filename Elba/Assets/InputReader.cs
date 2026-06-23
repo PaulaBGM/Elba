@@ -12,7 +12,11 @@ public class InputReader : MonoBehaviour
     public event Action OnInteract;
     public event Action OnInventory;
     public event Action OnAttack;
+
+    public event Action OnStorePickup;
+    public event Action OnDropPickup;
     public event Action OnConsumePickup;
+
     public event Action OnUISelect;
     public event Action OnUIRightClick;
     public event Action OnSubmitPressed;
@@ -34,12 +38,14 @@ public class InputReader : MonoBehaviour
 
         inputActions.Player.Interact.performed += OnInteractPerformed;
         inputActions.Player.Attack.performed += OnAttackPerformed;
-        inputActions.Player.Consume.performed += OnConsumePerformed;
 
         inputActions.UI.ToggleInventory.performed += OnInventoryPerformed;
         inputActions.UI.Select.performed += OnUISelectPerformed;
         inputActions.UI.RightClick.performed += OnUIRightClickPerformed;
         inputActions.UI.Submit.performed += OnSubmitPerformed;
+        inputActions.Player.Store.performed += OnStorePerformed;
+        inputActions.Player.Drop.performed += OnDropPerformed;
+        inputActions.Player.Consume.performed += OnConsumePerformed;
 
         inputActions.UI.Point.performed += OnPoint;
         inputActions.UI.Point.canceled += OnPoint;
@@ -52,12 +58,14 @@ public class InputReader : MonoBehaviour
 
         inputActions.Player.Interact.performed -= OnInteractPerformed;
         inputActions.Player.Attack.performed -= OnAttackPerformed;
-        inputActions.Player.Consume.performed -= OnConsumePerformed;
 
         inputActions.UI.ToggleInventory.performed -= OnInventoryPerformed;
         inputActions.UI.Select.performed -= OnUISelectPerformed;
         inputActions.UI.RightClick.performed -= OnUIRightClickPerformed;
         inputActions.UI.Submit.performed -= OnSubmitPerformed;
+        inputActions.Player.Store.performed -= OnStorePerformed;
+        inputActions.Player.Drop.performed -= OnDropPerformed;
+        inputActions.Player.Consume.performed -= OnConsumePerformed;
 
         inputActions.UI.Point.performed -= OnPoint;
         inputActions.UI.Point.canceled -= OnPoint;
@@ -108,5 +116,14 @@ public class InputReader : MonoBehaviour
     private void OnSubmitPerformed(InputAction.CallbackContext context)
     {
         OnSubmitPressed?.Invoke();
+    }
+    private void OnStorePerformed(InputAction.CallbackContext context)
+    {
+        OnStorePickup?.Invoke();
+    }
+
+    private void OnDropPerformed(InputAction.CallbackContext context)
+    {
+        OnDropPickup?.Invoke();
     }
 }

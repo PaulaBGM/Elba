@@ -2,6 +2,7 @@ using Inventory.Model;
 using System.Collections;
 using UnityEngine;
 using Inventory;
+using System.Collections.Generic;
 
 public class Item : MonoBehaviour, IInteractable
 {
@@ -60,7 +61,13 @@ public class Item : MonoBehaviour, IInteractable
 
         StartCoroutine(AnimateItemPickup());
     }
-
+    public List<ActionData> GetActions()
+    {
+        return new List<ActionData>()
+    {
+        new("Recoger", "E")
+    };
+    }
     private IEnumerator AnimateItemPickup()
     {
         Vector3 startScale = transform.localScale;

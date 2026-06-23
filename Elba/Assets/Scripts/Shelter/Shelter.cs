@@ -1,5 +1,6 @@
 using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 
 public class Shelter : MonoBehaviour, IInteractable
 {
@@ -31,7 +32,13 @@ public class Shelter : MonoBehaviour, IInteractable
 
         ShelterUI.Instance.Open(this);
     }
-
+    public List<ActionData> GetActions()
+    {
+        return new List<ActionData>()
+    {
+        new("Entrar", "E")
+    };
+    }
     public void Sleep()
     {
         StartCoroutine(SleepRoutine());

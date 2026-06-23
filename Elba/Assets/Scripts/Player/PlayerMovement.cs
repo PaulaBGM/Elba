@@ -8,6 +8,8 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private float walkSpeed = 5f;
     [SerializeField] private float sprintSpeed = 8f;
     [SerializeField] private InputReader input;
+    [SerializeField] private Transform bottomLeft;
+    [SerializeField] private Transform topRight;
 
     [Header("References")]
     [SerializeField] private PlayerStatsSystem stats;
@@ -95,6 +97,19 @@ public class PlayerMovement : MonoBehaviour
         }
 
         Move();
+        Vector3 position = transform.position;
+
+        position.x = Mathf.Clamp(
+            position.x,
+            bottomLeft.position.x,
+            topRight.position.x);
+
+        position.y = Mathf.Clamp(
+            position.y,
+            bottomLeft.position.y,
+            topRight.position.y);
+
+        transform.position = position;
     }
 
     private void ReadInput()

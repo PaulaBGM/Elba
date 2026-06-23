@@ -5,7 +5,17 @@ public class PlayerInteractionSystem : MonoBehaviour
     [SerializeField] private InputReader input;
     [SerializeField] private InteractionPromptUI promptUI;
 
+    [Header("Held Item")]
+    [SerializeField] private SpriteRenderer heldItemRenderer;
+
     private IInteractable currentInteractable;
+    private Item heldItem;
+
+    private void Awake()
+    {
+        if (heldItemRenderer != null)
+            heldItemRenderer.enabled = false;
+    }
 
     private void OnEnable()
     {
@@ -33,46 +43,86 @@ public class PlayerInteractionSystem : MonoBehaviour
 
     private void Interact()
     {
-        currentInteractable?.Interact(gameObject);
-    }
-    private void StoreItem()
-    {
-        if (currentInteractable is not Item item)
+        if (heldItem != null)
             return;
 
-        item.Store(gameObject);
+        if (currentInteractable is Item item)
+        {
+            PickUpItem(item);
+            return;
+        }
 
-        ClearInteraction();
+        currentInteractable?.Interact(gameObject);
+    }
+
+    private void PickUpItem(Item item)
+    {
+        heldItem = item;
+
+        heldItemRenderer.sprite =
+   item.InventoryItem.ItemImage;
+
+        heldItemRenderer.enabled = true;
+
+        item.HideWorldRepresentation();
+
+        promptUI.Hide();
+
+        UIActionBar.Instance.ShowActions(item.GetActions());
+    }
+
+    private void StoreItem()
+    {
+        if (heldItem == null)
+            return;
+
+        heldItem.Store(gameObject);
+
+        ClearHeldItem();
     }
 
     private void ConsumeItem()
     {
-        if (currentInteractable is not Item item)
+        if (heldItem == null)
             return;
 
-        item.Consume(gameObject);
+        heldItem.Consume(gameObject);
 
-        ClearInteraction();
+        ClearHeldItem();
     }
-    private void ClearInteraction()
-    {
-        currentInteractable = null;
 
-        promptUI.Hide();
+    private void DropItem()
+    {
+        if (heldItem == null)
+            return;
+
+        PlayerMovement movement = GetComponent<PlayerMovement>();
+
+        Vector3 dropPosition = transform.position;
+
+        if (movement != null)
+            dropPosition += (Vector3)movement.LastDirection;
+
+        heldItem.ShowWorldRepresentation(dropPosition);
+
+        ClearHeldItem();
+    }
+
+    private void ClearHeldItem()
+    {
+        heldItem = null;
+
+        heldItemRenderer.sprite = null;
+        heldItemRenderer.enabled = false;
 
         UIActionBar.Instance.Hide();
     }
-    private void DropItem()
-    {
-        if (currentInteractable is not Item item)
-            return;
 
-        item.Drop(gameObject);
-
-        ClearInteraction();
-    }
     private void OnTriggerStay2D(Collider2D other)
     {
+        if (heldItem != null)
+            return;
+
         IInteractable interactable =
             other.GetComponentInParent<IInteractable>();
 
@@ -90,12 +140,13 @@ public class PlayerInteractionSystem : MonoBehaviour
 
         promptUI.Show(
             interactable.InteractionAnchor);
-
-        UIActionBar.Instance.ShowActions(interactable.GetActions());
     }
 
     private void OnTriggerExit2D(Collider2D other)
     {
+        if (heldItem != null)
+            return;
+
         IInteractable interactable =
             other.GetComponentInParent<IInteractable>();
 
@@ -112,7 +163,5 @@ public class PlayerInteractionSystem : MonoBehaviour
         currentInteractable = null;
 
         promptUI.Hide();
-
-        UIActionBar.Instance.Hide();
     }
 }

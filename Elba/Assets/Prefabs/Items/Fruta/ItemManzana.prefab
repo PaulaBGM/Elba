@@ -49,7 +49,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   <InventoryItem>k__BackingField: {fileID: 11400000, guid: d06ca2502cd513f4c96e9bd238a3344c, type: 2}
   <Quantity>k__BackingField: 1
-  audioSource: {fileID: 3436644956228477622}
+  interactionAnchor: {fileID: 0}
+  spriteRenderer: {fileID: 0}
+  itemCollider: {fileID: 0}
   duration: 0.3
 --- !u!58 &5971257862542617067
 CircleCollider2D:

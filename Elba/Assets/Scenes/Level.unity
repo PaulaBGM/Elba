@@ -13766,6 +13766,14 @@ PrefabInstance:
       propertyPath: inventoryUI
       value: 
       objectReference: {fileID: 1139510537}
+    - target: {fileID: 2671821299160581760, guid: 958f41d0771e1644f9dc50602fb8b75d, type: 3}
+      propertyPath: topRight
+      value: 
+      objectReference: {fileID: 95435810}
+    - target: {fileID: 2671821299160581760, guid: 958f41d0771e1644f9dc50602fb8b75d, type: 3}
+      propertyPath: bottomLeft
+      value: 
+      objectReference: {fileID: 764893924}
     - target: {fileID: 4369556796060204158, guid: 958f41d0771e1644f9dc50602fb8b75d, type: 3}
       propertyPath: item
       value: 
@@ -13831,8 +13839,7 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
-    m_RemovedGameObjects:
-    - {fileID: 4086462412357595916, guid: 958f41d0771e1644f9dc50602fb8b75d, type: 3}
+    m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 958f41d0771e1644f9dc50602fb8b75d, type: 3}
@@ -31383,7 +31390,7 @@ Tilemap:
       - {fileID: -1325603787, guid: 84a058c958f1ae54ba983f2a709e3403, type: 3}
       - {fileID: 1881204109, guid: 84a058c958f1ae54ba983f2a709e3403, type: 3}
       - {fileID: 1046905870, guid: 84a058c958f1ae54ba983f2a709e3403, type: 3}
-      m_AnimationSpeed: 3.279788
+      m_AnimationSpeed: 3.3466272
       m_AnimationTimeOffset: 0
       m_Flags: 0
   m_TileAssetArray:

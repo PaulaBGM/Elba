@@ -51,7 +51,39 @@ public class Item : MonoBehaviour, IInteractable
             Quantity = remainder;
         }
     }
+    public void Store(GameObject interactor)
+    {
+        InventoryController inventory =
+            interactor.GetComponent<InventoryController>();
 
+        if (inventory == null)
+            return;
+
+        int remainder =
+            inventory.InventoryData.AddItem(
+                InventoryItem,
+                Quantity);
+
+        if (remainder == 0)
+            DestroyItem();
+        else
+            Quantity = remainder;
+    }
+
+    public void Consume(GameObject interactor)
+    {
+        if (InventoryItem is not EdibleItemSO edible)
+            return;
+
+        edible.PerformAction(interactor);
+
+        DestroyItem();
+    }
+
+    public void Drop(GameObject interactor)
+    {
+        DestroyItem();
+    }
     public void DestroyItem()
     {
         Collider2D col = GetComponent<Collider2D>();
@@ -61,20 +93,19 @@ public class Item : MonoBehaviour, IInteractable
 
         StartCoroutine(AnimateItemPickup());
     }
+    private static readonly List<ActionData> edibleActions =
+    new()
+    {
+        new("Guardar", "R"),
+        new("Consumir", "F"),
+        new("Tirar", "Q")
+    };
+
+    private static readonly List<ActionData> normalActions = new(){ new("Guardar", "R"),new("Tirar", "Q") };
+
     public List<ActionData> GetActions()
     {
-        List<ActionData> actions = new();
-
-        actions.Add( new ActionData("Guardar","R"));
-
-        if (InventoryItem is EdibleItemSO)
-        {
-            actions.Add( new ActionData( "Consumir",   "F"));
-        }
-
-        actions.Add( new ActionData("Tirar","Q"));
-
-        return actions;
+        return InventoryItem is EdibleItemSO?edibleActions: normalActions;
     }
     private IEnumerator AnimateItemPickup()
     {

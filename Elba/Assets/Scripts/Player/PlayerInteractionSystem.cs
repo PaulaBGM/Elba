@@ -9,21 +9,68 @@ public class PlayerInteractionSystem : MonoBehaviour
 
     private void OnEnable()
     {
-        if (input != null)
-            input.OnInteract += Interact;
+        if (input == null)
+            return;
+
+        input.OnInteract += Interact;
+
+        input.OnStorePickup += StoreItem;
+        input.OnConsumePickup += ConsumeItem;
+        input.OnDropPickup += DropItem;
     }
 
     private void OnDisable()
     {
-        if (input != null)
-            input.OnInteract -= Interact;
+        if (input == null)
+            return;
+
+        input.OnInteract -= Interact;
+
+        input.OnStorePickup -= StoreItem;
+        input.OnConsumePickup -= ConsumeItem;
+        input.OnDropPickup -= DropItem;
     }
 
     private void Interact()
     {
         currentInteractable?.Interact(gameObject);
     }
+    private void StoreItem()
+    {
+        if (currentInteractable is not Item item)
+            return;
 
+        item.Store(gameObject);
+
+        ClearInteraction();
+    }
+
+    private void ConsumeItem()
+    {
+        if (currentInteractable is not Item item)
+            return;
+
+        item.Consume(gameObject);
+
+        ClearInteraction();
+    }
+    private void ClearInteraction()
+    {
+        currentInteractable = null;
+
+        promptUI.Hide();
+
+        UIActionBar.Instance.Hide();
+    }
+    private void DropItem()
+    {
+        if (currentInteractable is not Item item)
+            return;
+
+        item.Drop(gameObject);
+
+        ClearInteraction();
+    }
     private void OnTriggerStay2D(Collider2D other)
     {
         IInteractable interactable =

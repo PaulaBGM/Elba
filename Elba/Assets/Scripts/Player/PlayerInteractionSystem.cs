@@ -11,6 +11,9 @@ public class PlayerInteractionSystem : MonoBehaviour
     private IInteractable currentInteractable;
     private Item heldItem;
 
+    public Item HeldItem => heldItem;
+    public bool HasHeldItem => heldItem != null;
+
     private void Awake()
     {
         if (heldItemRenderer != null)
@@ -23,7 +26,6 @@ public class PlayerInteractionSystem : MonoBehaviour
             return;
 
         input.OnInteract += Interact;
-
         input.OnStorePickup += StoreItem;
         input.OnConsumePickup += ConsumeItem;
         input.OnDropPickup += DropItem;
@@ -35,7 +37,6 @@ public class PlayerInteractionSystem : MonoBehaviour
             return;
 
         input.OnInteract -= Interact;
-
         input.OnStorePickup -= StoreItem;
         input.OnConsumePickup -= ConsumeItem;
         input.OnDropPickup -= DropItem;
@@ -44,7 +45,10 @@ public class PlayerInteractionSystem : MonoBehaviour
     private void Interact()
     {
         if (heldItem != null)
+        {
+            currentInteractable?.Interact(gameObject);
             return;
+        }
 
         if (currentInteractable is Item item)
         {
@@ -60,7 +64,7 @@ public class PlayerInteractionSystem : MonoBehaviour
         heldItem = item;
 
         heldItemRenderer.sprite =
-   item.InventoryItem.ItemImage;
+            item.InventoryItem.ItemImage;
 
         heldItemRenderer.enabled = true;
 
@@ -68,7 +72,8 @@ public class PlayerInteractionSystem : MonoBehaviour
 
         promptUI.Hide();
 
-        UIActionBar.Instance.ShowActions(item.GetActions());
+        UIActionBar.Instance.ShowActions(
+            item.GetActions());
     }
 
     private void StoreItem()
@@ -96,14 +101,18 @@ public class PlayerInteractionSystem : MonoBehaviour
         if (heldItem == null)
             return;
 
-        PlayerMovement movement = GetComponent<PlayerMovement>();
+        PlayerMovement movement =
+            GetComponent<PlayerMovement>();
 
-        Vector3 dropPosition = transform.position;
+        Vector3 dropPosition =
+            transform.position;
 
         if (movement != null)
-            dropPosition += (Vector3)movement.LastDirection;
+            dropPosition +=
+                (Vector3)movement.LastDirection;
 
-        heldItem.ShowWorldRepresentation(dropPosition);
+        heldItem.ShowWorldRepresentation(
+            dropPosition);
 
         ClearHeldItem();
     }
@@ -118,11 +127,23 @@ public class PlayerInteractionSystem : MonoBehaviour
         UIActionBar.Instance.Hide();
     }
 
+    public void RefreshHeldItemVisual()
+    {
+        if (heldItem == null)
+        {
+            heldItemRenderer.sprite = null;
+            heldItemRenderer.enabled = false;
+            return;
+        }
+
+        heldItemRenderer.sprite =
+            heldItem.InventoryItem.ItemImage;
+
+        heldItemRenderer.enabled = true;
+    }
+
     private void OnTriggerStay2D(Collider2D other)
     {
-        if (heldItem != null)
-            return;
-
         IInteractable interactable =
             other.GetComponentInParent<IInteractable>();
 
@@ -131,6 +152,10 @@ public class PlayerInteractionSystem : MonoBehaviour
                 other.GetComponentInChildren<IInteractable>();
 
         if (interactable == null)
+            return;
+
+        if (heldItem != null &&
+            interactable is Item)
             return;
 
         if (currentInteractable == interactable)
@@ -144,9 +169,6 @@ public class PlayerInteractionSystem : MonoBehaviour
 
     private void OnTriggerExit2D(Collider2D other)
     {
-        if (heldItem != null)
-            return;
-
         IInteractable interactable =
             other.GetComponentInParent<IInteractable>();
 

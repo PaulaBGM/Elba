@@ -21,6 +21,8 @@ MonoBehaviour:
   <WorldPrefab>k__BackingField: {fileID: 3911143015674868831, guid: 5333fe212b3398740b9b35ab76c402e3, type: 3}
   <DefaultParametersList>k__BackingField: []
   <Categories>k__BackingField: 1
+  canCook: 1
+  cookedResult: {fileID: 11400000, guid: 311f23339c717f642a15da012b3afd7e, type: 2}
   modifiersData:
   - statModifier: {fileID: 11400000, guid: de17128eaa1e4a04583f6e3aa788881b, type: 2}
     value: 50

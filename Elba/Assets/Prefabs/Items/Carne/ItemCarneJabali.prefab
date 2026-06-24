@@ -101,10 +101,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4111c69f844622244b8c3c86d3bea044, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  <InventoryItem>k__BackingField: {fileID: 11400000, guid: 4b50a69a2eea3d142a07f9fbefdb7dba, type: 2}
+  inventoryItem: {fileID: 11400000, guid: 4b50a69a2eea3d142a07f9fbefdb7dba, type: 2}
   <Quantity>k__BackingField: 1
-  audioSource: {fileID: 0}
-  duration: 0.3
+  interactionAnchor: {fileID: 0}
+  spriteRenderer: {fileID: 0}
+  itemCollider: {fileID: 0}
 --- !u!61 &8372212182112713122
 BoxCollider2D:
   m_ObjectHideFlags: 0

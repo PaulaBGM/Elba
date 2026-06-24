@@ -1,13 +1,14 @@
-using Inventory.Model;
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Inventory;
+using Inventory.Model;
 
 public class Item : MonoBehaviour, IInteractable
 {
-    [field: SerializeField]
-    public ItemSO InventoryItem { get; private set; }
+    [Header("Item")]
+    [SerializeField] private ItemSO inventoryItem;
+
+    public ItemSO InventoryItem => inventoryItem;
 
     [field: SerializeField]
     public int Quantity { get; set; } = 1;
@@ -18,9 +19,6 @@ public class Item : MonoBehaviour, IInteractable
     [Header("References")]
     [SerializeField] private SpriteRenderer spriteRenderer;
     [SerializeField] private Collider2D itemCollider;
-
-    [Header("Feedback")]
-    [SerializeField] private float duration = 0.3f;
 
     public Transform InteractionAnchor => interactionAnchor;
 
@@ -50,14 +48,32 @@ public class Item : MonoBehaviour, IInteractable
 
     private void Start()
     {
-        if (spriteRenderer != null)
-            spriteRenderer.sprite = InventoryItem.ItemImage;
+        RefreshVisual();
+    }
+
+    private void RefreshVisual()
+    {
+        if (spriteRenderer != null &&
+            inventoryItem != null)
+        {
+            spriteRenderer.sprite =
+                inventoryItem.ItemImage;
+        }
     }
 
     public void Interact(GameObject interactor)
     {
-        // Ya no se usa para guardar automáticamente.
-        // El PlayerInteractionSystem se encarga de cogerlo en las manos.
+        // El PlayerInteractionSystem se encarga de recogerlo.
+    }
+
+    public void SetItem(ItemSO newItem)
+    {
+        if (newItem == null)
+            return;
+
+        inventoryItem = newItem;
+
+        RefreshVisual();
     }
 
     public void Store(GameObject interactor)
@@ -69,7 +85,7 @@ public class Item : MonoBehaviour, IInteractable
             return;
 
         inventory.InventoryData.AddItem(
-            InventoryItem,
+            inventoryItem,
             Quantity);
 
         Destroy(gameObject);
@@ -77,7 +93,7 @@ public class Item : MonoBehaviour, IInteractable
 
     public void Consume(GameObject interactor)
     {
-        if (InventoryItem is not EdibleItemSO edible)
+        if (inventoryItem is not EdibleItemSO edible)
             return;
 
         edible.PerformAction(interactor);
@@ -94,9 +110,9 @@ public class Item : MonoBehaviour, IInteractable
             itemCollider.enabled = false;
     }
 
-    public void ShowWorldRepresentation(Vector3 worldPosition)
+    public void ShowWorldRepresentation(Vector3 position)
     {
-        transform.position = worldPosition;
+        transform.position = position;
 
         if (spriteRenderer != null)
             spriteRenderer.enabled = true;
@@ -105,9 +121,24 @@ public class Item : MonoBehaviour, IInteractable
             itemCollider.enabled = true;
     }
 
+    public bool CanCook()
+    {
+        return inventoryItem != null &&
+               inventoryItem.canCook &&
+               inventoryItem.cookedResult != null;
+    }
+
+    public void Cook()
+    {
+        if (!CanCook())
+            return;
+
+        SetItem(inventoryItem.cookedResult);
+    }
+
     public List<ActionData> GetActions()
     {
-        return InventoryItem is EdibleItemSO
+        return inventoryItem is EdibleItemSO
             ? edibleActions
             : normalActions;
     }
@@ -119,6 +150,7 @@ public class Item : MonoBehaviour, IInteractable
             return;
 
         Gizmos.color = Color.yellow;
+
         Gizmos.DrawWireSphere(
             interactionAnchor.position,
             0.1f);

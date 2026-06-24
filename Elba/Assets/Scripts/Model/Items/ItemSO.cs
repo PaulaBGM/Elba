@@ -35,6 +35,10 @@ namespace Inventory.Model
 
         [field: SerializeField]
         public ItemCategory Categories { get; private set; }
+       
+        [Header("Cooking")]
+        public bool canCook;
+        public ItemSO cookedResult;
 
     }
 

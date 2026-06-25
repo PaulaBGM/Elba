@@ -12,6 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c5f2a775e4a44e549a12a1e48bb948e8, type: 3}
   m_Name: HogueraRecipe
   m_EditorClassIdentifier: 
-  ingredients: []
-  result: {fileID: 0}
-  amount: 0
+  ingredients:
+  - item: {fileID: 11400000, guid: 0eaa5afa9e04daa41967950b01c16136, type: 2}
+    amount: 1
+  - item: {fileID: 11400000, guid: 90829d6876ad4254bb83efef18f13e78, type: 2}
+    amount: 1
+  result: {fileID: 11400000, guid: 5ef000a2a1af7284d85a118a92ddc411, type: 2}
+  amount: 1

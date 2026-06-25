@@ -111,8 +111,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5528577587815746741}
-  - component: {fileID: 5678984890803158619}
   - component: {fileID: 7656030021083272043}
+  - component: {fileID: 5678984890803158619}
   m_Layer: 0
   m_Name: Planta_Cicuta
   m_TagString: Untagged
@@ -137,25 +137,6 @@ Transform:
   - {fileID: 6990675182976333578}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &5678984890803158619
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3852610372841180237}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a1379e7bcb929d645b34346ab4e549ed, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  maxDurability: 1
-  rewards:
-  - item: {fileID: 11400000, guid: c2aedee366489944682dc3407d15e80f, type: 2}
-    minAmount: 1
-    maxAmount: 2
-    dropChance: 100
-  interactionAnchor: {fileID: 8001976418247550113}
 --- !u!61 &7656030021083272043
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -202,6 +183,25 @@ BoxCollider2D:
   m_AutoTiling: 0
   m_Size: {x: 0.35, y: 0.59}
   m_EdgeRadius: 0
+--- !u!114 &5678984890803158619
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3852610372841180237}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a1379e7bcb929d645b34346ab4e549ed, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxDurability: 1
+  rewards:
+  - item: {fileID: 11400000, guid: c2aedee366489944682dc3407d15e80f, type: 2}
+    minAmount: 1
+    maxAmount: 2
+    dropChance: 100
+  interactionAnchor: {fileID: 8001976418247550113}
 --- !u!1 &7287048154992810993
 GameObject:
   m_ObjectHideFlags: 0

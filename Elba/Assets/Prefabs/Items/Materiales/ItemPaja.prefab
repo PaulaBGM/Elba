@@ -248,11 +248,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4111c69f844622244b8c3c86d3bea044, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  <InventoryItem>k__BackingField: {fileID: 11400000, guid: 97d49e4b311e806418de7a71e112f455, type: 2}
+  inventoryItem: {fileID: 11400000, guid: 97d49e4b311e806418de7a71e112f455, type: 2}
   <Quantity>k__BackingField: 1
   interactionAnchor: {fileID: 465318089022584009}
-  audioSource: {fileID: 5887290763849511099}
-  duration: 0.3
+  spriteRenderer: {fileID: 3071863775883147225}
+  itemCollider: {fileID: 2782109050305581779}
 --- !u!114 &6339053227506716821
 MonoBehaviour:
   m_ObjectHideFlags: 0

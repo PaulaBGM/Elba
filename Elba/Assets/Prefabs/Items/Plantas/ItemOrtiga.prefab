@@ -80,11 +80,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4111c69f844622244b8c3c86d3bea044, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  <InventoryItem>k__BackingField: {fileID: 11400000, guid: b2a58b70685845d4e91451c723dc734c, type: 2}
+  inventoryItem: {fileID: 11400000, guid: b2a58b70685845d4e91451c723dc734c, type: 2}
   <Quantity>k__BackingField: 1
   interactionAnchor: {fileID: 1417418023641672331}
-  audioSource: {fileID: 0}
-  duration: 0.3
+  spriteRenderer: {fileID: 3476284899422707257}
+  itemCollider: {fileID: 6898085741092696969}
 --- !u!212 &3476284899422707257
 SpriteRenderer:
   m_ObjectHideFlags: 0

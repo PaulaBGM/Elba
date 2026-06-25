@@ -201,7 +201,7 @@ MonoBehaviour:
     minAmount: 2
     maxAmount: 5
     dropChance: 100
-  interactionAnchor: {fileID: 0}
+  interactionAnchor: {fileID: 2711566717586457304}
 --- !u!1 &4601888539775167222
 GameObject:
   m_ObjectHideFlags: 0

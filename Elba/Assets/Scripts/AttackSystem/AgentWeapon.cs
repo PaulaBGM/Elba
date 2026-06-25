@@ -4,8 +4,8 @@ using Inventory.Model;
 
 public class AgentWeapon : MonoBehaviour
 {
-    [Header("Current Weapon")]
-    [SerializeField] private EquippableItemSO weapon;
+    [Header("Current Equipment")]
+    [SerializeField] private EquippableItemSO equippedItem;
 
     [Header("Inventory")]
     [SerializeField] private InventorySO inventoryData;
@@ -13,19 +13,21 @@ public class AgentWeapon : MonoBehaviour
     [Header("Parameters")]
     [SerializeField] private List<ItemParameter> parametersToModify = new();
     [SerializeField] private List<ItemParameter> itemCurrentState = new();
-    [SerializeField]
-    private ItemParameterSO durabilityParameter;
+
+    [SerializeField] private ItemParameterSO durabilityParameter;
 
     [Header("Visual")]
     [SerializeField] private SpriteRenderer armPointRenderer;
 
-    public EquippableItemSO CurrentWeapon => weapon;
+    public EquippableItemSO CurrentWeapon => equippedItem;
+    public EquippableItemSO EquippedItem => equippedItem;
+    public bool HasEquippedItem => equippedItem != null;
 
     public ToolType CurrentToolType
     {
         get
         {
-            if (weapon is ToolItemSO tool)
+            if (equippedItem is ToolItemSO tool)
                 return tool.ToolType;
 
             return ToolType.None;
@@ -34,7 +36,7 @@ public class AgentWeapon : MonoBehaviour
 
     private void Awake()
     {
-        UpdateWeaponVisual();
+        UpdateVisual();
     }
 
     public bool HasTool(ToolType toolType)
@@ -42,17 +44,24 @@ public class AgentWeapon : MonoBehaviour
         return CurrentToolType == toolType;
     }
 
-    public void SetWeapon( EquippableItemSO weaponItemSO,List<ItemParameter> itemState)
+    public T GetEquipped<T>() where T : EquippableItemSO
     {
-        if (weapon != null)
+        return equippedItem as T;
+    }
+
+    public void SetWeapon(
+        EquippableItemSO item,
+        List<ItemParameter> itemState)
+    {
+        if (equippedItem != null)
         {
             inventoryData.AddItem(
-                weapon,
+                equippedItem,
                 1,
                 itemCurrentState);
         }
 
-        weapon = weaponItemSO;
+        equippedItem = item;
 
         itemCurrentState =
             itemState != null
@@ -61,30 +70,56 @@ public class AgentWeapon : MonoBehaviour
 
         ModifyParameters();
 
-        UpdateWeaponVisual();
+        UpdateVisual();
 
-        Debug.Log($"Equipada herramienta: {weapon.Name}");
+        Debug.Log($"[Equipment] Equipado: {equippedItem.Name}");
     }
-    public bool IsBroken()
-    {
-        return GetDurability() <= 0;
-    }
+
     public void UnequipWeapon()
     {
-        if (weapon == null)
+        if (equippedItem == null)
             return;
 
         inventoryData.AddItem(
-            weapon,
+            equippedItem,
             1,
             itemCurrentState);
 
-        Debug.Log($"Desequipada herramienta: {weapon.Name}");
+        Debug.Log($"[Equipment] Desequipado: {equippedItem.Name}");
 
-        weapon = null;
+        equippedItem = null;
         itemCurrentState.Clear();
 
-        UpdateWeaponVisual();
+        UpdateVisual();
+    }
+
+    public void RefreshVisual()
+    {
+        UpdateVisual();
+    }
+
+    private void UpdateVisual()
+    {
+        if (armPointRenderer == null)
+            return;
+
+        if (equippedItem == null)
+        {
+            armPointRenderer.sprite = null;
+            armPointRenderer.enabled = false;
+            return;
+        }
+
+        if (equippedItem is CupItemSO cup)
+        {
+            armPointRenderer.sprite = cup.CurrentSprite;
+        }
+        else
+        {
+            armPointRenderer.sprite = equippedItem.ItemImage;
+        }
+
+        armPointRenderer.enabled = true;
     }
 
     private void ModifyParameters()
@@ -105,21 +140,6 @@ public class AgentWeapon : MonoBehaviour
         }
     }
 
-    private void UpdateWeaponVisual()
-    {
-        if (armPointRenderer == null)
-            return;
-
-        if (weapon == null)
-        {
-            armPointRenderer.sprite = null;
-            armPointRenderer.enabled = false;
-            return;
-        }
-
-        armPointRenderer.sprite = weapon.ItemImage;
-        armPointRenderer.enabled = true;
-    }
     public float GetDurability()
     {
         foreach (ItemParameter parameter in itemCurrentState)
@@ -129,6 +149,11 @@ public class AgentWeapon : MonoBehaviour
         }
 
         return 0;
+    }
+
+    public bool IsBroken()
+    {
+        return GetDurability() <= 0;
     }
 
     public void DamageTool(float amount)
@@ -152,9 +177,10 @@ public class AgentWeapon : MonoBehaviour
             break;
         }
     }
+
     public int GetResourceDamage()
     {
-        if (weapon is ToolItemSO tool)
+        if (equippedItem is ToolItemSO tool)
             return tool.ResourceDamage;
 
         return 1;
@@ -162,7 +188,7 @@ public class AgentWeapon : MonoBehaviour
 
     public float GetAnimalDamage()
     {
-        if (weapon is ToolItemSO tool)
+        if (equippedItem is ToolItemSO tool)
             return tool.AnimalDamage;
 
         return 5f;
@@ -170,10 +196,9 @@ public class AgentWeapon : MonoBehaviour
 
     public int GetDurabilityCost()
     {
-        if (weapon is ToolItemSO tool)
+        if (equippedItem is ToolItemSO tool)
             return tool.DurabilityCost;
 
         return 1;
     }
-   
 }

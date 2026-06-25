@@ -114,6 +114,7 @@ GameObject:
   - component: {fileID: 9104328379036483147}
   - component: {fileID: 8139261564140262442}
   - component: {fileID: 1767919963987821650}
+  - component: {fileID: 5331043639691370025}
   m_Layer: 3
   m_Name: Manzano
   m_TagString: Untagged
@@ -131,7 +132,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 1.2420663, y: -0.28062776, z: 0}
-  m_LocalScale: {x: 1.3, y: 1.3, z: 1.3}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 3508441996156771658}
@@ -191,7 +192,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4258950170984437586}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: b889d5cfcdb8f4b4698aea04ace6de55, type: 3}
   m_Name: 
@@ -260,6 +261,33 @@ BoxCollider2D:
   m_AutoTiling: 0
   m_Size: {x: 0.58, y: 1}
   m_EdgeRadius: 0
+--- !u!114 &5331043639691370025
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4258950170984437586}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a1379e7bcb929d645b34346ab4e549ed, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxDurability: 3
+  rewards:
+  - item: {fileID: 11400000, guid: 617c69ae3c9aa07469ec5e1f8abdd19f, type: 2}
+    minAmount: 1
+    maxAmount: 3
+    dropChance: 100
+  - item: {fileID: 11400000, guid: d06ca2502cd513f4c96e9bd238a3344c, type: 2}
+    minAmount: 1
+    maxAmount: 3
+    dropChance: 64.8
+  - item: {fileID: 11400000, guid: 0eaa5afa9e04daa41967950b01c16136, type: 2}
+    minAmount: 1
+    maxAmount: 3
+    dropChance: 78.2
+  interactionAnchor: {fileID: 3508441996156771658}
 --- !u!1 &4619637928701524674
 GameObject:
   m_ObjectHideFlags: 0

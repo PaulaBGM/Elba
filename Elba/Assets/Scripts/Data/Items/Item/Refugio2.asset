@@ -1,0 +1,26 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f385092f95d40074d9406240bbf5f6d0, type: 3}
+  m_Name: Refugio2
+  m_EditorClassIdentifier: 
+  <IsStackable>k__BackingField: 0
+  <ItemID>k__BackingField: refugio2
+  <MaxStackSize>k__BackingField: 1
+  <Name>k__BackingField: Mejora de Refugio
+  <Description>k__BackingField: 
+  <ItemImage>k__BackingField: {fileID: -447820171, guid: 7252f5f9472cc4b42ad8873bc2d5f7a7, type: 3}
+  <WorldPrefab>k__BackingField: {fileID: 0}
+  <DefaultParametersList>k__BackingField: []
+  <Categories>k__BackingField: 4
+  canCook: 0
+  cookedResult: {fileID: 0}
+  <PlaceablePrefab>k__BackingField: {fileID: 4159969531777199669, guid: 4d95525a334108d4ca080e3c4c5c8e39, type: 3}

@@ -10,14 +10,16 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: c5f2a775e4a44e549a12a1e48bb948e8, type: 3}
-  m_Name: HachaRecipe
+  m_Name: Refugio2Recipe
   m_EditorClassIdentifier: 
   ingredients:
-  - item: {fileID: 11400000, guid: 0eaa5afa9e04daa41967950b01c16136, type: 2}
+  - item: {fileID: 11400000, guid: 97d49e4b311e806418de7a71e112f455, type: 2}
     amount: 1
-  - item: {fileID: 11400000, guid: 90829d6876ad4254bb83efef18f13e78, type: 2}
+  - item: {fileID: 11400000, guid: 617c69ae3c9aa07469ec5e1f8abdd19f, type: 2}
     amount: 1
   - item: {fileID: 11400000, guid: f578b2e99696ffa4c8644e58722ee894, type: 2}
     amount: 1
-  result: {fileID: 11400000, guid: 321c4eebcd3631a4f85b60c719485bf7, type: 2}
+  - item: {fileID: 11400000, guid: cda39ab9e4091374b86902bcb707b8bc, type: 2}
+    amount: 1
+  result: {fileID: 11400000, guid: 9b18d7751d6100048a9b4c7277387b07, type: 2}
   amount: 1

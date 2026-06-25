@@ -22,6 +22,10 @@ public class Item : MonoBehaviour, IInteractable
 
     public Transform InteractionAnchor => interactionAnchor;
 
+    [SerializeField]
+    private bool cupFilled;
+    public bool IsCupFilled => cupFilled;
+
     private static readonly List<ActionData> edibleActions =
         new()
         {
@@ -50,15 +54,52 @@ public class Item : MonoBehaviour, IInteractable
     {
         RefreshVisual();
     }
+    public bool IsCup()
+    {
+        return inventoryItem is CupItemSO;
+    }
+    public void FillCup()
+    {
+        Debug.Log("[Cup] Intentando llenar vaso.");
+
+        if (!IsCup())
+        {
+            Debug.Log("[Cup] El objeto no es un vaso.");
+            return;
+        }
+
+        if (cupFilled)
+        {
+            Debug.Log("[Cup] El vaso ya estaba lleno.");
+            return;
+        }
+
+        cupFilled = true;
+
+        Debug.Log("[Cup] Vaso llenado correctamente.");
+
+        RefreshVisual();
+    }
 
     private void RefreshVisual()
     {
-        if (spriteRenderer != null &&
-            inventoryItem != null)
+        if (spriteRenderer == null || inventoryItem == null)
+            return;
+
+        if (inventoryItem is CupItemSO cup)
         {
+            Debug.Log($"[Cup] RefreshVisual | Filled = {cupFilled}");
+
             spriteRenderer.sprite =
-                inventoryItem.ItemImage;
+                cupFilled
+                ? cup.FullSprite
+                : inventoryItem.ItemImage;
+
+            return;
         }
+
+        spriteRenderer.sprite =
+            inventoryItem.ItemImage;
     }
 
     public void Interact(GameObject interactor)
@@ -93,6 +134,37 @@ public class Item : MonoBehaviour, IInteractable
 
     public void Consume(GameObject interactor)
     {
+        if (inventoryItem is CupItemSO cup)
+        {
+            Debug.Log($"[Cup] Consumir | Filled = {cupFilled}");
+
+            if (!cupFilled)
+            {
+                Debug.Log("[Cup] El vaso está vacío.");
+                return;
+            }
+
+            PlayerStatsSystem stats =
+                interactor.GetComponent<PlayerStatsSystem>();
+
+            if (stats != null)
+            {
+                Debug.Log($"[Cup] Recuperando {cup.ThirstRecovered} de sed.");
+
+                stats.ModifyStat(
+                    StatType.Thirst,
+                    cup.ThirstRecovered);
+            }
+
+            cupFilled = false;
+
+            Debug.Log("[Cup] El vaso vuelve a estar vacío.");
+
+            RefreshVisual();
+
+            return;
+        }
+
         if (inventoryItem is not EdibleItemSO edible)
             return;
 

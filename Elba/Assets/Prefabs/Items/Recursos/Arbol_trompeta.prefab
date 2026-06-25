@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 2744218311294764568}
   - component: {fileID: 4301692225758563637}
   - component: {fileID: 4422459040962711181}
+  - component: {fileID: 5850986010727118794}
   m_Layer: 0
   m_Name: Arbol_trompeta
   m_TagString: Untagged
@@ -89,7 +90,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 215840600424789343}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: b889d5cfcdb8f4b4698aea04ace6de55, type: 3}
   m_Name: 
@@ -154,6 +155,29 @@ BoxCollider2D:
   m_AutoTiling: 0
   m_Size: {x: 0.25, y: 0.58}
   m_EdgeRadius: 0
+--- !u!114 &5850986010727118794
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 215840600424789343}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a1379e7bcb929d645b34346ab4e549ed, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxDurability: 3
+  rewards:
+  - item: {fileID: 11400000, guid: 617c69ae3c9aa07469ec5e1f8abdd19f, type: 2}
+    minAmount: 1
+    maxAmount: 2
+    dropChance: 100
+  - item: {fileID: 11400000, guid: 3e5c23606519b974485a6e12b1bb5044, type: 2}
+    minAmount: 1
+    maxAmount: 3
+    dropChance: 69.9
+  interactionAnchor: {fileID: 3367503667238452273}
 --- !u!1 &487013535586476192
 GameObject:
   m_ObjectHideFlags: 0

@@ -2,17 +2,22 @@ using UnityEngine;
 
 public class ResourceNode : MonoBehaviour, IAttackable
 {
+    [Header("Durability")]
     [SerializeField] private int maxDurability = 3;
 
     [Header("Drops")]
-    [SerializeField] private ResourceReward[] rewards;
+    [SerializeField] protected ResourceReward[] rewards;
+
+    [Header("Interaction")]
+    [SerializeField] private Transform interactionAnchor;
 
     protected int currentDurability;
 
-    [SerializeField] private Transform interactionAnchor;
-
     public Transform InteractionAnchor => interactionAnchor;
-    private void OnEnable()
+
+    public bool IsDestroyed => currentDurability <= 0;
+
+    protected virtual void Awake()
     {
         ResetNode();
     }
@@ -24,31 +29,57 @@ public class ResourceNode : MonoBehaviour, IAttackable
 
     public virtual void ReceiveHit(GameObject attacker)
     {
-        AgentWeapon weapon = attacker.GetComponent<AgentWeapon>();
+        if (!CanReceiveDamage(attacker))
+            return;
 
-        if (weapon != null)
-        {
-            weapon.DamageTool(1);
-        }
+        DamageTool(attacker);
+
+        currentDurability--;
+
+        OnHit(attacker);
 
         if (currentDurability > 0)
             return;
 
-        SpawnRewards();
+        DestroyNode();
+    }
+
+    protected virtual bool CanReceiveDamage(GameObject attacker)
+    {
+        return true;
+    }
+
+    protected virtual void OnHit(GameObject attacker)
+    {
+    }
+
+    protected virtual void DestroyNode()
+    {
+        SpawnRewards(rewards);
+
+        OnDestroyed();
 
         gameObject.SetActive(false);
     }
 
-    protected virtual void SpawnRewards()
+    protected virtual void OnDestroyed()
     {
-        foreach (ResourceReward reward in rewards)
-        {
-            float roll = Random.Range(0f, 100f);
+    }
 
-            if (roll > reward.dropChance)
+    protected void SpawnRewards(ResourceReward[] rewardList)
+    {
+        if (rewardList == null)
+            return;
+
+        foreach (ResourceReward reward in rewardList)
+        {
+            if (reward.item == null)
                 continue;
 
-            int amount = Random.Range(reward.minAmount, reward.maxAmount + 1);
+            if (!reward.RollDrop())
+                continue;
+
+            int amount = reward.GetAmount();
 
             for (int i = 0; i < amount; i++)
             {
@@ -58,5 +89,13 @@ public class ResourceNode : MonoBehaviour, IAttackable
                     Quaternion.identity);
             }
         }
+    }
+
+    private void DamageTool(GameObject attacker)
+    {
+        AgentWeapon weapon = attacker.GetComponent<AgentWeapon>();
+
+        if (weapon != null)
+            weapon.DamageTool(1);
     }
 }

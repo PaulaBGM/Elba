@@ -117,8 +117,7 @@ namespace Inventory
             if (realSlot < 0)
                 return;
 
-            InventoryItem inventoryItem =
-                inventoryData.GetItemAt(realSlot);
+            InventoryItem inventoryItem = inventoryData.GetItemAt(realSlot);
 
             if (inventoryItem.IsEmpty)
                 return;
@@ -134,16 +133,13 @@ namespace Inventory
 
             if (inventoryItem.item is IDestroyableItem)
             {
-                inventoryUI.AddAction(
-                    "Drop",
-                    () => DropItem(realSlot, inventoryItem.quantity));
+                inventoryUI.AddAction("Drop",() => DropItem(realSlot, 1));
             }
         }
 
         private void DropItem(int itemIndex, int quantity)
         {
-            InventoryItem inventoryItem =
-                inventoryData.GetItemAt(itemIndex);
+            InventoryItem inventoryItem = inventoryData.GetItemAt(itemIndex);
 
             SpawnDroppedItem(inventoryItem);
 

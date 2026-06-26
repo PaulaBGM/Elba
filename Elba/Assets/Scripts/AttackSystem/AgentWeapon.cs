@@ -92,6 +92,18 @@ public class AgentWeapon : MonoBehaviour
 
         UpdateVisual();
     }
+    public void RemoveEquippedItem()
+    {
+        if (equippedItem == null)
+            return;
+
+        Debug.Log($"[Equipment] Eliminando {equippedItem.Name}");
+
+        equippedItem = null;
+        itemCurrentState.Clear();
+
+        UpdateVisual();
+    }
 
     public void RefreshVisual()
     {

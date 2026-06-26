@@ -1,7 +1,7 @@
-using UnityEngine;
 using System.Collections.Generic;
-using Inventory.Model;
+using UnityEngine;
 using Inventory;
+using Inventory.Model;
 
 public class WaterSource : MonoBehaviour, IInteractable
 {
@@ -10,28 +10,26 @@ public class WaterSource : MonoBehaviour, IInteractable
 
     public Transform InteractionAnchor => interactionAnchor;
 
-    public List<ActionData> GetActions() => new();
+    public List<ActionData> GetActions()
+    {
+        return new();
+    }
 
     public void Interact(GameObject interactor)
     {
-        AgentWeapon equipment =
-            interactor.GetComponent<AgentWeapon>();
-
+        AgentWeapon equipment = interactor.GetComponent<AgentWeapon>();
         if (equipment == null)
             return;
-
         if (equipment.CurrentWeapon is not CupItemSO)
             return;
+      
+        InventoryController inventory = interactor.GetComponent<InventoryController>();
+        
+        if (inventory == null)
+            return;
 
-        equipment.UnequipWeapon();
-
-        InventoryController inventory =
-            interactor.GetComponent<InventoryController>();
-
-        inventory.InventoryData.AddItem(
-            filledCup,
-            1);
-
-        Debug.Log("Vaso rellenado.");
+        equipment.RemoveEquippedItem();
+        inventory.InventoryData.AddItem(filledCup,1);
+        Debug.Log("[Water] Vaso rellenado.");
     }
 }

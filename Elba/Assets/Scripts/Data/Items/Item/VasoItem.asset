@@ -23,5 +23,7 @@ MonoBehaviour:
   <Categories>k__BackingField: 2
   canCook: 0
   cookedResult: {fileID: 0}
-  fullSprite: {fileID: -692718257, guid: c8cc1ca7d8ac84a4d8c084d62b1e507b, type: 3}
+  <actionSFX>k__BackingField: {fileID: 0}
+  emptySprite: {fileID: -1734124800, guid: c8cc1ca7d8ac84a4d8c084d62b1e507b, type: 3}
+  fullSprite: {fileID: -1734124800, guid: c8cc1ca7d8ac84a4d8c084d62b1e507b, type: 3}
   thirstRecovered: 40

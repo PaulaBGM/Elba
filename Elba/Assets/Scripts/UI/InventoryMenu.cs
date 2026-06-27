@@ -1,33 +1,21 @@
 using Inventory.UI;
 using UnityEngine;
 
-public class InventoryMenu : MonoBehaviour
+public class InventoryMenu : MonoBehaviour, IMenu
 {
-    [Header("Panels")]
-    [SerializeField] private GameObject tabs;
-    [SerializeField] private GameObject inventoryPanel;
-
-    [Header("Inventory UI")]
     [SerializeField] private UIInventoryPage inventoryPage;
+
+    public bool IsOpen => gameObject.activeSelf;
 
     public void Show()
     {
         gameObject.SetActive(true);
-
-        tabs.SetActive(true);
-        inventoryPanel.SetActive(true);
-
-        inventoryPage.ResetSelection();
+        inventoryPage.ResetUI();
     }
 
     public void Hide()
     {
-        inventoryPage.HideItemActionPanel();
-        inventoryPage.ResetSelection();
-
-        inventoryPanel.SetActive(false);
-        tabs.SetActive(false);
-
+        inventoryPage.ResetUI();
         gameObject.SetActive(false);
     }
 }

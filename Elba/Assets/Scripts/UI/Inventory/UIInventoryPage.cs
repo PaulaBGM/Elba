@@ -179,6 +179,13 @@ namespace Inventory.UI
         {
             itemDescription.SetDescription(img, name, desc);
         }
+        
+        public void ResetUI()
+        {
+            actionPanel.Toggle(false);
+            mouseFollower.Toggle(false);
+            ResetSelection();
+        }
 
         public void ResetSelection()
         {

@@ -13832,7 +13832,7 @@ PrefabInstance:
     - target: {fileID: 2517235998308141539, guid: 958f41d0771e1644f9dc50602fb8b75d, type: 3}
       propertyPath: inventoryUI
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 1139510537}
     - target: {fileID: 2671821299160581760, guid: 958f41d0771e1644f9dc50602fb8b75d, type: 3}
       propertyPath: topRight
       value: 
@@ -13841,26 +13841,6 @@ PrefabInstance:
       propertyPath: bottomLeft
       value: 
       objectReference: {fileID: 764893924}
-    - target: {fileID: 3772882090220559633, guid: 958f41d0771e1644f9dc50602fb8b75d, type: 3}
-      propertyPath: equippedItem
-      value: 
-      objectReference: {fileID: 11400000, guid: 65fc561d9d1e64249b536bcd74f08c98, type: 2}
-    - target: {fileID: 3772882090220559633, guid: 958f41d0771e1644f9dc50602fb8b75d, type: 3}
-      propertyPath: durabilityParameter
-      value: 
-      objectReference: {fileID: 11400000, guid: fbdaa81e02e233e4f858d0c346e62148, type: 2}
-    - target: {fileID: 3772882090220559633, guid: 958f41d0771e1644f9dc50602fb8b75d, type: 3}
-      propertyPath: itemCurrentState.Array.size
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 3772882090220559633, guid: 958f41d0771e1644f9dc50602fb8b75d, type: 3}
-      propertyPath: itemCurrentState.Array.data[0].value
-      value: 10
-      objectReference: {fileID: 0}
-    - target: {fileID: 3772882090220559633, guid: 958f41d0771e1644f9dc50602fb8b75d, type: 3}
-      propertyPath: itemCurrentState.Array.data[0].itemParameter
-      value: 
-      objectReference: {fileID: 11400000, guid: fbdaa81e02e233e4f858d0c346e62148, type: 2}
     - target: {fileID: 4369556796060204158, guid: 958f41d0771e1644f9dc50602fb8b75d, type: 3}
       propertyPath: item
       value: 
@@ -14988,6 +14968,17 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 1348864370557506903, guid: e2032608a7a33c64e8eb7990483be9de, type: 3}
   m_PrefabInstance: {fileID: 1139510535}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1139510537 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8985006097545974041, guid: e2032608a7a33c64e8eb7990483be9de, type: 3}
+  m_PrefabInstance: {fileID: 1139510535}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2d24a610b10011d469ab4b31f414dd9b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1150274969
 GameObject:
   m_ObjectHideFlags: 0
@@ -31571,7 +31562,7 @@ Tilemap:
       - {fileID: -1325603787, guid: 84a058c958f1ae54ba983f2a709e3403, type: 3}
       - {fileID: 1881204109, guid: 84a058c958f1ae54ba983f2a709e3403, type: 3}
       - {fileID: 1046905870, guid: 84a058c958f1ae54ba983f2a709e3403, type: 3}
-      m_AnimationSpeed: 2.2431529
+      m_AnimationSpeed: 2.6409059
       m_AnimationTimeOffset: 0
       m_Flags: 0
   m_TileAssetArray:

@@ -1,21 +1,19 @@
 using Inventory.UI;
 using UnityEngine;
 
-public class InventoryMenu : MonoBehaviour, IMenu
+public class InventoryMenu : MenuBase
 {
     [SerializeField] private UIInventoryPage inventoryPage;
 
-    public bool IsOpen => gameObject.activeSelf;
-
-    public void Show()
+    public override void Show()
     {
-        gameObject.SetActive(true);
+        base.Show();
         inventoryPage.ResetUI();
     }
 
-    public void Hide()
+    public override void Hide()
     {
         inventoryPage.ResetUI();
-        gameObject.SetActive(false);
+        base.Hide();
     }
 }

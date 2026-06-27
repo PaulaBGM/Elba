@@ -7,6 +7,7 @@ public class UIManager : MonoBehaviour
 
     [Header("UI")]
     [SerializeField] private GameObject gameplayHUD;
+    [SerializeField] private InventoryMenu inventoryMenu;
 
     [Header("Input")]
     [SerializeField] private InputReader input;
@@ -27,7 +28,10 @@ public class UIManager : MonoBehaviour
             Destroy(gameObject);
             return;
         }
-        
+
+        Instance = this;
+
+        inventoryMenu.Hide();
 
         if (input == null)
             input = FindFirstObjectByType<InputReader>();
@@ -41,25 +45,14 @@ public class UIManager : MonoBehaviour
 
     private void OnEnable()
     {
-        if (input != null)
-        {
-            input.OnInventory += HandleInventory;
-            input.OnSubmitPressed += HandleSubmit;
-        }
+        input.OnInventory += ToggleInventory;
+        input.OnSubmitPressed += HandleSubmit;
     }
 
     private void OnDisable()
     {
-        if (input != null)
-        {
-            input.OnInventory -= HandleInventory;
-            input.OnSubmitPressed -= HandleSubmit;
-        }
-    }
-
-    private void HandleInventory()
-    {
-        ToggleInventory();
+        input.OnInventory -= ToggleInventory;
+        input.OnSubmitPressed -= HandleSubmit;
     }
 
     public void ToggleInventory()
@@ -69,19 +62,22 @@ public class UIManager : MonoBehaviour
         else
             OpenInventory();
     }
+    
+    private void HandleSubmit()
+    {
+        OnSubmitPressed?.Invoke();
+    }
 
     public void OpenInventory()
     {
         IsInventoryOpen = true;
 
-        if (gameplayHUD != null)
-            gameplayHUD.SetActive(false);
+        gameplayHUD.SetActive(false);
 
-        if (playerMovement != null)
-            playerMovement.SetMovementLocked(true);
+        playerMovement.SetMovementLocked(true);
+        interactionSystem.enabled = false;
 
-        if (interactionSystem != null)
-            interactionSystem.enabled = false;
+        inventoryMenu.Show();
 
         OnInventoryStateChanged?.Invoke(true);
     }
@@ -90,19 +86,13 @@ public class UIManager : MonoBehaviour
     {
         IsInventoryOpen = false;
 
-        if (gameplayHUD != null)
-            gameplayHUD.SetActive(true);
+        gameplayHUD.SetActive(true);
 
-        if (playerMovement != null)
-            playerMovement.SetMovementLocked(false);
+        playerMovement.SetMovementLocked(false);
+        interactionSystem.enabled = true;
 
-        if (interactionSystem != null)
-            interactionSystem.enabled = true;
+        inventoryMenu.Hide();
 
         OnInventoryStateChanged?.Invoke(false);
-    }
-    private void HandleSubmit()
-    {
-        OnSubmitPressed?.Invoke();
     }
 }

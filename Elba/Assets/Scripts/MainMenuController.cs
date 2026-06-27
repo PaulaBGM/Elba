@@ -16,7 +16,7 @@ public class MainMenuController : MonoBehaviour
 
     public void StartGame()
     {
-        SceneController.Instance.LoadScene("InventoryTESTScene");
+        SceneController.Instance.LoadScene("Level");
     }
 
     public void ExitGame()

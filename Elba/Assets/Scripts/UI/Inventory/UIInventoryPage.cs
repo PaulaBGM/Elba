@@ -28,14 +28,11 @@ namespace Inventory.UI
 
         private void Awake()
         {
-            Hide();
             mouseFollower.Toggle(false);
             itemDescription.ResetDescription();
 
             foreach (var tab in tabs)
-            {
                 tab.OnTabSelected += HandleTabChanged;
-            }
         }
 
         private void HandleTabChanged(ItemCategory category)
@@ -181,19 +178,6 @@ namespace Inventory.UI
         public void UpdateDescription(int index, Sprite img, string name, string desc)
         {
             itemDescription.SetDescription(img, name, desc);
-        }
-
-        public void Show()
-        {
-
-            gameObject.SetActive(true);
-            ResetSelection();
-        }
-
-        public void Hide()
-        {
-            actionPanel.Toggle(false);
-            gameObject.SetActive(false);
         }
 
         public void ResetSelection()

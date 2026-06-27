@@ -225,13 +225,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   inventoryUI: {fileID: 0}
   inventoryData: {fileID: 11400000, guid: c734b1c32c659a94f831915950254762, type: 2}
-  input: {fileID: 6234613060778859716}
-  dropClip: {fileID: 8300000, guid: 247dfacbdad46944cab9753dc61cc7d1, type: 3}
-  audioSource: {fileID: 7625199993238833642}
-  initialItems:
-  - item: {fileID: 11400000, guid: e9b7d44b644ee344badf8e1f55c910d9, type: 2}
-    quantity: 1
-    itemState: []
+  initialItems: []
 --- !u!114 &3772882090220559633
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -244,13 +238,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f296ce04923f7f04cbe5ccc8da7c6c1b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  weapon: {fileID: 11400000, guid: 65fc561d9d1e64249b536bcd74f08c98, type: 2}
+  equippedItem: {fileID: 11400000, guid: 65fc561d9d1e64249b536bcd74f08c98, type: 2}
   inventoryData: {fileID: 11400000, guid: c734b1c32c659a94f831915950254762, type: 2}
   parametersToModify:
   - itemParameter: {fileID: 11400000, guid: fbdaa81e02e233e4f858d0c346e62148, type: 2}
     value: -10
-  itemCurrentState: []
-  durabilityParameter: {fileID: 0}
+  itemCurrentState:
+  - itemParameter: {fileID: 11400000, guid: fbdaa81e02e233e4f858d0c346e62148, type: 2}
+    value: 10
+  durabilityParameter: {fileID: 11400000, guid: fbdaa81e02e233e4f858d0c346e62148, type: 2}
   armPointRenderer: {fileID: 4408595007363504364}
 --- !u!114 &2671821299160581760
 MonoBehaviour:

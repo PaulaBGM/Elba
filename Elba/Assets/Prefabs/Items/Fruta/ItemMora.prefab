@@ -84,6 +84,7 @@ MonoBehaviour:
   interactionAnchor: {fileID: 6708405003924209606}
   spriteRenderer: {fileID: 613705069706818120}
   itemCollider: {fileID: 5971257862542617067}
+  cupFilled: 0
 --- !u!58 &5971257862542617067
 CircleCollider2D:
   m_ObjectHideFlags: 0

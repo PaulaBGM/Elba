@@ -1,4 +1,5 @@
 using UnityEngine;
+using Inventory.Model;
 
 public class PlayerInteractionSystem : MonoBehaviour
 {
@@ -49,40 +50,29 @@ public class PlayerInteractionSystem : MonoBehaviour
             currentInteractable?.Interact(gameObject);
             return;
         }
-
         if (currentInteractable is Item item)
         {
             PickUpItem(item);
             return;
         }
-
         currentInteractable?.Interact(gameObject);
     }
 
     private void PickUpItem(Item item)
     {
         heldItem = item;
-
-        heldItemRenderer.sprite =
-            item.InventoryItem.ItemImage;
-
+        heldItemRenderer.sprite = item.InventoryItem.ItemImage;
         heldItemRenderer.enabled = true;
-
         item.HideWorldRepresentation();
-
         promptUI.Hide();
-
-        UIActionBar.Instance.ShowActions(
-            item.GetActions());
+        UIActionBar.Instance.ShowActions(item.GetActions());
     }
 
     private void StoreItem()
     {
         if (heldItem == null)
             return;
-
         heldItem.Store(gameObject);
-
         ClearHeldItem();
     }
 
@@ -92,7 +82,6 @@ public class PlayerInteractionSystem : MonoBehaviour
             return;
 
         heldItem.Consume(gameObject);
-
         ClearHeldItem();
     }
 
@@ -101,29 +90,20 @@ public class PlayerInteractionSystem : MonoBehaviour
         if (heldItem == null)
             return;
 
-        PlayerMovement movement =
-            GetComponent<PlayerMovement>();
-
-        Vector3 dropPosition =
-            transform.position;
-
+        PlayerMovement movement = GetComponent<PlayerMovement>();
+        Vector3 dropPosition = transform.position;
         if (movement != null)
-            dropPosition +=
-                (Vector3)movement.LastDirection;
+            dropPosition += (Vector3)movement.LastDirection;
 
-        heldItem.ShowWorldRepresentation(
-            dropPosition);
-
+        heldItem.ShowWorldRepresentation(dropPosition);
         ClearHeldItem();
     }
 
     private void ClearHeldItem()
     {
         heldItem = null;
-
         heldItemRenderer.sprite = null;
         heldItemRenderer.enabled = false;
-
         UIActionBar.Instance.Hide();
     }
 
@@ -135,55 +115,45 @@ public class PlayerInteractionSystem : MonoBehaviour
             heldItemRenderer.enabled = false;
             return;
         }
-
-        heldItemRenderer.sprite =
-            heldItem.InventoryItem.ItemImage;
-
+        heldItemRenderer.sprite = heldItem.InventoryItem.ItemImage;
         heldItemRenderer.enabled = true;
     }
-
+    public void HoldInventoryItem(ItemSO itemSO)
+    {
+        if (heldItem != null)
+            DropItem();
+        GameObject go = Instantiate(itemSO.WorldPrefab);
+        heldItem = go.GetComponent<Item>();
+        heldItem.HideWorldRepresentation();
+        heldItemRenderer.sprite = itemSO.ItemImage;
+        heldItemRenderer.enabled = true;
+        UIActionBar.Instance.ShowActions(heldItem.GetActions());
+    }
     private void OnTriggerStay2D(Collider2D other)
     {
-        IInteractable interactable =
-            other.GetComponentInParent<IInteractable>();
-
+        IInteractable interactable = other.GetComponentInParent<IInteractable>();
         if (interactable == null)
-            interactable =
-                other.GetComponentInChildren<IInteractable>();
-
+            interactable = other.GetComponentInChildren<IInteractable>();
         if (interactable == null)
             return;
-
-        if (heldItem != null &&
-            interactable is Item)
+        if (heldItem != null && interactable is Item)
             return;
-
         if (currentInteractable == interactable)
             return;
-
         currentInteractable = interactable;
-
-        promptUI.Show(
-            interactable.InteractionAnchor);
+        promptUI.Show(interactable.InteractionAnchor);
     }
 
     private void OnTriggerExit2D(Collider2D other)
     {
-        IInteractable interactable =
-            other.GetComponentInParent<IInteractable>();
-
+        IInteractable interactable = other.GetComponentInParent<IInteractable>();
         if (interactable == null)
-            interactable =
-                other.GetComponentInChildren<IInteractable>();
-
+            interactable = other.GetComponentInChildren<IInteractable>();
         if (interactable == null)
             return;
-
         if (currentInteractable != interactable)
             return;
-
         currentInteractable = null;
-
         promptUI.Hide();
     }
 }

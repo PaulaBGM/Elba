@@ -132,7 +132,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 1.2420663, y: -0.28062776, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 1.3, y: 1.3, z: 1.3}
   m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 3508441996156771658}
@@ -192,7 +192,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4258950170984437586}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: b889d5cfcdb8f4b4698aea04ace6de55, type: 3}
   m_Name: 
@@ -208,13 +208,21 @@ MonoBehaviour:
     maxAmount: 3
     dropChance: 52.8
   interactionAnchor: {fileID: 3508441996156771658}
-  fruits:
-  - fruit: {fileID: 11400000, guid: d06ca2502cd513f4c96e9bd238a3344c, type: 2}
-    dropChance: 69.1
+  fruitRewards:
+  - item: {fileID: 11400000, guid: d06ca2502cd513f4c96e9bd238a3344c, type: 2}
     minAmount: 1
-    maxAmount: 4
+    maxAmount: 3
+    dropChance: 76
   fruitVisuals:
   - {fileID: 6094749979129503835, guid: 14d95a0d8d64c8748bc044f709258d55, type: 3}
+  maxFruit: 5
+  branchRewards:
+  - item: {fileID: 11400000, guid: 0eaa5afa9e04daa41967950b01c16136, type: 2}
+    minAmount: 1
+    maxAmount: 3
+    dropChance: 70.8
+  maxBranches: 5
+  branchGrowthTime: 120
 --- !u!61 &1767919963987821650
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -268,7 +276,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4258950170984437586}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: a1379e7bcb929d645b34346ab4e549ed, type: 3}
   m_Name: 

@@ -10,6 +10,7 @@ namespace Inventory.Model
         Food = 1 << 0,
         Tool = 1 << 1,
         Material = 1 << 2,
-        Quest = 1 << 3
+
+        All = Food | Tool | Material
     }
 }

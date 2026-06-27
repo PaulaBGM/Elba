@@ -12,18 +12,12 @@ namespace Inventory.UI
         [SerializeField] private UIInventoryDescription itemDescription;
         [SerializeField] private MouseFollower mouseFollower;
         [SerializeField] private ItemActionPanel actionPanel;
-
         [SerializeField] private List<InventoryTab> tabs;
-
         private List<UIInventoryItem> listOfUIItems = new();
         private int currentlyDraggedItemIndex = -1;
 
-        public event Action<int> OnDescriptionRequested,
-                                 OnItemActionRequested,
-                                 OnStartDragging;
-
+        public event Action<int> OnDescriptionRequested,OnStartDragging;
         public event Action<int, int> OnSwapItems;
-
         public event Action<ItemCategory> OnTabChanged;
 
         private void Awake()
@@ -53,9 +47,13 @@ namespace Inventory.UI
                 uiItem.OnItemBeginDrag += HandleBeginDrag;
                 uiItem.OnItemDroppedOn += HandleSwap;
                 uiItem.OnItemEndDrag += HandleEndDrag;
-                uiItem.OnRightMouseBtnClick += HandleShowItemActions;
+               // uiItem.OnRightMouseBtnClick += HandleShowItemActions;
             }
 
+        }
+        public void ClearActions()
+        {
+            actionPanel.Clear();
         }
 
         public void ResetAllItems()
@@ -95,17 +93,17 @@ namespace Inventory.UI
             OnDescriptionRequested?.Invoke(index);
         }
 
-        private void HandleShowItemActions(UIInventoryItem item)
+        /*private void HandleShowItemActions(UIInventoryItem item)
         {
             int index = listOfUIItems.IndexOf(item);
 
             if (index != -1)
                 OnItemActionRequested?.Invoke(index);
-        }
-        
+        }*/
+
         public void HideItemActionPanel()
         {
-            actionPanel.Toggle(false);
+            actionPanel.Clear();
         }
 
         private void HandleBeginDrag(UIInventoryItem item)
@@ -163,7 +161,7 @@ namespace Inventory.UI
             mouseFollower.SetData(sprite, quantity);
         }
 
-        public void AddAction(string name, Action action)
+        /*public void AddAction(string name, Action action)
         {
             actionPanel.AddButon(name, action);
         }
@@ -171,18 +169,28 @@ namespace Inventory.UI
         public void ShowItemAction(int index)
         {
             actionPanel.Toggle(true);
-            actionPanel.transform.position =
-                listOfUIItems[index].transform.position;
-        }
+            actionPanel.transform.position = listOfUIItems[index].transform.position;
+        }*/
 
         public void UpdateDescription(int index, Sprite img, string name, string desc)
         {
             itemDescription.SetDescription(img, name, desc);
         }
-        
+        public void AddStat(Sprite icon, float value)
+        {
+            itemDescription.AddStat(icon, value);
+        }
+        public void ShowActions(string leftName,Action leftAction, string rightName,Action rightAction)
+        {
+            actionPanel.Show(leftName,leftAction,rightName,rightAction);
+        }
+        public void ClearStats()
+        {
+            itemDescription.ClearStats();
+        }
         public void ResetUI()
         {
-            actionPanel.Toggle(false);
+            actionPanel.Clear();
             mouseFollower.Toggle(false);
             ResetSelection();
         }

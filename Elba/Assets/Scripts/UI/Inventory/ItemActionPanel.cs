@@ -1,4 +1,5 @@
 using System;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -6,66 +7,44 @@ namespace Inventory.UI
 {
     public class ItemActionPanel : MonoBehaviour
     {
-        [SerializeField] private GameObject buttonPrefab;
-        [SerializeField] private InputReader inputReader;
+        [Header("Buttons")]
+        [SerializeField] private Button leftButton;
+        [SerializeField] private Button rightButton;
 
-        private void OnEnable()
+        [Header("Texts")]
+        [SerializeField] private TMP_Text leftText;
+        [SerializeField] private TMP_Text rightText;
+
+        private void Awake()
         {
-            if (inputReader != null)
-                inputReader.OnUISelect += HandleSelect;
+            Clear();
         }
 
-        private void OnDisable()
+        public void Show(string leftName, Action leftAction,string rightName, Action rightAction)
         {
-            if (inputReader != null)
-                inputReader.OnUISelect -= HandleSelect;
+            gameObject.SetActive(true);
+            ConfigureButton(leftButton, leftText, leftName, leftAction);
+            ConfigureButton(rightButton, rightText, rightName, rightAction);
         }
 
-        private void HandleSelect()
+        public void Clear()
         {
-            if (!gameObject.activeSelf)
+            gameObject.SetActive(true);
+            ConfigureButton(leftButton, leftText, "", null);
+            ConfigureButton(rightButton, rightText, "", null);
+        }
+
+        private void ConfigureButton(Button button,  TMP_Text text, string label,Action action)
+        {
+            text.text = label;
+            button.onClick.RemoveAllListeners();
+            if (action == null)
+            {
+                button.interactable = false;
                 return;
-
-            bool insidePanel =
-                RectTransformUtility.RectangleContainsScreenPoint(
-                    (RectTransform)transform,
-                    inputReader.MousePosition);
-
-            if (!insidePanel)
-                Toggle(false);
-        }
-
-        public void AddButon(string name, Action onClickAction)
-        {
-            GameObject button = Instantiate(buttonPrefab, transform);
-
-            Button btn = button.GetComponent<Button>();
-
-            btn.onClick.RemoveAllListeners();
-
-            btn.onClick.AddListener(() =>
-            {
-                onClickAction?.Invoke();
-                Toggle(false);
-            });
-
-            button.GetComponentInChildren<TMPro.TMP_Text>().text = name;
-        }
-
-        public void Toggle(bool val)
-        {
-            if (val)
-                RemoveOldButtons();
-
-            gameObject.SetActive(val);
-        }
-
-        private void RemoveOldButtons()
-        {
-            foreach (Transform child in transform)
-            {
-                Destroy(child.gameObject);
             }
+            button.interactable = true;
+            button.onClick.AddListener(() => action.Invoke());
         }
     }
 }

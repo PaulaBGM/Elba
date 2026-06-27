@@ -16,11 +16,13 @@ MonoBehaviour:
   <ItemID>k__BackingField: trompeta
   <MaxStackSize>k__BackingField: 2
   <Name>k__BackingField: Trompeta de los Muertos
-  <Description>k__BackingField: 
+  <Description>k__BackingField: Trompeta de los muertos
   <ItemImage>k__BackingField: {fileID: -1650298841, guid: c8cc1ca7d8ac84a4d8c084d62b1e507b, type: 3}
   <WorldPrefab>k__BackingField: {fileID: 4249340770792938105, guid: 6265221709bbf064fab182c4162e9b62, type: 3}
   <DefaultParametersList>k__BackingField: []
   <Categories>k__BackingField: 1
+  canCook: 0
+  cookedResult: {fileID: 0}
   modifiersData:
   - statModifier: {fileID: 11400000, guid: de17128eaa1e4a04583f6e3aa788881b, type: 2}
     value: 18

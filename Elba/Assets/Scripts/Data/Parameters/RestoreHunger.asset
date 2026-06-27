@@ -13,3 +13,4 @@ MonoBehaviour:
   m_Name: RestoreHunger
   m_EditorClassIdentifier: 
   statType: 1
+  icon: {fileID: 21300000, guid: 2e2a99465e402a34987bd9be3612b62e, type: 3}

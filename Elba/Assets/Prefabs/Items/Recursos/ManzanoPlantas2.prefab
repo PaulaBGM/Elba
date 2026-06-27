@@ -241,13 +241,21 @@ MonoBehaviour:
     maxAmount: 3
     dropChance: 52.8
   interactionAnchor: {fileID: 6595003460289738727}
-  fruits:
-  - fruit: {fileID: 11400000, guid: d06ca2502cd513f4c96e9bd238a3344c, type: 2}
-    dropChance: 69.1
+  fruitRewards:
+  - item: {fileID: 11400000, guid: d06ca2502cd513f4c96e9bd238a3344c, type: 2}
     minAmount: 1
-    maxAmount: 4
+    maxAmount: 3
+    dropChance: 76
   fruitVisuals:
   - {fileID: 6094749979129503835, guid: 14d95a0d8d64c8748bc044f709258d55, type: 3}
+  maxFruit: 5
+  branchRewards:
+  - item: {fileID: 11400000, guid: 0eaa5afa9e04daa41967950b01c16136, type: 2}
+    minAmount: 1
+    maxAmount: 3
+    dropChance: 70.8
+  maxBranches: 5
+  branchGrowthTime: 120
 --- !u!61 &1767919963987821650
 BoxCollider2D:
   m_ObjectHideFlags: 0

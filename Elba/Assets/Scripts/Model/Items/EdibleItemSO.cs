@@ -11,16 +11,18 @@ namespace Inventory.Model
         [SerializeField]
         private List<ModifierData> modifiersData = new();
 
-        public string ActionName => "Consume";
+        public IReadOnlyList<ModifierData> ModifiersData => modifiersData;
+
+        public string ActionName => "Consumir";
 
         [field: SerializeField]
         public AudioClip actionSFX { get; private set; }
 
-        public virtual bool PerformAction( GameObject character,List<ItemParameter> itemState = null)
+        public virtual bool PerformAction(GameObject character, List<ItemParameter> itemState = null)
         {
             foreach (ModifierData data in modifiersData)
             {
-                data.statModifier.AffectCharacter(character,data.value);
+                data.statModifier.AffectCharacter(character, data.value);
             }
 
             return true;
@@ -35,7 +37,6 @@ namespace Inventory.Model
     public interface IItemAction
     {
         public string ActionName { get; }
-        public AudioClip actionSFX { get; }
         bool PerformAction(GameObject character, List<ItemParameter> itemState);
     }
 

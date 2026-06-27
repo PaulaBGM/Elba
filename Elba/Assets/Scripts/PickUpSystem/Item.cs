@@ -119,15 +119,12 @@ public class Item : MonoBehaviour, IInteractable
 
     public void Store(GameObject interactor)
     {
-        InventoryController inventory =
-            interactor.GetComponent<InventoryController>();
+        InventoryController inventory = interactor.GetComponent<InventoryController>();
 
         if (inventory == null)
             return;
 
-        inventory.InventoryData.AddItem(
-            inventoryItem,
-            Quantity);
+        inventory.InventoryData.AddItem(inventoryItem,Quantity);
 
         Destroy(gameObject);
     }
@@ -137,7 +134,6 @@ public class Item : MonoBehaviour, IInteractable
         if (inventoryItem is CupItemSO cup)
         {
             Debug.Log($"[Cup] Consumir | Filled = {cupFilled}");
-
             if (!cupFilled)
             {
                 Debug.Log("[Cup] El vaso está vacío.");
@@ -151,17 +147,11 @@ public class Item : MonoBehaviour, IInteractable
             {
                 Debug.Log($"[Cup] Recuperando {cup.ThirstRecovered} de sed.");
 
-                stats.ModifyStat(
-                    StatType.Thirst,
-                    cup.ThirstRecovered);
+                stats.ModifyStat(StatType.Thirst, cup.ThirstRecovered);
             }
-
             cupFilled = false;
-
             Debug.Log("[Cup] El vaso vuelve a estar vacío.");
-
             RefreshVisual();
-
             return;
         }
 
@@ -177,7 +167,6 @@ public class Item : MonoBehaviour, IInteractable
     {
         if (spriteRenderer != null)
             spriteRenderer.enabled = false;
-
         if (itemCollider != null)
             itemCollider.enabled = false;
     }
@@ -185,34 +174,27 @@ public class Item : MonoBehaviour, IInteractable
     public void ShowWorldRepresentation(Vector3 position)
     {
         transform.position = position;
-
         if (spriteRenderer != null)
             spriteRenderer.enabled = true;
-
         if (itemCollider != null)
             itemCollider.enabled = true;
     }
 
     public bool CanCook()
     {
-        return inventoryItem != null &&
-               inventoryItem.canCook &&
-               inventoryItem.cookedResult != null;
+        return inventoryItem != null && inventoryItem.canCook && inventoryItem.cookedResult != null;
     }
 
     public void Cook()
     {
         if (!CanCook())
             return;
-
         SetItem(inventoryItem.cookedResult);
     }
 
     public List<ActionData> GetActions()
     {
-        return inventoryItem is EdibleItemSO
-            ? edibleActions
-            : normalActions;
+        return inventoryItem is EdibleItemSO? edibleActions: normalActions;
     }
 
 #if UNITY_EDITOR
@@ -220,12 +202,8 @@ public class Item : MonoBehaviour, IInteractable
     {
         if (interactionAnchor == null)
             return;
-
         Gizmos.color = Color.yellow;
-
-        Gizmos.DrawWireSphere(
-            interactionAnchor.position,
-            0.1f);
+        Gizmos.DrawWireSphere(interactionAnchor.position,0.1f);
     }
 #endif
 }

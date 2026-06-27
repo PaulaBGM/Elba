@@ -1,14 +1,22 @@
+using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
-using TMPro;
 
 namespace Inventory.UI
 {
     public class UIInventoryDescription : MonoBehaviour
     {
+        [Header("General")]
         [SerializeField] private Image itemImage;
         [SerializeField] private TMP_Text title;
         [SerializeField] private TMP_Text description;
+
+        [Header("Stats")]
+        [SerializeField] private Transform statsParent;
+        [SerializeField] private UIStatRow statRowPrefab;
+
+        private readonly List<UIStatRow> statRows = new();
 
         private void Awake()
         {
@@ -18,16 +26,44 @@ namespace Inventory.UI
         public void ResetDescription()
         {
             itemImage.gameObject.SetActive(false);
-            title.text = "";
-            description.text = "";
+
+            title.text = string.Empty;
+            description.text = string.Empty;
+
+            ClearStats();
         }
 
-        public void SetDescription(Sprite sprite, string itemName, string itemDescription)
+        public void SetDescription(
+            Sprite sprite,
+            string itemName,
+            string itemDescription)
         {
             itemImage.gameObject.SetActive(true);
             itemImage.sprite = sprite;
+
             title.text = itemName;
             description.text = itemDescription;
+
+            ClearStats();
+        }
+
+        public void AddStat(Sprite icon, float value)
+        {
+            UIStatRow row = Instantiate(statRowPrefab, statsParent);
+            row.SetData(icon, value);
+
+            statRows.Add(row);
+        }
+
+        public void ClearStats()
+        {
+            foreach (UIStatRow row in statRows)
+            {
+                if (row != null)
+                    Destroy(row.gameObject);
+            }
+
+            statRows.Clear();
         }
     }
 }

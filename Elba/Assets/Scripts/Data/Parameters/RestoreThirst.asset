@@ -13,3 +13,4 @@ MonoBehaviour:
   m_Name: RestoreThirst
   m_EditorClassIdentifier: 
   statType: 2
+  icon: {fileID: 21300000, guid: fbb0be53f1132c348952c9edf22a8547, type: 3}

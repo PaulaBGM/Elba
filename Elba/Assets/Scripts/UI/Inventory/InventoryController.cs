@@ -13,6 +13,7 @@ namespace Inventory
         [SerializeField] private InventorySO inventoryData;
         private List<int> displayedSlots = new();
         private ItemCategory currentTab = ItemCategory.Food;
+        [SerializeField] private Sprite damageIcon;
 
         public List<InventoryItem> initialItems = new();
 
@@ -83,7 +84,6 @@ namespace Inventory
             inventoryUI.OnDescriptionRequested += HandleDescriptionRequest;
             inventoryUI.OnSwapItems += HandleSwapItems;
             inventoryUI.OnStartDragging += HandleDragging;
-            inventoryUI.OnItemActionRequested += HandleItemActionRequest;
             inventoryUI.OnTabChanged += HandleTabChanged;
         }
 
@@ -106,8 +106,10 @@ namespace Inventory
                 if (pair.Value.IsEmpty)
                     continue;
 
-                if ((pair.Value.item.Categories & currentTab) == 0)
+                if (currentTab != ItemCategory.All && (pair.Value.item.Categories & currentTab) == 0)
+                {
                     continue;
+                }
 
                 displayedSlots.Add(pair.Key);
                 inventoryUI.UpdateData(visualIndex,pair.Value.item.ItemImage, pair.Value.quantity);
@@ -120,26 +122,69 @@ namespace Inventory
             int realSlot = GetRealSlot(visualIndex);
 
             if (realSlot < 0)
+            {
+                inventoryUI.ClearActions();
                 return;
+            }
 
             InventoryItem inventoryItem = inventoryData.GetItemAt(realSlot);
 
             if (inventoryItem.IsEmpty)
+            {
+                inventoryUI.ClearActions();
                 return;
-
-            inventoryUI.ShowItemAction(visualIndex);
-
-            if (inventoryItem.item is IItemAction action)
+            }
+            // Comida
+            if (inventoryItem.item is EdibleItemSO edible)
             {
-                inventoryUI.AddAction(action.ActionName, () => PerformAction(realSlot));
+                inventoryUI.ShowActions(edible.ActionName, () => PerformAction(realSlot),"Sacar",() => HoldItem(realSlot));
+                return;
+            }
+            // Herramientas
+            if (inventoryItem.item is ToolItemSO tool)
+            {
+                inventoryUI.ShowActions(tool.ActionName,() => PerformAction(realSlot), "Sacar",() => HoldItem(realSlot));
+                return;
             }
 
-            if (inventoryItem.item is IDestroyableItem)
+            // Materiales
+            if (inventoryItem.item is MaterialItemSO)
             {
-                inventoryUI.AddAction("Tirar",() => DropItem(realSlot, 1));
+                inventoryUI.ShowActions("Tirar stack",() => DropStack(realSlot),"Sacar",() => HoldItem(realSlot));
+                return;
             }
+
+            inventoryUI.ClearActions();
+        }
+        private void DropStack(int itemIndex)
+        {
+            InventoryItem inventoryItem = inventoryData.GetItemAt(itemIndex);
+            if (inventoryItem.IsEmpty)
+                return;
+            for (int i = 0; i < inventoryItem.quantity; i++)
+            {
+                SpawnDroppedItem(inventoryItem);
+            }
+
+            inventoryData.RemoveItem(itemIndex, inventoryItem.quantity);
+            inventoryUI.ClearActions();
         }
 
+        private void HoldItem(int itemIndex)
+        {
+            InventoryItem inventoryItem = inventoryData.GetItemAt(itemIndex);
+
+            if (inventoryItem.IsEmpty)
+                return;
+
+            PlayerInteractionSystem interaction = GetComponent<PlayerInteractionSystem>();
+
+            if (interaction == null)
+                return;
+            interaction.HoldInventoryItem(inventoryItem.item);
+            inventoryData.RemoveItem(itemIndex, 1);
+            inventoryUI.ClearActions();
+        }
         private void DropItem(int itemIndex, int quantity)
         {
             InventoryItem inventoryItem = inventoryData.GetItemAt(itemIndex);
@@ -215,21 +260,33 @@ namespace Inventory
         private void HandleDescriptionRequest(int visualIndex)
         {
             int realSlot = GetRealSlot(visualIndex);
-
             if (realSlot < 0)
                 return;
 
             InventoryItem item = inventoryData.GetItemAt(realSlot);
-
             if (item.IsEmpty)
             {
                 inventoryUI.ResetSelection();
                 return;
             }
-            inventoryUI.UpdateDescription(visualIndex, item.item.ItemImage,item.item.Name,PrepareDescription(item));
+
+            inventoryUI.UpdateDescription(visualIndex,item.item.ItemImage,item.item.Name,item.item.Description);
+            inventoryUI.ClearStats();
+            if (item.item is EdibleItemSO edible)
+            {
+                foreach (var modifier in edible.ModifiersData)
+                {
+                    inventoryUI.AddStat(modifier.statModifier.Icon,modifier.value);
+                }
+            }
+            else if (item.item is ToolItemSO tool)
+            {
+                inventoryUI.AddStat(damageIcon, tool.AnimalDamage);
+            }
+            HandleItemActionRequest(visualIndex);
         }
 
-        private string PrepareDescription(InventoryItem item)
+        /*private string PrepareDescription(InventoryItem item)
         {
             StringBuilder sb = new();
             sb.AppendLine(item.item.Description);
@@ -239,7 +296,7 @@ namespace Inventory
             }
 
             return sb.ToString();
-        }
+        }*/
 
         public int AddItem(ItemSO item, int quantity)
         {

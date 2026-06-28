@@ -23,7 +23,7 @@ namespace Inventory.UI
             ResetDescription();
         }
 
-        public void ResetDescription()
+        public virtual void ResetDescription()
         {
             itemImage.gameObject.SetActive(false);
 

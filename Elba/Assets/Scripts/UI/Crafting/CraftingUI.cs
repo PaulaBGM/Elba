@@ -1,5 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
+using Inventory.Model;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -12,10 +12,12 @@ public class CraftingUI : MonoBehaviour
     [SerializeField] private UICraftingRecipe recipePrefab;
     [SerializeField] private Transform content;
 
-    [Header("Selected Recipe")]
-    [SerializeField] private TMP_Text recipeName;
-    [SerializeField] private TMP_Text materialsText;
+    [Header("Description")]
+    [SerializeField] private CraftDescriptionUI descriptionUI;
     [SerializeField] private Button craftButton;
+
+    [Header("Icons")]
+    [SerializeField] private Sprite damageIcon;
 
     [Header("References")]
     [SerializeField] private CraftingManager craftingManager;
@@ -40,6 +42,9 @@ public class CraftingUI : MonoBehaviour
     public void Open()
     {
         root.SetActive(true);
+
+        if (selectedRecipe != null)
+            RefreshSelectedRecipe();
     }
 
     public void Close()
@@ -55,25 +60,18 @@ public class CraftingUI : MonoBehaviour
                 Instantiate(recipePrefab, content);
 
             uiRecipe.Setup(recipe);
-
             uiRecipe.OnRecipeClicked += HandleRecipeClicked;
-
             recipesUI.Add(uiRecipe);
         }
     }
 
-    private void HandleRecipeClicked(
-        UICraftingRecipe recipeUI)
+    private void HandleRecipeClicked(UICraftingRecipe recipeUI)
     {
         foreach (UICraftingRecipe recipe in recipesUI)
-        {
             recipe.Deselect();
-        }
 
         recipeUI.Select();
-
         selectedRecipe = recipeUI.Recipe;
-
         RefreshSelectedRecipe();
     }
 
@@ -82,29 +80,31 @@ public class CraftingUI : MonoBehaviour
         if (selectedRecipe == null)
             return;
 
-        recipeName.text =
-            selectedRecipe.result.Name;
+        descriptionUI.ResetDescription();
+        descriptionUI.SetDescription(selectedRecipe.result.ItemImage,selectedRecipe.result.Name,selectedRecipe.result.Description);
+        descriptionUI.ClearStats();
 
-        materialsText.text =
-            BuildIngredientsText(selectedRecipe);
-    }
-
-    private string BuildIngredientsText(
-        CraftingRecipeSO recipe)
-    {
-        System.Text.StringBuilder sb = new();
-
-        foreach (var ingredient in recipe.ingredients)
+        if (selectedRecipe.result is EdibleItemSO edible)
         {
-            int amount =
-                craftingManager.GetItemCount(
-                    ingredient.item);
-
-            sb.AppendLine(
-                $"{ingredient.item.Name} {amount}/{ingredient.amount}");
+            foreach (var modifier in edible.ModifiersData)
+            {
+                descriptionUI.AddStat(modifier.statModifier.Icon,modifier.value);
+            }
+        }
+        else if (selectedRecipe.result is ToolItemSO tool)
+        {
+            descriptionUI.AddStat(damageIcon,tool.AnimalDamage);
         }
 
-        return sb.ToString();
+        descriptionUI.ClearIngredients();
+
+        foreach (RecipeIngredient ingredient in selectedRecipe.ingredients)
+        {
+            int owned =craftingManager.GetItemCount(ingredient.item);
+            descriptionUI.AddIngredient(ingredient.item.ItemImage,ingredient.item.Name,owned,ingredient.amount);
+        }
+
+        craftButton.interactable = craftingManager.CanCraft(selectedRecipe);
     }
 
     private void CraftSelectedRecipe()
@@ -112,14 +112,8 @@ public class CraftingUI : MonoBehaviour
         if (selectedRecipe == null)
             return;
 
-        bool crafted =
-            craftingManager.Craft(selectedRecipe);
-
-        if (!crafted)
-        {
-            Debug.Log("Faltan materiales");
+        if (!craftingManager.Craft(selectedRecipe))
             return;
-        }
 
         RefreshSelectedRecipe();
     }

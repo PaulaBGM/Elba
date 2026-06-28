@@ -15,14 +15,14 @@ public class CraftingManager : MonoBehaviour
             return false;
 
         inventory.ConsumeIngredients(recipe.ingredients);
-
-        inventory.AddItem(
-            recipe.result,
-            recipe.amount);
+        inventory.AddItem(recipe.result,recipe.amount);
 
         return true;
     }
-
+    public bool CanCraft(CraftingRecipeSO recipe)
+    {
+        return inventory.HasItems(recipe.ingredients);
+    }
     public int GetItemCount(ItemSO item)
     {
         return inventory.GetItemCount(item);

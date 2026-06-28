@@ -19,7 +19,7 @@ MonoBehaviour:
     width: 1920
     height: 989
   m_ShowMode: 4
-  m_Title: Game
+  m_Title: Hierarchy
   m_RootView: {fileID: 3}
   m_MinSize: {x: 875, y: 300}
   m_MaxSize: {x: 10000, y: 10000}
@@ -145,7 +145,7 @@ MonoBehaviour:
   m_MinSize: {x: 400, y: 100}
   m_MaxSize: {x: 32384, y: 16192}
   vertical: 0
-  controlID: 46
+  controlID: 130
   draggingID: 0
 --- !u!114 &7
 MonoBehaviour:
@@ -171,7 +171,7 @@ MonoBehaviour:
   m_MinSize: {x: 300, y: 100}
   m_MaxSize: {x: 24288, y: 16192}
   vertical: 1
-  controlID: 47
+  controlID: 56
   draggingID: 0
 --- !u!114 &8
 MonoBehaviour:
@@ -198,7 +198,7 @@ MonoBehaviour:
   m_MinSize: {x: 300, y: 50}
   m_MaxSize: {x: 24288, y: 8096}
   vertical: 0
-  controlID: 48
+  controlID: 57
   draggingID: 0
 --- !u!114 &9
 MonoBehaviour:
@@ -445,10 +445,10 @@ MonoBehaviour:
     m_OverlaysVisible: 1
   m_SceneHierarchy:
     m_TreeViewState:
-      scrollPos: {x: 0, y: 386}
-      m_SelectedIDs: c86e0000
-      m_LastClickedID: 28360
-      m_ExpandedIDs: 2c1dfeff2e1dfeff0ef6feff04f7feffecf7feff8e8afffffeeefffff4efffff04f1ffff10f3fffffef4ffffecf5fffffef5ffff08f6ffff16f6ffff22f6ffff2cf6ffff48f6ffff5cf6ffff66f6ffff84f6ffffa2f6fffff0f6ffff44faffff0afbffff8a6e0000986e0000c86e0000d66e0000006f0000d26f0000dc6f0000387000007a7000009c700000ea700000347100005a7100006a710000f6710000
+      scrollPos: {x: 0, y: 0}
+      m_SelectedIDs: c2c4ffff
+      m_LastClickedID: -15166
+      m_ExpandedIDs: bac7ffff0afbffff886e0000d66e0000e66e0000b470000070710000
       m_RenameOverlay:
         m_UserAcceptedRename: 0
         m_Name: 
@@ -1108,9 +1108,9 @@ MonoBehaviour:
   m_AudioPlay: 0
   m_DebugDrawModesUseInteractiveLightBakingData: 0
   m_Position:
-    m_Target: {x: 297.34436, y: 250.36255, z: -4.7876515}
+    m_Target: {x: 602.53625, y: 254.62074, z: -0.79848784}
     speed: 2
-    m_Value: {x: 297.34436, y: 250.36255, z: -4.7876515}
+    m_Value: {x: 601.7347, y: 252.62538, z: -0.87881434}
   m_RenderMode: 0
   m_CameraMode:
     drawMode: 0
@@ -1160,9 +1160,9 @@ MonoBehaviour:
     speed: 2
     m_Value: {x: 0, y: 0, z: 0, w: 1}
   m_Size:
-    m_Target: 483.57858
+    m_Target: 170.47021
     speed: 2
-    m_Value: 483.57858
+    m_Value: 178.50284
   m_Ortho:
     m_Target: 1
     speed: 2
@@ -1243,7 +1243,7 @@ MonoBehaviour:
     m_SkipHidden: 0
     m_SearchArea: 1
     m_Folders:
-    - Assets/Scripts/UI/Crafting
+    - Assets/Prefabs/UI
     m_Globs: []
     m_ProductIds: 
     m_AnyWithAssetOrigin: 0
@@ -1253,17 +1253,17 @@ MonoBehaviour:
   m_ViewMode: 1
   m_StartGridSize: 96
   m_LastFolders:
-  - Assets/Scripts/UI/Crafting
+  - Assets/Prefabs/UI
   m_LastFoldersGridSize: 96
   m_LastProjectPath: C:\Users\borra\Elba\Elba
   m_LockTracker:
     m_IsLocked: 0
   m_LastLocalAssetsSearchArea: 1
   m_FolderTreeState:
-    scrollPos: {x: 0, y: 522}
-    m_SelectedIDs: 847d0000
-    m_LastClickedID: 32132
-    m_ExpandedIDs: 00000000ec7c0000ee7c0000f07c0000f27c0000f47c00006c7d0000727d00007a7d000090a0000092a0000094a0000092de000000ca9a3b
+    scrollPos: {x: 0, y: 94}
+    m_SelectedIDs: ec7d0000
+    m_LastClickedID: 32236
+    m_ExpandedIDs: 00000000667d0000687d00006a7d00006c7d00006e7d0000707d0000727d0000747d0000767d0000787d00007a7d000000ca9a3b
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -1292,7 +1292,7 @@ MonoBehaviour:
     scrollPos: {x: 0, y: 0}
     m_SelectedIDs: 
     m_LastClickedID: 0
-    m_ExpandedIDs: 00000000ec7c0000ee7c0000f07c0000f27c0000f47c0000
+    m_ExpandedIDs: 00000000667d0000687d00006a7d00006c7d00006e7d0000707d0000727d0000747d0000767d0000787d00007a7d0000
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -1372,9 +1372,9 @@ MonoBehaviour:
   m_Pos:
     serializedVersion: 2
     x: 0
-    y: 789
-    width: 1403
-    height: 197
+    y: 636
+    width: 1525
+    height: 350
   m_SerializedDataModeController:
     m_DataMode: 0
     m_PreferredDataMode: 0
@@ -1424,7 +1424,7 @@ MonoBehaviour:
     m_OverlaysVisible: 1
   m_LockTracker:
     m_IsLocked: 0
-  m_LastSelectedObjectID: -3274
+  m_LastSelectedObjectID: 28374
 --- !u!114 &19
 MonoBehaviour:
   m_ObjectHideFlags: 52

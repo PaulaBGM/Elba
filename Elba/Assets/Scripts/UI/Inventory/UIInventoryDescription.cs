@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
+using Inventory.Model;
 
 namespace Inventory.UI
 {
@@ -32,18 +33,29 @@ namespace Inventory.UI
 
             ClearStats();
         }
-
-        public void SetDescription(
-            Sprite sprite,
-            string itemName,
-            string itemDescription)
+        public void ShowItem(ItemSO item, Sprite damageIcon)
+        {
+            ResetDescription();
+            SetDescription(item.ItemImage,item.Name,item.Description);
+            ClearStats();
+            if (item is EdibleItemSO edible)
+            {
+                foreach (var modifier in edible.ModifiersData)
+                {
+                    AddStat(modifier.statModifier.Icon,modifier.value);
+                }
+            }
+            else if (item is ToolItemSO tool)
+            {
+                AddStat(damageIcon,tool.AnimalDamage);
+            }
+        }
+        public void SetDescription(Sprite sprite,string itemName,string itemDescription)
         {
             itemImage.gameObject.SetActive(true);
             itemImage.sprite = sprite;
-
             title.text = itemName;
             description.text = itemDescription;
-
             ClearStats();
         }
 
@@ -51,7 +63,6 @@ namespace Inventory.UI
         {
             UIStatRow row = Instantiate(statRowPrefab, statsParent);
             row.SetData(icon, value);
-
             statRows.Add(row);
         }
 

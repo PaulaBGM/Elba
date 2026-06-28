@@ -54,14 +54,23 @@ namespace Inventory.Model
                     itemState == null ? item.DefaultParametersList : itemState)
             };
 
+            Debug.Log($"Slots totales: {inventoryItems.Count}");
+
             for (int i = 0; i < inventoryItems.Count; i++)
             {
+                Debug.Log($"Slot {i} vacío = {inventoryItems[i].IsEmpty}");
+
                 if (inventoryItems[i].IsEmpty)
                 {
+                    Debug.Log($"Insertando {item.Name} en slot {i}");
+
                     inventoryItems[i] = newItem;
+
                     return quantity;
                 }
             }
+
+            Debug.LogError("NO SE HA ENCONTRADO NINGÚN SLOT LIBRE");
 
             return 0;
         }

@@ -225,9 +225,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   inventoryView: {fileID: 6636044105998993574}
-  inventoryUI: {fileID: 0}
   inventoryData: {fileID: 11400000, guid: c734b1c32c659a94f831915950254762, type: 2}
-  damageIcon: {fileID: 21300000, guid: 4d69921b3ce7ba74db2c0a618eae766d, type: 3}
   initialItems: []
 --- !u!114 &6636044105998993574
 MonoBehaviour:
@@ -242,7 +240,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   inventoryUI: {fileID: 0}
-  inventoryData: {fileID: 11400000, guid: c734b1c32c659a94f831915950254762, type: 2}
+  damageIcon: {fileID: 21300000, guid: 4d69921b3ce7ba74db2c0a618eae766d, type: 3}
 --- !u!114 &3772882090220559633
 MonoBehaviour:
   m_ObjectHideFlags: 0

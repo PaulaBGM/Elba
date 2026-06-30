@@ -27,25 +27,17 @@ public class SurvivalSystem : MonoBehaviour
     private void Update()
     {
         timer += Time.deltaTime;
-
         if (timer < tickRate)
             return;
 
         timer = 0f;
-
         UpdateNeeds();
     }
 
     private void UpdateNeeds()
     {
-        stats.ModifyStat(
-            StatType.Hunger,
-            -hungerDecayPerTick);
-
-        stats.ModifyStat(
-            StatType.Thirst,
-            -thirstDecayPerTick);
-
+        stats.ModifyStat(StatType.Hunger,-hungerDecayPerTick);
+        stats.ModifyStat(StatType.Thirst,-thirstDecayPerTick);
         ApplyCriticalEffects();
     }
 
@@ -53,16 +45,12 @@ public class SurvivalSystem : MonoBehaviour
     {
         if (stats.IsEmpty(StatType.Hunger))
         {
-            stats.ModifyStat(
-                StatType.Health,
-                -starvationDamagePerTick);
+            stats.ModifyStat(StatType.Health,-starvationDamagePerTick);
         }
 
         if (stats.IsEmpty(StatType.Thirst))
         {
-            stats.ModifyStat(
-                StatType.Health,
-                -dehydrationDamagePerTick);
+            stats.ModifyStat(StatType.Health,-dehydrationDamagePerTick);
         }
     }
 }

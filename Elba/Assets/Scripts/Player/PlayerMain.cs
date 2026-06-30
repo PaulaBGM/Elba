@@ -15,22 +15,21 @@ public class PlayerMain : MonoBehaviour
 
         if (playerMovement == null)
             playerMovement = GetComponent<PlayerMovement>();
+       
+        playerStatsSystem.OnDeath += HandleDeath;
     }
 
     public void Damage(float amount)
     {
-        if (ShelterManager.Instance != null &&
-            ShelterManager.Instance.IsInsideShelter)
+        if (ShelterManager.Instance != null && ShelterManager.Instance.IsInsideShelter)
         {
             return;
         }
 
-        playerStatsSystem.ModifyStat(
-            StatType.Health,
-            -amount);
+        playerStatsSystem.ModifyStat(StatType.Health,-amount);
 
         if (playerStatsSystem.IsEmpty(StatType.Health))
-            NotifyDeath();
+            HandleDeath();
     }
 
     public void ApplyKnockback(Vector2 direction, float force)
@@ -61,8 +60,9 @@ public class PlayerMain : MonoBehaviour
         playerStatsSystem.ModifyStat(StatType.Stamina, amount);
     }
 
-    public void NotifyDeath()
+    private void HandleDeath()
     {
         OnPlayerDeath?.Invoke();
+        GameOverController.Instance?.Show();
     }
 }

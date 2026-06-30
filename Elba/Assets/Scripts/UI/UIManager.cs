@@ -15,14 +15,12 @@ public class UIManager : MonoBehaviour
     [Header("Systems")]
     [SerializeField] private PlayerMovement playerMovement;
     [SerializeField] private PlayerInteractionSystem interactionSystem;
-
+    public bool IsGameOver { get; private set; }
+    public event Action<bool> OnGameOverStateChanged;
     public bool IsInventoryOpen { get; private set; }
-
     public bool IsExternalMenuOpen { get; set; }
-
     public event Action<bool> OnInventoryStateChanged;
     public event Action<bool> OnPauseStateChanged;
-
     public event Action OnSubmitPressed;
     public event Action OnPausePressed;
 
@@ -69,8 +67,7 @@ public class UIManager : MonoBehaviour
 
     public void ToggleInventory()
     {
-        // Si otro menú tiene el control, ignoramos el Tab
-        if (IsExternalMenuOpen)
+        if (IsExternalMenuOpen || IsGameOver)
             return;
 
         if (IsInventoryOpen)
@@ -114,5 +111,10 @@ public class UIManager : MonoBehaviour
     public void SetPauseOpen(bool isOpen)
     {
         OnPauseStateChanged?.Invoke(isOpen);
+    }
+    public void SetGameOver(bool value)
+    {
+        IsGameOver = value;
+        OnGameOverStateChanged?.Invoke(value);
     }
 }

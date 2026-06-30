@@ -20,11 +20,8 @@ public class PlayerStatsSystem : MonoBehaviour
     [SerializeField] private float maxTemperature = 100f;
 
     [SerializeField] private EventManagerSO eventManager;
-
     private Dictionary<StatType, Stat> stats;
-
     public event Action OnDeath;
-
     private bool isDead;
 
     private void Awake()
@@ -70,23 +67,16 @@ public class PlayerStatsSystem : MonoBehaviour
             return;
 
         float previousValue = statData.Current;
-
         statData.Modify(amount);
 
         if (Mathf.Approximately(previousValue, statData.Current))
             return;
 
-        eventManager?.NotifyPlayerStatChanged(
-            stat,
-            statData.Current,
-            statData.Max);
+        eventManager?.NotifyPlayerStatChanged(stat,statData.Current, statData.Max);
 
-        if (stat == StatType.Health &&
-            statData.Current <= 0f &&
-            !isDead)
+        if (stat == StatType.Health && statData.Current <= 0f && !isDead)
         {
             isDead = true;
-
             OnDeath?.Invoke();
             eventManager?.NotifyPlayerDeath();
         }
@@ -119,10 +109,6 @@ public class PlayerStatsSystem : MonoBehaviour
             return;
 
         statData.SetCurrent(value);
-
-        eventManager?.NotifyPlayerStatChanged(
-            stat,
-            statData.Current,
-            statData.Max);
+        eventManager?.NotifyPlayerStatChanged(stat,statData.Current,statData.Max);
     }
 }

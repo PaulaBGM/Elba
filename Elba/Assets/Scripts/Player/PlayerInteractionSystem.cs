@@ -1,4 +1,5 @@
 using UnityEngine;
+using System;
 using Inventory.Model;
 
 public class PlayerInteractionSystem : MonoBehaviour
@@ -11,7 +12,7 @@ public class PlayerInteractionSystem : MonoBehaviour
 
     private IInteractable currentInteractable;
     private Item heldItem;
-
+    public event Action OnGatherStarted;
     public Item HeldItem => heldItem;
     public bool HasHeldItem => heldItem != null;
 
@@ -60,6 +61,7 @@ public class PlayerInteractionSystem : MonoBehaviour
 
     private void PickUpItem(Item item)
     {
+        OnGatherStarted?.Invoke();
         heldItem = item;
         heldItemRenderer.sprite = item.InventoryItem.ItemImage;
         heldItemRenderer.enabled = true;

@@ -23,6 +23,15 @@ public class PlayerStatsSystem : MonoBehaviour
     private Dictionary<StatType, Stat> stats;
     public event Action OnDeath;
     private bool isDead;
+    public event Action<bool> OnTiredStateChanged;
+
+    [SerializeField]
+    [Range(0f, 1f)]
+    private float tiredThreshold = 0.2f;
+
+    private bool isTired;
+    public bool IsDead => isDead;
+    public bool IsTired => isTired;
 
     private void Awake()
     {
@@ -73,7 +82,7 @@ public class PlayerStatsSystem : MonoBehaviour
             return;
 
         eventManager?.NotifyPlayerStatChanged(stat,statData.Current, statData.Max);
-
+        UpdateTiredState();
         if (stat == StatType.Health && statData.Current <= 0f && !isDead)
         {
             isDead = true;
@@ -86,10 +95,7 @@ public class PlayerStatsSystem : MonoBehaviour
     {
         foreach (var stat in stats)
         {
-            eventManager?.NotifyPlayerStatChanged(
-                stat.Key,
-                stat.Value.Current,
-                stat.Value.Max);
+            eventManager?.NotifyPlayerStatChanged(stat.Key,stat.Value.Current,stat.Value.Max);
         }
     }
 
@@ -110,5 +116,13 @@ public class PlayerStatsSystem : MonoBehaviour
 
         statData.SetCurrent(value);
         eventManager?.NotifyPlayerStatChanged(stat,statData.Current,statData.Max);
+    }
+    private void UpdateTiredState()
+    {
+        bool tired = IsEmpty(StatType.Stamina) ||IsLow(StatType.Stamina, tiredThreshold) || IsLow(StatType.Hunger, tiredThreshold) ||IsLow(StatType.Thirst, tiredThreshold);
+        if (tired == isTired)
+            return;
+        isTired = tired;
+        OnTiredStateChanged?.Invoke(isTired);
     }
 }

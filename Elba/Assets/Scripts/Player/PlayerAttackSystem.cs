@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using UnityEngine;
 
@@ -12,7 +13,7 @@ public class PlayerAttackSystem : MonoBehaviour
     [SerializeField] private float attackDistance = 1.5f;
     [SerializeField] private LayerMask attackLayer;
     [SerializeField] private float attackDuration = 0.3f;
-
+    public event Action OnAttackStarted;
     private bool isAttacking;
 
     public bool IsAttacking => isAttacking;
@@ -53,7 +54,7 @@ public class PlayerAttackSystem : MonoBehaviour
     private IEnumerator AttackRoutine()
     {
         isAttacking = true;
-
+        OnAttackStarted?.Invoke();
         PerformAttack();
 
         yield return new WaitForSeconds(attackDuration);

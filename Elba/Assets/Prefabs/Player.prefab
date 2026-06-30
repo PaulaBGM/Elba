@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 6848749339128507563}
   - component: {fileID: 2517235998308141539}
   - component: {fileID: 6636044105998993574}
+  - component: {fileID: 5308139133956751282}
   - component: {fileID: 3772882090220559633}
   - component: {fileID: 2671821299160581760}
   - component: {fileID: 2645960354421844095}
@@ -23,6 +24,7 @@ GameObject:
   - component: {fileID: 6995424054038047983}
   - component: {fileID: 7944425894738448655}
   - component: {fileID: 5545172827743808107}
+  - component: {fileID: 4083348149249292381}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -241,6 +243,23 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   inventoryUI: {fileID: 0}
   damageIcon: {fileID: 21300000, guid: 4d69921b3ce7ba74db2c0a618eae766d, type: 3}
+--- !u!114 &5308139133956751282
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1814074862901214919}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 311866c5cc98e9a43a64a72528eefd2d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  movement: {fileID: 2671821299160581760}
+  attack: {fileID: 7944425894738448655}
+  interaction: {fileID: 6995424054038047983}
+  stats: {fileID: 1888820010737167267}
+  animator: {fileID: 8432072285246718784}
 --- !u!114 &3772882090220559633
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -332,6 +351,7 @@ MonoBehaviour:
   maxStamina: 100
   maxTemperature: 100
   eventManager: {fileID: 11400000, guid: 9669a5a7be4a5434c9a3d56c56945b46, type: 2}
+  tiredThreshold: 0.2
 --- !u!114 &5647593785978635254
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -397,6 +417,28 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c728d0a780d871b43a122df86f62723f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!95 &4083348149249292381
+Animator:
+  serializedVersion: 7
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1814074862901214919}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 0}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_AnimatePhysics: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &2176814024600059378
 GameObject:
   m_ObjectHideFlags: 0
@@ -684,7 +726,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 6774731fd5d4efc42892371371c40ed0, type: 3}
+  m_Sprite: {fileID: 2103711822, guid: b329a81367cfe684791b754f20723e84, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0

@@ -8,7 +8,7 @@ public class CraftingUI : MonoBehaviour
 {
     [Header("UI")]
     [SerializeField] private GameObject root;
-
+    [SerializeField] private InputReader input;
     [SerializeField] private UICraftingRecipe recipePrefab;
     [SerializeField] private Transform content;
 
@@ -30,10 +30,27 @@ public class CraftingUI : MonoBehaviour
     {
         if (root != null)
             root.SetActive(false);
-
+        if (input == null)
+            input = FindFirstObjectByType<InputReader>();
         craftButton.onClick.AddListener(CraftSelectedRecipe);
     }
+    private void OnEnable()
+    {
+        input.OnInventory += HandleTabPressed;
+    }
 
+    private void OnDisable()
+    {
+        input.OnInventory -= HandleTabPressed;
+    }
+
+    private void HandleTabPressed()
+    {
+        if (!root.activeSelf)
+            return;
+
+        Close();
+    }
     private void Start()
     {
         BuildRecipes();

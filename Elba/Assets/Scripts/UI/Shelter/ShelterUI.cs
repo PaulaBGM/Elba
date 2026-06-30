@@ -21,14 +21,14 @@ public class ShelterUI : MonoBehaviour
         currentShelter = shelter;
 
         root.SetActive(true);
-
+        UIManager.Instance.IsExternalMenuOpen = true;
         Time.timeScale = 0f;
     }
 
     public void Close()
     {
         currentShelter = null;
-
+        UIManager.Instance.IsExternalMenuOpen = false;
         root.SetActive(false);
 
         Time.timeScale = 1f;

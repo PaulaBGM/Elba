@@ -8,7 +8,7 @@ public class StorageController : MonoBehaviour
     [SerializeField] private StorageMenu storageMenu;
     [SerializeField] private StorageManager storageManager;
     [SerializeField] private UIFloatingStorageMenu floatingMenu;
-
+    [SerializeField] private InputReader input;
     public void Open()
     {
         InventoryController player =
@@ -28,6 +28,8 @@ public class StorageController : MonoBehaviour
 
     public void Open(InventorySO playerInventory, InventorySO storageInventory)
     {
+        UIManager.Instance.IsMenuBlockingInventory = true;
+
         storageManager.Initialize(playerInventory, storageInventory);
         storageMenu.Initialize(playerInventory, storageInventory);
         storageMenu.Show();
@@ -37,14 +39,37 @@ public class StorageController : MonoBehaviour
     {
         floatingMenu.Hide();
         storageMenu.Hide();
+
+        UIManager.Instance.IsMenuBlockingInventory = false;
     }
 
     private void Awake()
     {
         storageMenu.OnPlayerItemSelected += HandlePlayerItem;
         storageMenu.OnStorageItemSelected += HandleStorageItem;
+        if (input == null)
+            input = FindFirstObjectByType<InputReader>();
+
+        storageMenu.OnPlayerItemSelected += HandlePlayerItem;
+        storageMenu.OnStorageItemSelected += HandleStorageItem;
+    }
+    private void OnEnable()
+    {
+        input.OnInventory += HandleTabPressed;
     }
 
+    private void OnDisable()
+    {
+        input.OnInventory -= HandleTabPressed;
+    }
+
+    private void HandleTabPressed()
+    {
+        if (!storageMenu.IsOpen)
+            return;
+
+        Close();
+    }
     private void OnDestroy()
     {
         storageMenu.OnPlayerItemSelected -= HandlePlayerItem;

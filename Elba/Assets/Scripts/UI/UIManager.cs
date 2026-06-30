@@ -8,7 +8,7 @@ public class UIManager : MonoBehaviour
     [Header("UI")]
     [SerializeField] private GameObject gameplayHUD;
     [SerializeField] private InventoryMenu inventoryMenu;
-
+    public bool IsMenuBlockingInventory { get; set; }
     [Header("Input")]
     [SerializeField] private InputReader input;
 
@@ -18,8 +18,13 @@ public class UIManager : MonoBehaviour
 
     public bool IsInventoryOpen { get; private set; }
 
+    public bool IsExternalMenuOpen { get; set; }
+
     public event Action<bool> OnInventoryStateChanged;
+    public event Action<bool> OnPauseStateChanged;
+
     public event Action OnSubmitPressed;
+    public event Action OnPausePressed;
 
     private void Awake()
     {
@@ -46,6 +51,7 @@ public class UIManager : MonoBehaviour
     private void OnEnable()
     {
         input.OnInventory += ToggleInventory;
+        input.OnPausePressed += HandlePause;
         input.OnSubmitPressed += HandleSubmit;
     }
 
@@ -53,16 +59,26 @@ public class UIManager : MonoBehaviour
     {
         input.OnInventory -= ToggleInventory;
         input.OnSubmitPressed -= HandleSubmit;
+        input.OnPausePressed -= HandlePause;
+    }
+
+    private void HandlePause()
+    {
+        OnPausePressed?.Invoke();
     }
 
     public void ToggleInventory()
     {
+        // Si otro menú tiene el control, ignoramos el Tab
+        if (IsExternalMenuOpen)
+            return;
+
         if (IsInventoryOpen)
             CloseInventory();
         else
             OpenInventory();
     }
-    
+
     private void HandleSubmit()
     {
         OnSubmitPressed?.Invoke();
@@ -94,5 +110,9 @@ public class UIManager : MonoBehaviour
         inventoryMenu.Hide();
 
         OnInventoryStateChanged?.Invoke(false);
+    }
+    public void SetPauseOpen(bool isOpen)
+    {
+        OnPauseStateChanged?.Invoke(isOpen);
     }
 }

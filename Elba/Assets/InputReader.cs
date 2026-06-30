@@ -20,6 +20,7 @@ public class InputReader : MonoBehaviour
     public event Action OnUISelect;
     public event Action OnUIRightClick;
     public event Action OnSubmitPressed;
+    public event Action OnPausePressed;
 
     public bool SprintHeld =>
         inputActions.Player.Sprint.IsPressed();
@@ -43,6 +44,7 @@ public class InputReader : MonoBehaviour
         inputActions.UI.Select.performed += OnUISelectPerformed;
         inputActions.UI.RightClick.performed += OnUIRightClickPerformed;
         inputActions.UI.Submit.performed += OnSubmitPerformed;
+        inputActions.UI.Pause.performed += OnPausePerformed;
         inputActions.Player.Store.performed += OnStorePerformed;
         inputActions.Player.Drop.performed += OnDropPerformed;
         inputActions.Player.Consume.performed += OnConsumePerformed;
@@ -63,6 +65,7 @@ public class InputReader : MonoBehaviour
         inputActions.UI.Select.performed -= OnUISelectPerformed;
         inputActions.UI.RightClick.performed -= OnUIRightClickPerformed;
         inputActions.UI.Submit.performed -= OnSubmitPerformed;
+        inputActions.UI.Pause.performed -= OnPausePerformed;
         inputActions.Player.Store.performed -= OnStorePerformed;
         inputActions.Player.Drop.performed -= OnDropPerformed;
         inputActions.Player.Consume.performed -= OnConsumePerformed;
@@ -116,6 +119,10 @@ public class InputReader : MonoBehaviour
     private void OnSubmitPerformed(InputAction.CallbackContext context)
     {
         OnSubmitPressed?.Invoke();
+    }
+    private void OnPausePerformed(InputAction.CallbackContext context)
+    {
+        OnPausePressed?.Invoke();
     }
     private void OnStorePerformed(InputAction.CallbackContext context)
     {

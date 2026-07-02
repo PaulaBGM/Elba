@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using UnityEngine;
 
@@ -23,8 +24,9 @@ public abstract class ChargeAnimalBehaviour : MonoBehaviour, IAnimalBehaviour
 
     protected bool busy;
     protected float hitRangeSqr;
-
     public bool IsBusy => busy;
+    public event Action OnChargeStarted;
+    public event Action<bool> OnStunnedStateChanged;
 
     protected virtual void Awake()
     {
@@ -46,40 +48,31 @@ public abstract class ChargeAnimalBehaviour : MonoBehaviour, IAnimalBehaviour
     {
         busy = true;
         enemy.IsBusy = true;
-
-        Vector2 chargeDirection =
-            ((Vector2)enemy.Target.position -
-            (Vector2)enemy.transform.position).normalized;
-
+        OnChargeStarted?.Invoke();
+        Vector2 chargeDirection = ((Vector2)enemy.Target.position - (Vector2)enemy.transform.position).normalized;
         SetPreparingColor();
-
         enemy.Rigidbody.linearVelocity = Vector2.zero;
-
         yield return new WaitForSeconds(chargeTime);
 
         if (enemy.Target == null)
         {
             SetNormalColor();
-
             busy = false;
             enemy.IsBusy = false;
-
             yield break;
         }
 
         SetNormalColor();
-
         float timer = chargeDuration;
 
         while (timer > 0f)
         {
             timer -= Time.deltaTime;
-
             enemy.Rigidbody.linearVelocity = chargeDirection * chargeSpeed;
 
             if (enemy.Target != null)
             {
-                Vector2 offset =  (Vector2)enemy.Target.position -   (Vector2)enemy.transform.position;
+                Vector2 offset = (Vector2)enemy.Target.position - (Vector2)enemy.transform.position;
 
                 if (offset.sqrMagnitude <= hitRangeSqr)
                 {
@@ -88,9 +81,7 @@ public abstract class ChargeAnimalBehaviour : MonoBehaviour, IAnimalBehaviour
                     if (player != null)
                     {
                         player.Damage(damage);
-
-                        player.ApplyKnockback(chargeDirection,knockbackForce);
-
+                        player.ApplyKnockback(chargeDirection, knockbackForce);
                         enemy.Rigidbody.linearVelocity = Vector2.zero;
 
                         break;
@@ -102,7 +93,7 @@ public abstract class ChargeAnimalBehaviour : MonoBehaviour, IAnimalBehaviour
         }
 
         enemy.Rigidbody.linearVelocity = Vector2.zero;
-        SetStunnedColor();
+        OnStunnedStateChanged?.Invoke(true);
         float stunTimer = stunDuration;
 
         while (stunTimer > 0f)
@@ -113,6 +104,9 @@ public abstract class ChargeAnimalBehaviour : MonoBehaviour, IAnimalBehaviour
         }
 
         SetNormalColor();
+
+        OnStunnedStateChanged?.Invoke(false);
+
         busy = false;
         enemy.IsBusy = false;
     }
@@ -121,12 +115,6 @@ public abstract class ChargeAnimalBehaviour : MonoBehaviour, IAnimalBehaviour
     {
         if (spriteRenderer != null)
             spriteRenderer.color = Color.red;
-    }
-
-    protected virtual void SetStunnedColor()
-    {
-        if (spriteRenderer != null)
-            spriteRenderer.color = Color.yellow;
     }
 
     protected virtual void SetNormalColor()

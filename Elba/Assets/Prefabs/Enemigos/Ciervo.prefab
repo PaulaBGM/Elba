@@ -59,7 +59,7 @@ Transform:
   m_GameObject: {fileID: 2461949732907349263}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -2.19, y: 2.73, z: 0}
+  m_LocalPosition: {x: -0.23, y: 4.14, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -121,7 +121,7 @@ Transform:
   m_GameObject: {fileID: 2993516543120494170}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -4.23, y: -1.78, z: 0}
+  m_LocalPosition: {x: 5.83, y: -1.78, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -139,6 +139,7 @@ GameObject:
   - component: {fileID: 5641183736240217827}
   - component: {fileID: 7588402305258624556}
   - component: {fileID: 823043692614624872}
+  - component: {fileID: 3895574889418286319}
   m_Layer: 3
   m_Name: Visual
   m_TagString: Untagged
@@ -252,6 +253,20 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   anchor: {fileID: 6104925232064637246}
+--- !u!114 &3895574889418286319
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4451040232847690392}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9fdd9119efed58648b130e0586de7583, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  controller: {fileID: 1497637221613753488}
+  health: {fileID: 3886143586608111129}
 --- !u!1 &4725033922517596515
 GameObject:
   m_ObjectHideFlags: 0
@@ -355,7 +370,7 @@ GameObject:
   - component: {fileID: 2304465569616104542}
   - component: {fileID: 1953806613854862140}
   m_Layer: 3
-  m_Name: Uro
+  m_Name: Ciervo
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -464,6 +479,7 @@ MonoBehaviour:
   patrolSpeed: 2
   arrivalDistance: 0.2
   waitTime: 1
+  rotationOffset: 0
 --- !u!114 &2304465569616104542
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -477,11 +493,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   damage: 40
-  chargeTime: 0.2
+  chargeTime: 1
   chargeSpeed: 9
-  chargeDuration: 0.2
+  chargeDuration: 1
   hitRange: 5
-  knockbackForce: 20
+  knockbackForce: 12
   stunDuration: 4
   spriteRenderer: {fileID: 5641183736240217827}
 --- !u!114 &1953806613854862140
@@ -512,7 +528,7 @@ GameObject:
   - component: {fileID: 8626222685017203694}
   - component: {fileID: 3886143586608111129}
   m_Layer: 3
-  m_Name: Uro
+  m_Name: Ciervo
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -526,7 +542,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8707721320718010757}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0.6446575, w: 0.7644716}
+  m_LocalRotation: {x: 0, y: 0, z: -0.6446575, w: 0.7644716}
   m_LocalPosition: {x: 1.363627, y: 1.8592443, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -575,7 +591,7 @@ Transform:
   m_GameObject: {fileID: 8713402014231865518}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -6.32, y: 3.19, z: 0}
+  m_LocalPosition: {x: 6.23, y: 8.38, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []

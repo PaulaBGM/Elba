@@ -4,10 +4,15 @@ public class WolfBehaviour : MonoBehaviour, IAnimalBehaviour
 {
     [SerializeField] private float damage = 10f;
     [SerializeField] private float grabDuration = 2f;
+    private EnemyAnimationController animationController;
 
     private float timer;
 
     public bool IsBusy => timer > 0f;
+    private void Awake()
+    {
+        animationController = GetComponentInChildren<EnemyAnimationController>();
+    }
 
     private void Update()
     {
@@ -20,14 +25,12 @@ public class WolfBehaviour : MonoBehaviour, IAnimalBehaviour
         if (enemy.Target == null)
             return;
 
-        PlayerMain player =
-            enemy.Target.GetComponent<PlayerMain>();
+        PlayerMain player = enemy.Target.GetComponent<PlayerMain>();
 
         if (player == null)
             return;
-
+        animationController?.PlayAttack();
         player.Damage(damage);
-
         timer = grabDuration;
     }
 }

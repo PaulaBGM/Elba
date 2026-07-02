@@ -8,6 +8,9 @@ public class PatrolState : States<EnemyController>
     [SerializeField] private float arrivalDistance = 0.2f;
     [SerializeField] private float waitTime = 1f;
 
+    [Header("Rotation")]
+    [SerializeField] private float rotationOffset = -90f;
+
     private readonly List<Vector2> patrolPoints = new();
 
     private int currentPoint;
@@ -53,6 +56,7 @@ public class PatrolState : States<EnemyController>
             _controller.Rigidbody.linearVelocity = Vector2.zero;
             return;
         }
+
         if (patrolPoints.Count == 0)
             return;
 
@@ -80,8 +84,14 @@ public class PatrolState : States<EnemyController>
             return;
         }
 
-        _controller.Rigidbody.linearVelocity =
-            offset.normalized * patrolSpeed;
+        Vector2 direction = offset.normalized;
+
+        _controller.Rigidbody.linearVelocity = direction * patrolSpeed;
+
+        // Rotar hacia el punto de patrulla
+        float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
+        _controller.transform.rotation =
+            Quaternion.Euler(0f, 0f, angle + rotationOffset);
     }
 
     public override void OnExit()

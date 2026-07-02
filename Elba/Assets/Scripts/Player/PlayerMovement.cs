@@ -1,5 +1,5 @@
-using UnityEngine;
 using System.Collections;
+using UnityEngine;
 
 [RequireComponent(typeof(Rigidbody2D))]
 public class PlayerMovement : MonoBehaviour
@@ -56,17 +56,15 @@ public class PlayerMovement : MonoBehaviour
 
     private void Update()
     {
-
         if (movementLocked)
         {
             movementInput = Vector2.zero;
             staminaSystem.SetSprinting(false);
             UpdateAnimator();
-
             return;
         }
 
-        if (attackSystem != null &&  attackSystem.IsAttacking)
+        if (attackSystem != null && attackSystem.IsAttacking)
         {
             movementInput = Vector2.zero;
             staminaSystem.SetSprinting(false);
@@ -97,6 +95,7 @@ public class PlayerMovement : MonoBehaviour
         }
 
         Move();
+
         Vector3 position = transform.position;
 
         position.x = Mathf.Clamp(
@@ -116,30 +115,51 @@ public class PlayerMovement : MonoBehaviour
     {
         movementInput = input.MoveInput.normalized;
 
-        if (movementInput != Vector2.zero)
-            lastDirection = movementInput;
+        if (attackSystem != null && attackSystem.IsAttacking)
+            return;
+
+        Vector3 mouse =
+            Camera.main.ScreenToWorldPoint(input.MousePosition);
+
+        Vector2 aim =
+            mouse - transform.position;
+
+        if (aim.sqrMagnitude > 0.01f)
+            lastDirection = aim.normalized;
     }
 
     private void HandleSprint()
     {
-        bool canSprint = input.SprintHeld && movementInput != Vector2.zero && staminaSystem.CanSprint();
+        bool canSprint =
+            input.SprintHeld &&
+            movementInput != Vector2.zero &&
+            staminaSystem.CanSprint();
+
         staminaSystem.SetSprinting(canSprint);
     }
 
     private void Move()
     {
-        rb.linearVelocity = movementInput * GetCurrentSpeed() * GetMovementMultiplier();
+        rb.linearVelocity =
+            movementInput *
+            GetCurrentSpeed() *
+            GetMovementMultiplier();
     }
 
     private float GetCurrentSpeed()
     {
-        bool sprinting = input.SprintHeld &&  movementInput != Vector2.zero &&staminaSystem.CanSprint();
-        return sprinting? sprintSpeed: walkSpeed;
+        bool sprinting =
+            input.SprintHeld &&
+            movementInput != Vector2.zero &&
+            staminaSystem.CanSprint();
+
+        return sprinting ? sprintSpeed : walkSpeed;
     }
 
     private float GetMovementMultiplier()
     {
         float multiplier = 1f;
+
         if (stats.IsLow(StatType.Hunger))
             multiplier *= 0.8f;
 
@@ -154,11 +174,9 @@ public class PlayerMovement : MonoBehaviour
         if (animator == null)
             return;
 
-        animator.SetBool("isMoving",movementInput != Vector2.zero);
-        Vector2 direction = movementInput != Vector2.zero? movementInput: lastDirection;
-
-        animator.SetFloat("moveX", direction.x);
-        animator.SetFloat("moveY", direction.y);
+        animator.SetBool("isMoving", movementInput != Vector2.zero);
+        animator.SetFloat("moveX", lastDirection.x);
+        animator.SetFloat("moveY", lastDirection.y);
     }
 
     public void SetMovementLocked(bool value)
@@ -198,10 +216,17 @@ public class PlayerMovement : MonoBehaviour
     private IEnumerator KnockbackRoutine(Vector2 direction, float force)
     {
         isKnockedBack = true;
+
         rb.linearVelocity = Vector2.zero;
-        rb.AddForce(direction.normalized * force,ForceMode2D.Impulse);
+
+        rb.AddForce(
+            direction.normalized * force,
+            ForceMode2D.Impulse);
+
         yield return new WaitForSeconds(knockbackRecoveryTime);
+
         rb.linearVelocity = Vector2.zero;
+
         isKnockedBack = false;
     }
 }

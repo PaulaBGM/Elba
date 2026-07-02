@@ -9,17 +9,18 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c5f2a775e4a44e549a12a1e48bb948e8, type: 3}
-  m_Name: Refugio2Recipe
+  m_Script: {fileID: 11500000, guid: dda04666f46a293409a704941654ea1a, type: 3}
+  m_Name: RefugioUpgrade
   m_EditorClassIdentifier: 
-  ingredients:
+  <Title>k__BackingField: Refugio
+  <Description>k__BackingField: Refugio que protege del frio
+  <Requirements>k__BackingField:
   - item: {fileID: 11400000, guid: 97d49e4b311e806418de7a71e112f455, type: 2}
     amount: 1
   - item: {fileID: 11400000, guid: 617c69ae3c9aa07469ec5e1f8abdd19f, type: 2}
     amount: 1
-  - item: {fileID: 11400000, guid: f578b2e99696ffa4c8644e58722ee894, type: 2}
-    amount: 1
   - item: {fileID: 11400000, guid: cda39ab9e4091374b86902bcb707b8bc, type: 2}
     amount: 1
-  result: {fileID: 11400000, guid: 9b18d7751d6100048a9b4c7277387b07, type: 2}
-  amount: 1
+  - item: {fileID: 11400000, guid: f578b2e99696ffa4c8644e58722ee894, type: 2}
+    amount: 1
+  <UpgradedPrefab>k__BackingField: {fileID: 4159969531777199669, guid: 87c400585b0c70940af280189ba5a7b6, type: 3}

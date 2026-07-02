@@ -23,25 +23,31 @@ public class CraftingUI : MonoBehaviour
     [SerializeField] private CraftingManager craftingManager;
 
     private readonly List<UICraftingRecipe> recipesUI = new();
-
     private CraftingRecipeSO selectedRecipe;
+    private bool recipesBuilt;
 
     private void Awake()
     {
         if (root != null)
             root.SetActive(false);
+
         if (input == null)
             input = FindFirstObjectByType<InputReader>();
-        craftButton.onClick.AddListener(CraftSelectedRecipe);
+
+        if (craftButton != null)
+            craftButton.onClick.AddListener(CraftSelectedRecipe);
     }
+
     private void OnEnable()
     {
-        input.OnInventory += HandleTabPressed;
+        if (input != null)
+            input.OnInventory += HandleTabPressed;
     }
 
     private void OnDisable()
     {
-        input.OnInventory -= HandleTabPressed;
+        if (input != null)
+            input.OnInventory -= HandleTabPressed;
     }
 
     private void HandleTabPressed()
@@ -51,14 +57,13 @@ public class CraftingUI : MonoBehaviour
 
         Close();
     }
-    private void Start()
-    {
-        BuildRecipes();
-    }
 
     public void Open()
     {
-        root.SetActive(true);
+        if (root != null)
+            root.SetActive(true);
+
+        BuildRecipesIfNeeded();
 
         if (selectedRecipe != null)
             RefreshSelectedRecipe();
@@ -66,16 +71,24 @@ public class CraftingUI : MonoBehaviour
 
     public void Close()
     {
-        root.SetActive(false);
+        if (root != null)
+            root.SetActive(false);
+    }
+
+    private void BuildRecipesIfNeeded()
+    {
+        if (recipesBuilt)
+            return;
+
+        recipesBuilt = true;
+        BuildRecipes();
     }
 
     private void BuildRecipes()
     {
         foreach (CraftingRecipeSO recipe in craftingManager.Recipes)
         {
-            UICraftingRecipe uiRecipe =
-                Instantiate(recipePrefab, content);
-
+            UICraftingRecipe uiRecipe = Instantiate(recipePrefab, content);
             uiRecipe.Setup(recipe);
             uiRecipe.OnRecipeClicked += HandleRecipeClicked;
             recipesUI.Add(uiRecipe);
@@ -98,27 +111,33 @@ public class CraftingUI : MonoBehaviour
             return;
 
         descriptionUI.ResetDescription();
-        descriptionUI.SetDescription(selectedRecipe.result.ItemImage,selectedRecipe.result.Name,selectedRecipe.result.Description);
+        descriptionUI.SetDescription(
+            selectedRecipe.result.ItemImage,
+            selectedRecipe.result.Name,
+            selectedRecipe.result.Description);
+
         descriptionUI.ClearStats();
 
         if (selectedRecipe.result is EdibleItemSO edible)
         {
             foreach (var modifier in edible.ModifiersData)
-            {
-                descriptionUI.AddStat(modifier.statModifier.Icon,modifier.value);
-            }
+                descriptionUI.AddStat(modifier.statModifier.Icon, modifier.value);
         }
         else if (selectedRecipe.result is ToolItemSO tool)
         {
-            descriptionUI.AddStat(damageIcon,tool.AnimalDamage);
+            descriptionUI.AddStat(damageIcon, tool.AnimalDamage);
         }
 
         descriptionUI.ClearIngredients();
 
         foreach (RecipeIngredient ingredient in selectedRecipe.ingredients)
         {
-            int owned =craftingManager.GetItemCount(ingredient.item);
-            descriptionUI.AddIngredient(ingredient.item.ItemImage,ingredient.item.Name,owned,ingredient.amount);
+            int owned = craftingManager.GetItemCount(ingredient.item);
+            descriptionUI.AddIngredient(
+                ingredient.item.ItemImage,
+                ingredient.item.Name,
+                owned,
+                ingredient.amount);
         }
 
         craftButton.interactable = craftingManager.CanCraft(selectedRecipe);

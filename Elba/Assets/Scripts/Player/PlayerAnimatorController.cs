@@ -87,6 +87,7 @@ public class PlayerAnimationController : MonoBehaviour
 
     public void EndGatherAnimation()
     {
+        Debug.Log("Se agacho");
         animator.SetBool(isLow, false);
     }
 

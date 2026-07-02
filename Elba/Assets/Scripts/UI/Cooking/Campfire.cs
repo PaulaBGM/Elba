@@ -1,37 +1,38 @@
-using System.Collections;
 using System.Collections.Generic;
+using Inventory;
+using Inventory.Model;
 using UnityEngine;
 
-public class Campfire : MonoBehaviour, IInteractable
+public class Campfire : MonoBehaviour, IInteractable, IUpgradeableStructure
 {
     [Header("References")]
     [SerializeField] private Transform interactionAnchor;
     [SerializeField] private Animator fireAnimator;
 
-    [Header("Cooking")]
-    [SerializeField] private float cookTime = 2f;
+    [Header("Upgrade")]
+    [SerializeField] private StructureUpgradeSO nextUpgrade;
 
-    private Coroutine cookingRoutine;
+    private InventoryController currentInventory;
 
     private static readonly List<ActionData> emptyActions = new();
 
     public Transform InteractionAnchor => interactionAnchor;
-
+    public StructureUpgradeSO NextUpgrade => nextUpgrade;
+    [SerializeField]
+    private bool startLit;
     private void Awake()
     {
         if (fireAnimator == null)
             fireAnimator = GetComponentInChildren<Animator>();
 
-        // La hoguera empieza apagada
         if (fireAnimator != null)
-            fireAnimator.enabled = false;
+            fireAnimator.enabled = startLit;
     }
 
-    /// <summary>
-    /// Se llama cuando la estructura termina de colocarse.
-    /// </summary>
     public void OnPlaced()
     {
+        startLit = true;
+
         if (fireAnimator != null)
             fireAnimator.enabled = true;
     }
@@ -43,49 +44,54 @@ public class Campfire : MonoBehaviour, IInteractable
 
     public void Interact(GameObject interactor)
     {
-        PlayerInteractionSystem player =
-            interactor.GetComponent<PlayerInteractionSystem>();
+        currentInventory = interactor.GetComponent<InventoryController>();
 
-        if (player == null)
+        if (currentInventory == null)
             return;
 
-        if (!player.HasHeldItem)
+        if (StructureUpgradeUI.Instance == null)
             return;
 
-        Item heldItem = player.HeldItem;
-
-        if (!heldItem.CanCook())
-            return;
-
-        if (cookingRoutine != null)
-            return;
-
-        cookingRoutine = StartCoroutine(CookRoutine(player));
+        StructureUpgradeUI.Instance.Open(this, currentInventory);
     }
 
-    private IEnumerator CookRoutine(PlayerInteractionSystem player)
+    public bool CanUpgrade()
     {
-        CookingProgressUI.Instance.Show();
+        if (currentInventory == null || nextUpgrade == null)
+            return false;
 
-        float timer = 0f;
+        if (nextUpgrade.Requirements == null || nextUpgrade.Requirements.Count == 0)
+            return true;
 
-        while (timer < cookTime)
+        foreach (RecipeIngredient ingredient in nextUpgrade.Requirements)
         {
-            timer += Time.deltaTime;
-
-            CookingProgressUI.Instance.SetProgress(timer / cookTime);
-
-            yield return null;
+            if (currentInventory.GetItemCount(ingredient.item) < ingredient.amount)
+                return false;
         }
 
-        if (player.HeldItem != null)
-        {
-            player.HeldItem.Cook();
-            player.RefreshHeldItemVisual();
-        }
+        return true;
+    }
 
-        CookingProgressUI.Instance.Hide();
+    public bool Upgrade()
+    {
+        if (!CanUpgrade())
+            return false;
 
-        cookingRoutine = null;
+        if (nextUpgrade == null || nextUpgrade.UpgradedPrefab == null)
+            return false;
+
+        currentInventory.ConsumeIngredients(nextUpgrade.Requirements);
+
+        GameObject upgraded = Instantiate(
+            nextUpgrade.UpgradedPrefab,
+            transform.position,
+            transform.rotation,
+            transform.parent);
+
+        upgraded.transform.localScale = transform.localScale;
+
+        Destroy(gameObject);
+
+        return true;
     }
 }

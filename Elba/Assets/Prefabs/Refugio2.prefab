@@ -139,7 +139,7 @@ GameObject:
   - component: {fileID: 5285632252674620254}
   - component: {fileID: 5156289487439192439}
   m_Layer: 0
-  m_Name: Refugio
+  m_Name: Refugio2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -208,7 +208,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: -1984520662, guid: 7252f5f9472cc4b42ad8873bc2d5f7a7, type: 3}
+  m_Sprite: {fileID: -447820171, guid: 7252f5f9472cc4b42ad8873bc2d5f7a7, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -342,7 +342,7 @@ BoxCollider2D:
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
-  m_Offset: {x: 0.10457373, y: 0.51}
+  m_Offset: {x: 0.10457373, y: 0.69}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}

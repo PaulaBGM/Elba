@@ -35028,7 +35028,7 @@ Tilemap:
       - {fileID: -1325603787, guid: 84a058c958f1ae54ba983f2a709e3403, type: 3}
       - {fileID: 1881204109, guid: 84a058c958f1ae54ba983f2a709e3403, type: 3}
       - {fileID: 1046905870, guid: 84a058c958f1ae54ba983f2a709e3403, type: 3}
-      m_AnimationSpeed: 3.013731
+      m_AnimationSpeed: 2.5480795
       m_AnimationTimeOffset: 0
       m_Flags: 0
   m_TileAssetArray:
@@ -35736,7 +35736,7 @@ Tilemap:
       - {fileID: 171000394, guid: 84a058c958f1ae54ba983f2a709e3403, type: 3}
       - {fileID: 1108024612, guid: 84a058c958f1ae54ba983f2a709e3403, type: 3}
       - {fileID: 1428487153, guid: 84a058c958f1ae54ba983f2a709e3403, type: 3}
-      m_AnimationSpeed: 10
+      m_AnimationSpeed: 10.000001
       m_AnimationTimeOffset: 0
       m_Flags: 0
   - first: {x: 6, y: 25, z: 0}

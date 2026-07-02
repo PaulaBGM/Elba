@@ -9,7 +9,8 @@ public class Item : MonoBehaviour, IInteractable
     [SerializeField] private ItemSO inventoryItem;
 
     public ItemSO InventoryItem => inventoryItem;
-
+    [SerializeField] private bool isHighObject;
+    public bool IsHighObject => isHighObject;
     [field: SerializeField]
     public int Quantity { get; set; } = 1;
 

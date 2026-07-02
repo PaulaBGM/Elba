@@ -1,19 +1,28 @@
+using UnityEngine;
 using System;
 using System.Collections;
-using UnityEngine;
+
+public enum AttackType
+{
+    Animal,
+    Tree
+}
 
 public class PlayerAttackSystem : MonoBehaviour
 {
     [Header("References")]
     [SerializeField] private InputReader input;
     [SerializeField] private PlayerMovement movement;
+    [SerializeField] private AgentWeapon weapon;
     [SerializeField] private Transform attackPoint;
 
     [Header("Attack")]
     [SerializeField] private float attackDistance = 1.5f;
     [SerializeField] private LayerMask attackLayer;
     [SerializeField] private float attackDuration = 0.3f;
-    public event Action OnAttackStarted;
+
+    public event Action<AttackType> OnAttackStarted;
+
     private bool isAttacking;
 
     public bool IsAttacking => isAttacking;
@@ -25,6 +34,9 @@ public class PlayerAttackSystem : MonoBehaviour
 
         if (movement == null)
             movement = GetComponent<PlayerMovement>();
+
+        if (weapon == null)
+            weapon = GetComponent<AgentWeapon>();
     }
 
     private void OnEnable()
@@ -44,8 +56,7 @@ public class PlayerAttackSystem : MonoBehaviour
         if (isAttacking)
             return;
 
-        if (UIManager.Instance != null &&
-            UIManager.Instance.IsInventoryOpen)
+        if (UIManager.Instance != null && UIManager.Instance.IsInventoryOpen)
             return;
 
         StartCoroutine(AttackRoutine());
@@ -54,49 +65,68 @@ public class PlayerAttackSystem : MonoBehaviour
     private IEnumerator AttackRoutine()
     {
         isAttacking = true;
-        OnAttackStarted?.Invoke();
-        PerformAttack();
+
+        AttackType attackType = PerformAttack();
+
+        OnAttackStarted?.Invoke(attackType);
 
         yield return new WaitForSeconds(attackDuration);
 
         isAttacking = false;
     }
 
-    private void PerformAttack()
+    private AttackType PerformAttack()
     {
         Vector2 direction = movement.LastDirection.normalized;
 
-        Vector3 origin =
-            attackPoint != null
+        Vector3 origin = attackPoint != null
             ? attackPoint.position
             : transform.position;
 
-        RaycastHit2D hit =
-            Physics2D.Raycast(
-                origin,
-                direction,
-                attackDistance,
-                attackLayer);
-
-        Debug.DrawRay(
+        RaycastHit2D hit = Physics2D.Raycast(
             origin,
-            direction * attackDistance,
-            Color.red,
-            0.25f);
+            direction,
+            attackDistance,
+            attackLayer);
+
+        Debug.DrawRay(origin, direction * attackDistance, Color.red, 0.25f);
 
         if (!hit.collider)
-            return;
+            return AttackType.Animal;
+
+        // ========= RECURSOS =========
+
+        ResourceNode resource = hit.collider.GetComponentInParent<ResourceNode>();
+
+        if (resource == null)
+            resource = hit.collider.GetComponentInChildren<ResourceNode>();
+
+        if (resource != null)
+        {
+            resource.ReceiveHit(gameObject, weapon.GetResourceDamage());
+
+            weapon.ConsumeDurability();
+
+            return AttackType.Tree;
+        }
+
+        // ========= ENEMIGOS =========
 
         IAttackable attackable = hit.collider.GetComponentInParent<IAttackable>();
 
         if (attackable == null)
-            attackable =
-                hit.collider.GetComponentInChildren<IAttackable>();
+            attackable = hit.collider.GetComponentInChildren<IAttackable>();
 
-        if (attackable == null)
-            return;
+        if (attackable != null)
+        {
+            attackable.ReceiveHit(gameObject, weapon.GetAnimalDamage());
 
-        attackable.ReceiveHit(gameObject);
+            weapon.ConsumeDurability();
+
+            return AttackType.Animal;
+        }
+
+        return AttackType.Animal;
     }
 
     private void OnDrawGizmosSelected()
@@ -107,13 +137,12 @@ public class PlayerAttackSystem : MonoBehaviour
         if (movement == null)
             return;
 
-        Vector3 origin =
-            attackPoint != null
+        Vector3 origin = attackPoint != null
             ? attackPoint.position
             : transform.position;
 
         Gizmos.color = Color.red;
-
-        Gizmos.DrawLine(origin,  origin + (Vector3)(movement.LastDirection.normalized * attackDistance));
+        Gizmos.DrawLine(origin,
+            origin + (Vector3)(movement.LastDirection.normalized * attackDistance));
     }
 }

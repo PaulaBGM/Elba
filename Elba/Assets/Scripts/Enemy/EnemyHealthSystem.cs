@@ -27,9 +27,9 @@ public class EnemyHealthSystem : MonoBehaviour, IAttackable
             originalColor = spriteRenderer.color;
     }
 
-    public void ReceiveHit(GameObject attacker)
+    public void ReceiveHit(GameObject attacker, float damage)
     {
-        TakeDamage(10f);
+        TakeDamage(damage);
     }
 
     public void TakeDamage(float damage)

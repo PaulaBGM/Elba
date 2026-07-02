@@ -18,18 +18,18 @@ public class WaterSource : MonoBehaviour, IInteractable
     public void Interact(GameObject interactor)
     {
         AgentWeapon equipment = interactor.GetComponent<AgentWeapon>();
-        if (equipment == null)
-            return;
-        if (equipment.CurrentWeapon is not CupItemSO)
-            return;
-      
         InventoryController inventory = interactor.GetComponent<InventoryController>();
-        
-        if (inventory == null)
+
+        if (equipment == null || inventory == null)
+            return;
+
+        if (equipment.CurrentWeapon is not CupItemSO)
             return;
 
         equipment.RemoveEquippedItem();
-        inventory.InventoryData.AddItem(filledCup,1);
+
+        inventory.InventoryData.AddItem(filledCup, 1);
+
         Debug.Log("[Water] Vaso rellenado.");
     }
 }

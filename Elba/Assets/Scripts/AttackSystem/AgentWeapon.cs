@@ -1,11 +1,11 @@
+using Inventory.Model;
 using System.Collections.Generic;
 using UnityEngine;
-using Inventory.Model;
 
 public class AgentWeapon : MonoBehaviour
 {
-    [Header("Current Equipment")]
-    [SerializeField] private EquippableItemSO equippedItem;
+    [Header("Current Weapon")]
+    [SerializeField] private EquippableItemSO weapon;
 
     [Header("Inventory")]
     [SerializeField] private InventorySO inventoryData;
@@ -14,129 +14,44 @@ public class AgentWeapon : MonoBehaviour
     [SerializeField] private List<ItemParameter> parametersToModify = new();
     [SerializeField] private List<ItemParameter> itemCurrentState = new();
 
-    [SerializeField] private ItemParameterSO durabilityParameter;
-
     [Header("Visual")]
-    [SerializeField] private SpriteRenderer armPointRenderer;
+    [SerializeField] private Transform armPoint;
+    [SerializeField] private SpriteRenderer weaponRenderer;
 
-    public EquippableItemSO CurrentWeapon => equippedItem;
-    public EquippableItemSO EquippedItem => equippedItem;
-    public bool HasEquippedItem => equippedItem != null;
-
-    public ToolType CurrentToolType
-    {
-        get
-        {
-            if (equippedItem is ToolItemSO tool)
-                return tool.ToolType;
-
-            return ToolType.None;
-        }
-    }
+    public EquippableItemSO CurrentWeapon => weapon;
+    public ToolItemSO CurrentTool => weapon as ToolItemSO;
 
     private void Awake()
     {
-        UpdateVisual();
+        if (armPoint == null)
+            armPoint = transform.Find("ArmPoint");
+
+        if (weaponRenderer == null && armPoint != null)
+            weaponRenderer = armPoint.GetComponent<SpriteRenderer>();
+
+        RefreshVisual();
     }
 
-    public bool HasTool(ToolType toolType)
+    public void SetWeapon(EquippableItemSO weaponItemSO, List<ItemParameter> itemState)
     {
-        return CurrentToolType == toolType;
-    }
-
-    public T GetEquipped<T>() where T : EquippableItemSO
-    {
-        return equippedItem as T;
-    }
-
-    public void SetWeapon(
-        EquippableItemSO item,
-        List<ItemParameter> itemState)
-    {
-        if (equippedItem != null)
+        if (weapon != null)
         {
             inventoryData.AddItem(
-                equippedItem,
+                weapon,
                 1,
                 itemCurrentState);
         }
 
-        equippedItem = item;
-
-        itemCurrentState =
-            itemState != null
-            ? new List<ItemParameter>(itemState)
-            : new List<ItemParameter>();
+        weapon = weaponItemSO;
+        itemCurrentState = new List<ItemParameter>(itemState);
 
         ModifyParameters();
-
-        UpdateVisual();
-
-        Debug.Log($"[Equipment] Equipado: {equippedItem.Name}");
-    }
-
-    public void UnequipWeapon()
-    {
-        if (equippedItem == null)
-            return;
-
-        inventoryData.AddItem(
-            equippedItem,
-            1,
-            itemCurrentState);
-
-        Debug.Log($"[Equipment] Desequipado: {equippedItem.Name}");
-
-        equippedItem = null;
-        itemCurrentState.Clear();
-
-        UpdateVisual();
-    }
-    public void RemoveEquippedItem()
-    {
-        if (equippedItem == null)
-            return;
-
-        Debug.Log($"[Equipment] Eliminando {equippedItem.Name}");
-
-        equippedItem = null;
-        itemCurrentState.Clear();
-
-        UpdateVisual();
-    }
-
-    public void RefreshVisual()
-    {
-        UpdateVisual();
-    }
-
-    private void UpdateVisual()
-    {
-        if (armPointRenderer == null)
-            return;
-
-        if (equippedItem == null)
-        {
-            armPointRenderer.sprite = null;
-            armPointRenderer.enabled = false;
-            return;
-        }
-
-        if (equippedItem is CupItemSO cup)
-        {
-            armPointRenderer.sprite = cup.CurrentSprite;
-        }
-        else
-        {
-            armPointRenderer.sprite = equippedItem.ItemImage;
-        }
-
-        armPointRenderer.enabled = true;
+        RefreshVisual();
     }
 
     private void ModifyParameters()
     {
-        foreach (ItemParameter modifier in parametersToModify)
+        foreach (var modifier in parametersToModify)
         {
             for (int i = 0; i < itemCurrentState.Count; i++)
             {
@@ -152,65 +67,55 @@ public class AgentWeapon : MonoBehaviour
         }
     }
 
-    public float GetDurability()
+    public void RemoveEquippedItem()
     {
-        foreach (ItemParameter parameter in itemCurrentState)
+        weapon = null;
+        itemCurrentState.Clear();
+
+        RefreshVisual();
+    }
+
+    private void RefreshVisual()
+    {
+        if (weaponRenderer == null)
+            return;
+
+        if (weapon == null)
         {
-            if (parameter.itemParameter == durabilityParameter)
-                return parameter.value;
+            weaponRenderer.sprite = null;
+            weaponRenderer.enabled = false;
+            return;
         }
-
-        return 0;
-    }
-
-    public bool IsBroken()
-    {
-        return GetDurability() <= 0;
-    }
-
-    public void DamageTool(float amount)
-    {
-        for (int i = 0; i < itemCurrentState.Count; i++)
-        {
-            if (itemCurrentState[i].itemParameter != durabilityParameter)
-                continue;
-
-            itemCurrentState[i] = new ItemParameter
-            {
-                itemParameter = durabilityParameter,
-                value = Mathf.Max(
-                    0,
-                    itemCurrentState[i].value - amount)
-            };
-
-            Debug.Log(
-                $"Durabilidad restante: {itemCurrentState[i].value}");
-
-            break;
-        }
-    }
-
-    public int GetResourceDamage()
-    {
-        if (equippedItem is ToolItemSO tool)
-            return tool.ResourceDamage;
-
-        return 1;
+      
+        weaponRenderer.sprite = weapon.ItemImage;
+        weaponRenderer.enabled = true;
     }
 
     public float GetAnimalDamage()
     {
-        if (equippedItem is ToolItemSO tool)
-            return tool.AnimalDamage;
+        return CurrentTool != null
+            ? CurrentTool.AnimalDamage
+            : 1f;
+    }
 
-        return 5f;
+    public int GetResourceDamage()
+    {
+        return CurrentTool != null
+            ? CurrentTool.ResourceDamage
+            : 1;
     }
 
     public int GetDurabilityCost()
     {
-        if (equippedItem is ToolItemSO tool)
-            return tool.DurabilityCost;
+        return CurrentTool != null
+            ? CurrentTool.DurabilityCost
+            : 0;
+    }
 
-        return 1;
+    public void ConsumeDurability()
+    {
+        if (CurrentTool == null)
+            return;
+
     }
 }

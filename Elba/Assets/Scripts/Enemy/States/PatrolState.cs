@@ -90,8 +90,7 @@ public class PatrolState : States<EnemyController>
 
         // Rotar hacia el punto de patrulla
         float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
-        _controller.transform.rotation =
-            Quaternion.Euler(0f, 0f, angle + rotationOffset);
+        _controller.transform.rotation = Quaternion.Euler(0f, 0f, angle + rotationOffset);
     }
 
     public override void OnExit()

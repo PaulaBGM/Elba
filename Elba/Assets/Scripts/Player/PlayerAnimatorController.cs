@@ -8,6 +8,7 @@ public class PlayerAnimationController : MonoBehaviour
     [SerializeField] private PlayerInteractionSystem interaction;
     [SerializeField] private PlayerStatsSystem stats;
     [SerializeField] private Animator animator;
+
     private readonly int moveX = Animator.StringToHash("moveX");
     private readonly int moveY = Animator.StringToHash("moveY");
     private readonly int isMoving = Animator.StringToHash("isMoving");
@@ -15,13 +16,12 @@ public class PlayerAnimationController : MonoBehaviour
     private readonly int isDying = Animator.StringToHash("isDying");
     private readonly int isTired = Animator.StringToHash("isTired");
     private readonly int recoger = Animator.StringToHash("Recoger");
-
-    private bool lastMoving;
+    private readonly int talando = Animator.StringToHash("Talando");
+    private readonly int conObjeto = Animator.StringToHash("conObjeto");
+    private readonly int isLow = Animator.StringToHash("isLow");
 
     private void Awake()
     {
-        Debug.Log($"Animator encontrado: {animator}");
-
         if (movement == null)
             movement = GetComponent<PlayerMovement>();
 
@@ -34,16 +34,12 @@ public class PlayerAnimationController : MonoBehaviour
         if (stats == null)
             stats = GetComponent<PlayerStatsSystem>();
 
-        Debug.Log($"Movement: {movement}");
-        Debug.Log($"Attack: {attack}");
-        Debug.Log($"Interaction: {interaction}");
-        Debug.Log($"Stats: {stats}");
+        if (animator == null)
+            animator = GetComponent<Animator>();
     }
 
     private void OnEnable()
     {
-        Debug.Log("Suscribiendo eventos");
-
         attack.OnAttackStarted += HandleAttack;
         interaction.OnGatherStarted += HandleGather;
         stats.OnDeath += HandleDeath;
@@ -62,43 +58,45 @@ public class PlayerAnimationController : MonoBehaviour
     {
         animator.SetFloat(moveX, movement.LastDirection.x);
         animator.SetFloat(moveY, movement.LastDirection.y);
+
         animator.SetBool(isMoving, movement.IsMoving);
+        animator.SetBool(conObjeto, interaction.HasHeldItem);
+    }
 
-        if (movement.IsMoving != lastMoving)
+    private void HandleAttack(AttackType type)
+    {
+        Debug.Log($"Animación: {type}");
+
+        switch (type)
         {
-            lastMoving = movement.IsMoving;
+            case AttackType.Animal:
+                animator.SetTrigger(isAttacking);
+                break;
 
-            Debug.Log($"isMoving = {movement.IsMoving}");
-            Debug.Log($"moveX = {movement.LastDirection.x}");
-            Debug.Log($"moveY = {movement.LastDirection.y}");
+            case AttackType.Tree:
+                animator.SetTrigger(talando);
+                break;
         }
     }
 
-    private void HandleAttack()
+    private void HandleGather(GatherType type)
     {
-        Debug.Log("ATTACK Trigger");
-
-        animator.SetTrigger(isAttacking);
+        animator.SetBool(isLow, type == GatherType.High);
+        animator.SetTrigger(recoger);
     }
 
-    private void HandleGather()
+    public void EndGatherAnimation()
     {
-        Debug.Log("GATHER Trigger");
-
-        animator.SetTrigger(recoger);
+        animator.SetBool(isLow, false);
     }
 
     private void HandleDeath()
     {
-        Debug.Log("DEATH");
-
         animator.SetBool(isDying, true);
     }
 
     private void HandleTired(bool value)
     {
-        Debug.Log($"TIRED = {value}");
-
         animator.SetBool(isTired, value);
     }
 }

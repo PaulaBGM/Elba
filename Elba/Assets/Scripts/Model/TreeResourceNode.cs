@@ -44,7 +44,7 @@ public class TreeResourceNode : ResourceNode
         currentBranches++;
     }
 
-    public override void ReceiveHit(GameObject attacker)
+    public override void ReceiveHit(GameObject attacker, float damage)
     {
         AgentWeapon weapon = attacker.GetComponent<AgentWeapon>();
 
@@ -55,8 +55,7 @@ public class TreeResourceNode : ResourceNode
         }
 
         DropOneFruit();
-
-        base.ReceiveHit(attacker);
+        base.ReceiveHit(attacker, damage);
     }
 
     protected override void OnDestroyed()

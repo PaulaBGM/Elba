@@ -2,6 +2,12 @@ using UnityEngine;
 using System;
 using Inventory.Model;
 
+public enum GatherType
+{
+    Ground,
+    High
+}
+
 public class PlayerInteractionSystem : MonoBehaviour
 {
     [SerializeField] private InputReader input;
@@ -12,7 +18,9 @@ public class PlayerInteractionSystem : MonoBehaviour
 
     private IInteractable currentInteractable;
     private Item heldItem;
-    public event Action OnGatherStarted;
+
+    public event Action<GatherType> OnGatherStarted;
+
     public Item HeldItem => heldItem;
     public bool HasHeldItem => heldItem != null;
 
@@ -51,22 +59,35 @@ public class PlayerInteractionSystem : MonoBehaviour
             currentInteractable?.Interact(gameObject);
             return;
         }
+
+        // Recoger un objeto del suelo
         if (currentInteractable is Item item)
         {
+            OnGatherStarted?.Invoke(GatherType.Ground);
             PickUpItem(item);
             return;
         }
+
+        // Interacción con árboles
+        if (currentInteractable is TreeResourceNode)
+        {
+            OnGatherStarted?.Invoke(GatherType.High);
+        }
+
         currentInteractable?.Interact(gameObject);
     }
 
     private void PickUpItem(Item item)
     {
-        OnGatherStarted?.Invoke();
         heldItem = item;
+
         heldItemRenderer.sprite = item.InventoryItem.ItemImage;
         heldItemRenderer.enabled = true;
+
         item.HideWorldRepresentation();
+
         promptUI.Hide();
+
         UIActionBar.Instance.ShowActions(item.GetActions());
     }
 
@@ -74,6 +95,7 @@ public class PlayerInteractionSystem : MonoBehaviour
     {
         if (heldItem == null)
             return;
+
         heldItem.Store(gameObject);
         ClearHeldItem();
     }
@@ -93,19 +115,24 @@ public class PlayerInteractionSystem : MonoBehaviour
             return;
 
         PlayerMovement movement = GetComponent<PlayerMovement>();
+
         Vector3 dropPosition = transform.position;
+
         if (movement != null)
             dropPosition += (Vector3)movement.LastDirection;
 
         heldItem.ShowWorldRepresentation(dropPosition);
+
         ClearHeldItem();
     }
 
     private void ClearHeldItem()
     {
         heldItem = null;
+
         heldItemRenderer.sprite = null;
         heldItemRenderer.enabled = false;
+
         UIActionBar.Instance.Hide();
     }
 
@@ -117,45 +144,64 @@ public class PlayerInteractionSystem : MonoBehaviour
             heldItemRenderer.enabled = false;
             return;
         }
+
         heldItemRenderer.sprite = heldItem.InventoryItem.ItemImage;
         heldItemRenderer.enabled = true;
     }
+
     public void HoldInventoryItem(ItemSO itemSO)
     {
         if (heldItem != null)
             DropItem();
+
         GameObject go = Instantiate(itemSO.WorldPrefab);
+
         heldItem = go.GetComponent<Item>();
+
         heldItem.HideWorldRepresentation();
+
         heldItemRenderer.sprite = itemSO.ItemImage;
         heldItemRenderer.enabled = true;
+
         UIActionBar.Instance.ShowActions(heldItem.GetActions());
     }
+
     private void OnTriggerStay2D(Collider2D other)
     {
         IInteractable interactable = other.GetComponentInParent<IInteractable>();
+
         if (interactable == null)
             interactable = other.GetComponentInChildren<IInteractable>();
+
         if (interactable == null)
             return;
+
         if (heldItem != null && interactable is Item)
             return;
+
         if (currentInteractable == interactable)
             return;
+
         currentInteractable = interactable;
+
         promptUI.Show(interactable.InteractionAnchor);
     }
 
     private void OnTriggerExit2D(Collider2D other)
     {
         IInteractable interactable = other.GetComponentInParent<IInteractable>();
+
         if (interactable == null)
             interactable = other.GetComponentInChildren<IInteractable>();
+
         if (interactable == null)
             return;
+
         if (currentInteractable != interactable)
             return;
+
         currentInteractable = null;
+
         promptUI.Hide();
     }
 }

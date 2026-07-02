@@ -4,16 +4,37 @@ using UnityEngine;
 
 public class Campfire : MonoBehaviour, IInteractable
 {
+    [Header("References")]
     [SerializeField] private Transform interactionAnchor;
+    [SerializeField] private Animator fireAnimator;
+
+    [Header("Cooking")]
     [SerializeField] private float cookTime = 2f;
 
     private Coroutine cookingRoutine;
 
-    private static readonly List<ActionData> emptyActions =
-        new();
+    private static readonly List<ActionData> emptyActions = new();
 
-    public Transform InteractionAnchor =>
-        interactionAnchor;
+    public Transform InteractionAnchor => interactionAnchor;
+
+    private void Awake()
+    {
+        if (fireAnimator == null)
+            fireAnimator = GetComponentInChildren<Animator>();
+
+        // La hoguera empieza apagada
+        if (fireAnimator != null)
+            fireAnimator.enabled = false;
+    }
+
+    /// <summary>
+    /// Se llama cuando la estructura termina de colocarse.
+    /// </summary>
+    public void OnPlaced()
+    {
+        if (fireAnimator != null)
+            fireAnimator.enabled = true;
+    }
 
     public List<ActionData> GetActions()
     {
@@ -39,13 +60,10 @@ public class Campfire : MonoBehaviour, IInteractable
         if (cookingRoutine != null)
             return;
 
-        cookingRoutine =
-            StartCoroutine(
-                CookRoutine(player));
+        cookingRoutine = StartCoroutine(CookRoutine(player));
     }
 
-    private IEnumerator CookRoutine(
-        PlayerInteractionSystem player)
+    private IEnumerator CookRoutine(PlayerInteractionSystem player)
     {
         CookingProgressUI.Instance.Show();
 
@@ -55,8 +73,7 @@ public class Campfire : MonoBehaviour, IInteractable
         {
             timer += Time.deltaTime;
 
-            CookingProgressUI.Instance.SetProgress(
-                timer / cookTime);
+            CookingProgressUI.Instance.SetProgress(timer / cookTime);
 
             yield return null;
         }
@@ -64,7 +81,6 @@ public class Campfire : MonoBehaviour, IInteractable
         if (player.HeldItem != null)
         {
             player.HeldItem.Cook();
-
             player.RefreshHeldItemVisual();
         }
 

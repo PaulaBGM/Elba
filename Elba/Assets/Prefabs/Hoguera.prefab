@@ -48,6 +48,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   interactionAnchor: {fileID: 4086547121864882116}
+  fireAnimator: {fileID: 1809599302995970142}
   cookTime: 2
 --- !u!61 &2982041643120910393
 BoxCollider2D:
@@ -206,7 +207,7 @@ Animator:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 721052795313082063}
-  m_Enabled: 1
+  m_Enabled: 0
   m_Avatar: {fileID: 0}
   m_Controller: {fileID: 9100000, guid: a8e38e9ff4b5b86478705edee7b64642, type: 2}
   m_CullingMode: 0

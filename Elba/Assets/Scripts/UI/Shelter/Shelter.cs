@@ -27,8 +27,7 @@ public class Shelter : MonoBehaviour, IInteractable
             currentMovement.SetMovementLocked(true);
 
         if (shelterPoint != null)
-            interactor.transform.position =
-                shelterPoint.position;
+            interactor.transform.position =shelterPoint.position;
 
         ShelterUI.Instance.Open(this);
     }

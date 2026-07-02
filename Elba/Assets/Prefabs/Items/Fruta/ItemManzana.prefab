@@ -49,6 +49,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   inventoryItem: {fileID: 11400000, guid: d06ca2502cd513f4c96e9bd238a3344c, type: 2}
+  isHighObject: 0
   <Quantity>k__BackingField: 1
   interactionAnchor: {fileID: 8211902967855740196}
   spriteRenderer: {fileID: 613705069706818120}

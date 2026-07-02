@@ -27,14 +27,14 @@ public class ResourceNode : MonoBehaviour, IAttackable
         currentDurability = maxDurability;
     }
 
-    public virtual void ReceiveHit(GameObject attacker)
+    public virtual void ReceiveHit(GameObject attacker, float damage)
     {
         if (!CanReceiveDamage(attacker))
             return;
 
-        DamageTool(attacker);
+        //DamageTool(attacker);
 
-        currentDurability--;
+        currentDurability -= Mathf.RoundToInt(damage);
 
         OnHit(attacker);
 
@@ -83,19 +83,16 @@ public class ResourceNode : MonoBehaviour, IAttackable
 
             for (int i = 0; i < amount; i++)
             {
-                Instantiate(
-                    reward.item.WorldPrefab,
-                    transform.position + (Vector3)Random.insideUnitCircle * 0.75f,
-                    Quaternion.identity);
+                Instantiate( reward.item.WorldPrefab,transform.position + (Vector3)Random.insideUnitCircle * 0.75f,Quaternion.identity);
             }
         }
     }
 
-    private void DamageTool(GameObject attacker)
+    /*private void DamageTool(GameObject attacker)
     {
         AgentWeapon weapon = attacker.GetComponent<AgentWeapon>();
 
         if (weapon != null)
             weapon.DamageTool(1);
-    }
+    }*/
 }

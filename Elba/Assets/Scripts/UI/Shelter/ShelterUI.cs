@@ -28,8 +28,6 @@ public class ShelterUI : MonoBehaviour
 
         if (UIManager.Instance != null)
             UIManager.Instance.IsExternalMenuOpen = true;
-
-        Time.timeScale = 0f;
     }
 
     public void OpenCrafting()
@@ -48,8 +46,6 @@ public class ShelterUI : MonoBehaviour
 
         if (UIManager.Instance != null)
             UIManager.Instance.IsExternalMenuOpen = true;
-
-        Time.timeScale = 0f;
     }
 
     public void Close()
@@ -61,8 +57,6 @@ public class ShelterUI : MonoBehaviour
 
         if (root != null)
             root.SetActive(false);
-
-        Time.timeScale = 1f;
     }
 
     public void Sleep()

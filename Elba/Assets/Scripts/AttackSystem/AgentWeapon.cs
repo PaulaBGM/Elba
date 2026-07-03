@@ -118,4 +118,19 @@ public class AgentWeapon : MonoBehaviour
             return;
 
     }
+    public bool HasTool(ToolType toolType)
+    {
+        return CurrentTool != null &&
+               CurrentTool.ToolType == toolType;
+    }
+
+    public bool CanChopTrees()
+    {
+        return HasTool(ToolType.Axe);
+    }
+
+    public bool CanAttackAnimals()
+    {
+        return CurrentTool != null;
+    }
 }

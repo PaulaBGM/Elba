@@ -4,6 +4,7 @@ using System.Collections;
 
 public enum AttackType
 {
+    None,
     Animal,
     Tree
 }
@@ -103,10 +104,11 @@ public class PlayerAttackSystem : MonoBehaviour
 
         if (resource != null)
         {
-            resource.ReceiveHit(gameObject, weapon.GetResourceDamage());
+            if (!weapon.CanChopTrees())
+                return AttackType.None;
 
+            resource.ReceiveHit(gameObject,weapon.GetResourceDamage());
             weapon.ConsumeDurability();
-
             return AttackType.Tree;
         }
 

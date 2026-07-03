@@ -188,6 +188,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   controller: {fileID: 3466738416805995079}
   health: {fileID: 5270387502188595239}
+  chargeBehaviour: {fileID: 1579825367759465826}
 --- !u!1 &4017460115279435125
 GameObject:
   m_ObjectHideFlags: 0
@@ -349,9 +350,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   damage: 25
-  chargeTime: 0.5
+  chargeTime: 4
   chargeSpeed: 12
-  chargeDuration: 0.4
+  chargeDuration: 4
   hitRange: 1.2
   knockbackForce: 20
   stunDuration: 10
@@ -414,6 +415,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   rewards:
   - item: {fileID: 11400000, guid: 4b50a69a2eea3d142a07f9fbefdb7dba, type: 2}
+    minAmount: 1
+    maxAmount: 2
+    dropChance: 89.1
+  - item: {fileID: 11400000, guid: cda39ab9e4091374b86902bcb707b8bc, type: 2}
     minAmount: 1
     maxAmount: 2
     dropChance: 89.1

@@ -207,7 +207,7 @@ MonoBehaviour:
     minAmount: 1
     maxAmount: 3
     dropChance: 52.8
-  interactionAnchor: {fileID: 3508441996156771658}
+  interactionAnchor: {fileID: 0}
   fruitRewards:
   - item: {fileID: 11400000, guid: d06ca2502cd513f4c96e9bd238a3344c, type: 2}
     minAmount: 1
@@ -222,7 +222,7 @@ MonoBehaviour:
     maxAmount: 3
     dropChance: 70.8
   maxBranches: 5
-  branchGrowthTime: 120
+  branchGrowthTime: 40
 --- !u!61 &1767919963987821650
 BoxCollider2D:
   m_ObjectHideFlags: 0

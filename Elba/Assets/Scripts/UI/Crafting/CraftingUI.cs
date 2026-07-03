@@ -25,6 +25,7 @@ public class CraftingUI : MonoBehaviour
     private readonly List<UICraftingRecipe> recipesUI = new();
     private CraftingRecipeSO selectedRecipe;
     private bool recipesBuilt;
+    private ShelterUI returnUI;
 
     private void Awake()
     {
@@ -58,8 +59,10 @@ public class CraftingUI : MonoBehaviour
         Close();
     }
 
-    public void Open()
+    public void Open(ShelterUI shelterUI)
     {
+        returnUI = shelterUI;
+
         if (root != null)
             root.SetActive(true);
 
@@ -73,6 +76,8 @@ public class CraftingUI : MonoBehaviour
     {
         if (root != null)
             root.SetActive(false);
+
+        returnUI?.Reopen();
     }
 
     private void BuildRecipesIfNeeded()
@@ -140,7 +145,8 @@ public class CraftingUI : MonoBehaviour
                 ingredient.amount);
         }
 
-        craftButton.interactable = craftingManager.CanCraft(selectedRecipe);
+        if (craftButton != null)
+            craftButton.interactable = craftingManager.CanCraft(selectedRecipe);
     }
 
     private void CraftSelectedRecipe()

@@ -1,5 +1,6 @@
 using System;
 using UnityEngine;
+using System.Collections;
 
 public class PlayerMain : MonoBehaviour
 {
@@ -63,6 +64,16 @@ public class PlayerMain : MonoBehaviour
     private void HandleDeath()
     {
         OnPlayerDeath?.Invoke();
+        StartCoroutine(DeathSequence());
+    }
+
+    private IEnumerator DeathSequence()
+    {
+        if (playerMovement != null)
+            playerMovement.enabled = false;
+
+        yield return new WaitForSeconds(1.5f); // duración de la animación
+
         GameOverController.Instance?.Show();
     }
 }

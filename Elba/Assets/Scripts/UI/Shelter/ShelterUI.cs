@@ -6,7 +6,10 @@ public class ShelterUI : MonoBehaviour
 
     [SerializeField] private GameObject root;
     [SerializeField] private CraftingUI craftingUI;
+
     private Shelter currentShelter;
+
+    public Shelter CurrentShelter => currentShelter;
 
     private void Awake()
     {
@@ -20,16 +23,44 @@ public class ShelterUI : MonoBehaviour
     {
         currentShelter = shelter;
 
-        root.SetActive(true);
-        UIManager.Instance.IsExternalMenuOpen = true;
+        if (root != null)
+            root.SetActive(true);
+
+        if (UIManager.Instance != null)
+            UIManager.Instance.IsExternalMenuOpen = true;
+
+        Time.timeScale = 0f;
+    }
+
+    public void OpenCrafting()
+    {
+        if (root != null)
+            root.SetActive(false);
+
+        if (craftingUI != null)
+            craftingUI.Open(this);
+    }
+
+    public void Reopen()
+    {
+        if (root != null)
+            root.SetActive(true);
+
+        if (UIManager.Instance != null)
+            UIManager.Instance.IsExternalMenuOpen = true;
+
         Time.timeScale = 0f;
     }
 
     public void Close()
     {
         currentShelter = null;
-        UIManager.Instance.IsExternalMenuOpen = false;
-        root.SetActive(false);
+
+        if (UIManager.Instance != null)
+            UIManager.Instance.IsExternalMenuOpen = false;
+
+        if (root != null)
+            root.SetActive(false);
 
         Time.timeScale = 1f;
     }
@@ -42,9 +73,5 @@ public class ShelterUI : MonoBehaviour
     public void ExitShelter()
     {
         currentShelter?.ExitShelter();
-    }
-    public void OpenCrafting()
-    {
-        craftingUI.Open();
     }
 }

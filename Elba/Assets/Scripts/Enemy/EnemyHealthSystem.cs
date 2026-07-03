@@ -29,6 +29,8 @@ public class EnemyHealthSystem : MonoBehaviour, IAttackable
 
     public void ReceiveHit(GameObject attacker, float damage)
     {
+        Debug.Log($"ReceiveHit desde {attacker.name}\n{Environment.StackTrace}");
+
         TakeDamage(damage);
     }
 

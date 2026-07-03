@@ -1,7 +1,7 @@
 using System.Collections;
 using UnityEngine;
 
-public class UroBehaviour : ChargeAnimalBehaviour
+public class CiervoBehaviour : ChargeAnimalBehaviour
 {
    
 }

@@ -267,6 +267,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   controller: {fileID: 1497637221613753488}
   health: {fileID: 3886143586608111129}
+  chargeBehaviour: {fileID: 2304465569616104542}
 --- !u!1 &4725033922517596515
 GameObject:
   m_ObjectHideFlags: 0
@@ -312,8 +313,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 136668ef2b7ca8d44b4929aa551f6438, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sensorDistance: 2
-  sensorAngle: 60
+  sensorDistance: 3
+  sensorAngle: 180
   whatIsObstacle:
     serializedVersion: 2
     m_Bits: 0
@@ -495,10 +496,11 @@ MonoBehaviour:
   damage: 40
   chargeTime: 1
   chargeSpeed: 9
-  chargeDuration: 1
+  chargeDuration: 2
   hitRange: 5
   knockbackForce: 12
   stunDuration: 4
+  attackRunTime: 0.25
   spriteRenderer: {fileID: 5641183736240217827}
 --- !u!114 &1953806613854862140
 MonoBehaviour:

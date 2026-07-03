@@ -90,10 +90,14 @@ public class PlayerAnimationController : MonoBehaviour
         Debug.Log("Se agacho");
         animator.SetBool(isLow, false);
     }
+    public void OnDeathAnimationFinished()
+    {
+        GameOverController.Instance?.Show();
+    }
 
     private void HandleDeath()
     {
-        animator.SetBool(isDying, true);
+        animator.SetTrigger(isDying);
     }
 
     private void HandleTired(bool value)

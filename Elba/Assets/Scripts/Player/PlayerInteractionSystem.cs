@@ -81,14 +81,18 @@ public class PlayerInteractionSystem : MonoBehaviour
     {
         heldItem = item;
 
-        heldItemRenderer.sprite = item.InventoryItem.ItemImage;
-        heldItemRenderer.enabled = true;
+        if (heldItemRenderer != null)
+        {
+            heldItemRenderer.sprite = item.InventoryItem.ItemImage;
+            heldItemRenderer.enabled = true;
+        }
 
         item.HideWorldRepresentation();
 
-        promptUI.Hide();
+        promptUI?.Hide();
 
-        UIActionBar.Instance.ShowActions(item.GetActions());
+        if (UIActionBar.Instance != null)
+            UIActionBar.Instance.ShowActions(item.GetActions());
     }
 
     private void StoreItem()
@@ -130,10 +134,14 @@ public class PlayerInteractionSystem : MonoBehaviour
     {
         heldItem = null;
 
-        heldItemRenderer.sprite = null;
-        heldItemRenderer.enabled = false;
+        if (heldItemRenderer != null)
+        {
+            heldItemRenderer.sprite = null;
+            heldItemRenderer.enabled = false;
+        }
 
-        UIActionBar.Instance.Hide();
+        if (UIActionBar.Instance != null)
+            UIActionBar.Instance.Hide();
     }
 
     public void RefreshHeldItemVisual()

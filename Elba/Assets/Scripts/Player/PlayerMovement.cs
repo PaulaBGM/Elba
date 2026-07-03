@@ -98,15 +98,8 @@ public class PlayerMovement : MonoBehaviour
 
         Vector3 position = transform.position;
 
-        position.x = Mathf.Clamp(
-            position.x,
-            bottomLeft.position.x,
-            topRight.position.x);
-
-        position.y = Mathf.Clamp(
-            position.y,
-            bottomLeft.position.y,
-            topRight.position.y);
+        position.x = Mathf.Clamp(position.x, bottomLeft.position.x, topRight.position.x);
+        position.y = Mathf.Clamp(position.y, bottomLeft.position.y, topRight.position.y);
 
         transform.position = position;
     }
@@ -115,17 +108,8 @@ public class PlayerMovement : MonoBehaviour
     {
         movementInput = input.MoveInput.normalized;
 
-        if (attackSystem != null && attackSystem.IsAttacking)
-            return;
-
-        Vector3 mouse =
-            Camera.main.ScreenToWorldPoint(input.MousePosition);
-
-        Vector2 aim =
-            mouse - transform.position;
-
-        if (aim.sqrMagnitude > 0.01f)
-            lastDirection = aim.normalized;
+        if (movementInput != Vector2.zero)
+            lastDirection = movementInput;
     }
 
     private void HandleSprint()
@@ -140,10 +124,7 @@ public class PlayerMovement : MonoBehaviour
 
     private void Move()
     {
-        rb.linearVelocity =
-            movementInput *
-            GetCurrentSpeed() *
-            GetMovementMultiplier();
+        rb.linearVelocity = movementInput * GetCurrentSpeed() * GetMovementMultiplier();
     }
 
     private float GetCurrentSpeed()
@@ -219,14 +200,11 @@ public class PlayerMovement : MonoBehaviour
 
         rb.linearVelocity = Vector2.zero;
 
-        rb.AddForce(
-            direction.normalized * force,
-            ForceMode2D.Impulse);
+        rb.AddForce(direction.normalized * force, ForceMode2D.Impulse);
 
         yield return new WaitForSeconds(knockbackRecoveryTime);
 
         rb.linearVelocity = Vector2.zero;
-
         isKnockedBack = false;
     }
 }

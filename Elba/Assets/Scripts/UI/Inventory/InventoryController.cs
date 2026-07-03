@@ -103,17 +103,24 @@ namespace Inventory
         private void DropStack(int itemIndex)
         {
             InventoryItem inventoryItem = inventoryData.GetItemAt(itemIndex);
+
             if (inventoryItem.IsEmpty)
                 return;
+
             for (int i = 0; i < inventoryItem.quantity; i++)
-            {
                 SpawnDroppedItem(inventoryItem);
-            }
 
             inventoryData.RemoveItem(itemIndex, inventoryItem.quantity);
             inventoryView.UI.ClearActions();
+            CloseInventoryUI();
         }
+        private void CloseInventoryUI()
+        {
+            if (UIManager.Instance == null)
+                return;
 
+            UIManager.Instance.CloseInventory();
+        }
         private void HoldItem(int itemIndex)
         {
             InventoryItem inventoryItem = inventoryData.GetItemAt(itemIndex);
@@ -125,9 +132,11 @@ namespace Inventory
 
             if (interaction == null)
                 return;
+
             interaction.HoldInventoryItem(inventoryItem.item);
             inventoryData.RemoveItem(itemIndex, 1);
             inventoryView.UI.ClearActions();
+            CloseInventoryUI();
         }
         private void DropItem(int itemIndex, int quantity)
         {

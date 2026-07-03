@@ -20,6 +20,8 @@ public class UIFloatingStorageMenu : MonoBehaviour
 
     public void Show(Vector3 position, string actionName, Action action)
     {
+        Debug.Log("SHOW MENU");
+
         transform.position = position;
 
         gameObject.SetActive(true);

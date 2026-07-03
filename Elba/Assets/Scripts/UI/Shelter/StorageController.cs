@@ -78,6 +78,8 @@ public class StorageController : MonoBehaviour
 
     private void HandlePlayerItem(int slot, RectTransform rect)
     {
+        Debug.Log("Player item seleccionado");
+
         floatingMenu.Show(rect.position, "Guardar", () =>
         {
             if (storageManager.StoreItem(slot))

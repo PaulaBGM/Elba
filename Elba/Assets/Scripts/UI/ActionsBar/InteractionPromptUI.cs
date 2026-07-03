@@ -31,6 +31,9 @@ public class InteractionPromptUI : MonoBehaviour
 
     public void Show(Transform anchor)
     {
+        if (root == null)
+            return;
+
         target = anchor;
         root.gameObject.SetActive(true);
     }
@@ -38,6 +41,10 @@ public class InteractionPromptUI : MonoBehaviour
     public void Hide()
     {
         target = null;
+
+        if (root == null)
+            return;
+
         root.gameObject.SetActive(false);
     }
 }

@@ -30,6 +30,9 @@ public class StorageController : MonoBehaviour
     {
         UIManager.Instance.IsMenuBlockingInventory = true;
 
+        if (ShelterUI.Instance != null)
+            ShelterUI.Instance.SetShelterButtonsVisible(false);
+
         storageManager.Initialize(playerInventory, storageInventory);
         storageMenu.Initialize(playerInventory, storageInventory);
         storageMenu.Show();
@@ -39,6 +42,9 @@ public class StorageController : MonoBehaviour
     {
         floatingMenu.Hide();
         storageMenu.Hide();
+
+        if (ShelterUI.Instance != null)
+            ShelterUI.Instance.SetShelterButtonsVisible(true);
 
         UIManager.Instance.IsMenuBlockingInventory = false;
     }

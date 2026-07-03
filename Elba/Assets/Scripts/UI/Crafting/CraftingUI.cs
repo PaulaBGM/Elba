@@ -63,6 +63,9 @@ public class CraftingUI : MonoBehaviour
     {
         returnUI = shelterUI;
 
+        if (returnUI != null)
+            returnUI.SetShelterButtonsVisible(false);
+
         if (root != null)
             root.SetActive(true);
 
@@ -76,6 +79,9 @@ public class CraftingUI : MonoBehaviour
     {
         if (root != null)
             root.SetActive(false);
+
+        if (returnUI != null)
+            returnUI.SetShelterButtonsVisible(true);
 
         returnUI?.Reopen();
     }

@@ -102,6 +102,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   anchor: {fileID: 5562905435505255765}
+  sortingOffset: 0
 --- !u!1 &2048694430307227474
 GameObject:
   m_ObjectHideFlags: 0
@@ -113,6 +114,7 @@ GameObject:
   - component: {fileID: 2944849976098792377}
   - component: {fileID: 5695547250644874815}
   - component: {fileID: 3114665011837116684}
+  - component: {fileID: 3035816083573571365}
   m_Layer: 3
   m_Name: ArbustoFresas
   m_TagString: Untagged
@@ -202,6 +204,21 @@ MonoBehaviour:
     maxAmount: 5
     dropChance: 100
   interactionAnchor: {fileID: 2711566717586457304}
+--- !u!114 &3035816083573571365
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2048694430307227474}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0b6cf9fe02377846821da0d499244da, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  fadedAlpha: 0.45
+  fadeSpeed: 6
+  playerTag: Player
 --- !u!1 &4601888539775167222
 GameObject:
   m_ObjectHideFlags: 0

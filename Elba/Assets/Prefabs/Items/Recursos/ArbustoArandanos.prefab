@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 8521737770462251490}
   - component: {fileID: 7682738565518599981}
   - component: {fileID: 2976523848619065353}
+  - component: {fileID: -6205713895899138172}
   m_Layer: 3
   m_Name: ArbustoArandanos
   m_TagString: Untagged
@@ -106,6 +107,21 @@ MonoBehaviour:
     maxAmount: 3
     dropChance: 77.2
   interactionAnchor: {fileID: 7455844402069396971}
+--- !u!114 &-6205713895899138172
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1334145180325376952}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0b6cf9fe02377846821da0d499244da, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  fadedAlpha: 0.45
+  fadeSpeed: 6
+  playerTag: Player
 --- !u!1 &1626635197710973047
 GameObject:
   m_ObjectHideFlags: 0
@@ -270,6 +286,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   anchor: {fileID: 434644901984457983}
+  sortingOffset: 0
 --- !u!1 &8513439530931297552
 GameObject:
   m_ObjectHideFlags: 0

@@ -6,7 +6,7 @@ public class TutorialInitializer : MonoBehaviour
     {
         TutorialPopup.Instance.Show(
             "StartTutorial",
-            "MISIÓN",
+            "MISION",
             "Sobrevive el mayor tiempo posible.\n\n" +
             "• Click izquierdo: Atacar y talar.\n" +
             "• E: Interactuar con objetos.\n" +

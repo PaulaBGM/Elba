@@ -234,6 +234,11 @@ MonoBehaviour:
   respawnTime: 100
   useRandomSpawnPoint: 0
   spawnPoints: []
+--- !u!1 &27183676 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1814074862901214919, guid: 958f41d0771e1644f9dc50602fb8b75d, type: 3}
+  m_PrefabInstance: {fileID: 1033769741}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &31421447
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2219,8 +2224,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rain: {fileID: 1912351723}
+  stats: {fileID: 1033769749}
   coldOverlay: {fileID: 1659036517}
   overlaySpeed: 2
+  startOverlayPercent: 0.8
+  maxOverlayPercent: 0.2
 --- !u!114 &245383533
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2233,8 +2241,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4d28873457f813f49bf4f6be66a70a76, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  minTime: 120
-  maxTime: 240
+  minTime: 10
+  maxTime: 20
 --- !u!4 &245383534
 Transform:
   m_ObjectHideFlags: 0
@@ -17336,7 +17344,10 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 1814074862901214919, guid: 958f41d0771e1644f9dc50602fb8b75d, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1033769759}
   m_SourcePrefab: {fileID: 100100000, guid: 958f41d0771e1644f9dc50602fb8b75d, type: 3}
 --- !u!114 &1033769742 stripped
 MonoBehaviour:
@@ -17354,7 +17365,7 @@ MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 6995424054038047983, guid: 958f41d0771e1644f9dc50602fb8b75d, type: 3}
   m_PrefabInstance: {fileID: 1033769741}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
+  m_GameObject: {fileID: 27183676}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: aa5e601b361fe114287fefa44b088cd6, type: 3}
@@ -17365,7 +17376,7 @@ MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 2671821299160581760, guid: 958f41d0771e1644f9dc50602fb8b75d, type: 3}
   m_PrefabInstance: {fileID: 1033769741}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
+  m_GameObject: {fileID: 27183676}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 2686c0fcfd9744448b4dc5e192619507, type: 3}
@@ -17376,7 +17387,7 @@ MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 2517235998308141539, guid: 958f41d0771e1644f9dc50602fb8b75d, type: 3}
   m_PrefabInstance: {fileID: 1033769741}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
+  m_GameObject: {fileID: 27183676}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e9b384d74628657498496d13a8c3f290, type: 3}
@@ -17387,6 +17398,33 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 3084749652360005018, guid: 958f41d0771e1644f9dc50602fb8b75d, type: 3}
   m_PrefabInstance: {fileID: 1033769741}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1033769749 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1888820010737167267, guid: 958f41d0771e1644f9dc50602fb8b75d, type: 3}
+  m_PrefabInstance: {fileID: 1033769741}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 27183676}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7f6f82430e0442c44bb444a2a8126560, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1033769759
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 27183676}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7efb37392e67f6245be5b5cbd1bc4366, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  stats: {fileID: 1033769749}
+  coldDamage: 3
+  coldRecovery: 5
+  tick: 1
 --- !u!1 &1042642777
 GameObject:
   m_ObjectHideFlags: 0
@@ -36065,7 +36103,7 @@ Tilemap:
       - {fileID: -1325603787, guid: 84a058c958f1ae54ba983f2a709e3403, type: 3}
       - {fileID: 1881204109, guid: 84a058c958f1ae54ba983f2a709e3403, type: 3}
       - {fileID: 1046905870, guid: 84a058c958f1ae54ba983f2a709e3403, type: 3}
-      m_AnimationSpeed: 2.358877
+      m_AnimationSpeed: 2.9534273
       m_AnimationTimeOffset: 0
       m_Flags: 0
   m_TileAssetArray:

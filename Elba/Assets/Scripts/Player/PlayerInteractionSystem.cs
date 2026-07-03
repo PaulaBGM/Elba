@@ -132,6 +132,9 @@ public class PlayerInteractionSystem : MonoBehaviour
 
     private void ClearHeldItem()
     {
+        Debug.Log($"heldItemRenderer = {heldItemRenderer}");
+        Debug.Log($"UIActionBar = {UIActionBar.Instance}");
+
         heldItem = null;
 
         if (heldItemRenderer != null)

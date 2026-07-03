@@ -19,6 +19,11 @@ public class ResourceNode : MonoBehaviour, IAttackable
 
     protected virtual void Awake()
     {
+        // Solo referencias. No llamar aquí a métodos virtuales.
+    }
+
+    protected virtual void Start()
+    {
         ResetNode();
     }
 
@@ -31,8 +36,6 @@ public class ResourceNode : MonoBehaviour, IAttackable
     {
         if (!CanReceiveDamage(attacker))
             return;
-
-        //DamageTool(attacker);
 
         currentDurability -= Mathf.RoundToInt(damage);
 
@@ -83,16 +86,21 @@ public class ResourceNode : MonoBehaviour, IAttackable
 
             for (int i = 0; i < amount; i++)
             {
-                Instantiate( reward.item.WorldPrefab,transform.position + (Vector3)Random.insideUnitCircle * 0.75f,Quaternion.identity);
+                Instantiate(
+                    reward.item.WorldPrefab,
+                    transform.position + (Vector3)Random.insideUnitCircle * 0.75f,
+                    Quaternion.identity);
             }
         }
     }
 
-    /*private void DamageTool(GameObject attacker)
+    /*
+    private void DamageTool(GameObject attacker)
     {
         AgentWeapon weapon = attacker.GetComponent<AgentWeapon>();
 
         if (weapon != null)
             weapon.DamageTool(1);
-    }*/
+    }
+    */
 }

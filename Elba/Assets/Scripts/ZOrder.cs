@@ -4,6 +4,8 @@ using UnityEngine;
 public class ZOrder : MonoBehaviour
 {
     [SerializeField] private Transform anchor;
+    [SerializeField] private int sortingOffset = 0;
+
     private SpriteRenderer sprite;
 
     private void Awake()
@@ -13,7 +15,7 @@ public class ZOrder : MonoBehaviour
 
     private void LateUpdate()
     {
-        float y = anchor != null ? anchor.position.y : transform.position.y;
-        sprite.sortingOrder = -(int)(anchor.position.y * 1000);    
+        float y = (anchor != null ? anchor.position.y : transform.position.y);
+        sprite.sortingOrder = -(int)(anchor.position.y * 1000) + sortingOffset;
     }
 }

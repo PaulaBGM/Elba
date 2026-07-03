@@ -1,16 +1,21 @@
+using System;
 using UnityEngine;
 
 public class TreeResourceNode : ResourceNode
 {
     [Header("Fruit")]
     [SerializeField] private ResourceReward[] fruitRewards;
-    [SerializeField] private GameObject[] fruitVisuals;
+    [SerializeField] private Transform fruitContainer;
     [SerializeField] private int maxFruit = 5;
 
     [Header("Branches")]
     [SerializeField] private ResourceReward[] branchRewards;
+    [SerializeField] private Transform branchContainer;
     [SerializeField] private int maxBranches = 5;
     [SerializeField] private float branchGrowthTime = 120f;
+
+    private GameObject[] fruitVisuals;
+    private GameObject[] branchVisuals;
 
     private int currentFruit;
     private int currentBranches;
@@ -21,8 +26,13 @@ public class TreeResourceNode : ResourceNode
     {
         base.Awake();
 
-        currentFruit = maxFruit;
+        CacheVisuals();
+
+        currentFruit = Mathf.Min(maxFruit, fruitVisuals.Length);
         currentBranches = 0;
+
+        SetAllFruitVisible(true);
+        SetAllBranchesVisible(false);
     }
 
     private void Update()
@@ -30,9 +40,28 @@ public class TreeResourceNode : ResourceNode
         GrowBranches();
     }
 
+    private void CacheVisuals()
+    {
+        fruitVisuals = GetChildren(fruitContainer);
+        branchVisuals = GetChildren(branchContainer);
+    }
+
+    private GameObject[] GetChildren(Transform parent)
+    {
+        if (parent == null)
+            return Array.Empty<GameObject>();
+
+        GameObject[] children = new GameObject[parent.childCount];
+
+        for (int i = 0; i < parent.childCount; i++)
+            children[i] = parent.GetChild(i).gameObject;
+
+        return children;
+    }
+
     private void GrowBranches()
     {
-        if (currentBranches >= maxBranches)
+        if (currentBranches >= Mathf.Min(maxBranches, branchVisuals.Length))
             return;
 
         branchTimer += Time.deltaTime;
@@ -41,7 +70,10 @@ public class TreeResourceNode : ResourceNode
             return;
 
         branchTimer = 0f;
+
         currentBranches++;
+
+        branchVisuals[currentBranches - 1].SetActive(true);
     }
 
     public override void ReceiveHit(GameObject attacker, float damage)
@@ -55,6 +87,7 @@ public class TreeResourceNode : ResourceNode
         }
 
         DropOneFruit();
+
         base.ReceiveHit(attacker, damage);
     }
 
@@ -62,21 +95,20 @@ public class TreeResourceNode : ResourceNode
     {
         DropStoredBranches();
         DropRemainingFruit();
+
+        SetAllBranchesVisible(false);
     }
 
     public override void ResetNode()
     {
         base.ResetNode();
 
-        currentFruit = maxFruit;
+        currentFruit = Mathf.Min(maxFruit, fruitVisuals.Length);
         currentBranches = 0;
         branchTimer = 0f;
 
-        foreach (GameObject visual in fruitVisuals)
-        {
-            if (visual != null)
-                visual.SetActive(true);
-        }
+        SetAllFruitVisible(true);
+        SetAllBranchesVisible(false);
     }
 
     private void DropOneFruit()
@@ -88,7 +120,7 @@ public class TreeResourceNode : ResourceNode
 
         SpawnRewards(fruitRewards);
 
-        HideOneFruitVisual();
+        fruitVisuals[currentFruit].SetActive(false);
     }
 
     private void DropRemainingFruit()
@@ -98,29 +130,32 @@ public class TreeResourceNode : ResourceNode
             currentFruit--;
 
             SpawnRewards(fruitRewards);
+
+            fruitVisuals[currentFruit].SetActive(false);
         }
     }
 
     private void DropStoredBranches()
     {
         for (int i = 0; i < currentBranches; i++)
-        {
             SpawnRewards(branchRewards);
+    }
+
+    private void SetAllFruitVisible(bool value)
+    {
+        foreach (GameObject fruit in fruitVisuals)
+        {
+            if (fruit != null)
+                fruit.SetActive(value);
         }
     }
 
-    private void HideOneFruitVisual()
+    private void SetAllBranchesVisible(bool value)
     {
-        for (int i = fruitVisuals.Length - 1; i >= 0; i--)
+        foreach (GameObject branch in branchVisuals)
         {
-            if (fruitVisuals[i] == null)
-                continue;
-
-            if (!fruitVisuals[i].activeSelf)
-                continue;
-
-            fruitVisuals[i].SetActive(false);
-            return;
+            if (branch != null)
+                branch.SetActive(value);
         }
     }
 }

@@ -13,20 +13,28 @@ namespace Inventory.UI
         [SerializeField] private MouseFollower mouseFollower;
         [SerializeField] private ItemActionPanel actionPanel;
         [SerializeField] private List<InventoryTab> tabs;
-        private List<UIInventoryItem> listOfUIItems = new();
+
+        private readonly List<UIInventoryItem> listOfUIItems = new();
+
         private int currentlyDraggedItemIndex = -1;
 
-        public event Action<int> OnDescriptionRequested,OnStartDragging;
+        public event Action<int> OnDescriptionRequested;
+        public event Action<int> OnStartDragging;
         public event Action<int, int> OnSwapItems;
         public event Action<ItemCategory> OnTabChanged;
 
         private void Awake()
         {
-            mouseFollower.Toggle(false);
-            itemDescription.ResetDescription();
+            if (mouseFollower != null)
+                mouseFollower.Toggle(false);
+
+            itemDescription?.ResetDescription();
 
             foreach (var tab in tabs)
-                tab.OnTabSelected += HandleTabChanged;
+            {
+                if (tab != null)
+                    tab.OnTabSelected += HandleTabChanged;
+            }
         }
 
         private void HandleTabChanged(ItemCategory category)
@@ -36,6 +44,10 @@ namespace Inventory.UI
 
         public void InitializeInventoryUI(int size)
         {
+            // Evita inicializar la UI dos veces
+            if (listOfUIItems.Count > 0)
+                return;
+
             for (int i = 0; i < size; i++)
             {
                 UIInventoryItem uiItem = Instantiate(itemPrefab, contentPanel);
@@ -47,157 +59,141 @@ namespace Inventory.UI
                 uiItem.OnItemBeginDrag += HandleBeginDrag;
                 uiItem.OnItemDroppedOn += HandleSwap;
                 uiItem.OnItemEndDrag += HandleEndDrag;
-               // uiItem.OnRightMouseBtnClick += HandleShowItemActions;
+                //uiItem.OnRightMouseBtnClick += HandleShowItemActions;
             }
-
         }
+
         public void ClearActions()
         {
-            actionPanel.Clear();
+            actionPanel?.Clear();
         }
 
         public void ResetAllItems()
         {
-
-            foreach (var item in listOfUIItems)
+            for (int i = listOfUIItems.Count - 1; i >= 0; i--)
             {
-                item.ResetData();
-                item.Deselect();
+                if (listOfUIItems[i] == null)
+                {
+                    listOfUIItems.RemoveAt(i);
+                    continue;
+                }
+
+                listOfUIItems[i].ResetData();
+                listOfUIItems[i].Deselect();
             }
         }
 
         public void UpdateData(int index, Sprite sprite, int quantity)
         {
-            if (index < listOfUIItems.Count)
-            {
-                listOfUIItems[index].SetData(sprite, quantity);
-            }
+            if (index < 0 || index >= listOfUIItems.Count)
+                return;
+
+            if (listOfUIItems[index] == null)
+                return;
+
+            listOfUIItems[index].SetData(sprite, quantity);
         }
 
         private void HandleItemSelection(UIInventoryItem item)
         {
-            Debug.Log($"[UIInventoryPage] CLICK RECIBIDO EN: {item.name}");
+            if (item == null)
+                return;
 
             int index = listOfUIItems.IndexOf(item);
 
-            Debug.Log($"[UIInventoryPage] INDEX EN LISTA = {index}");
-
             if (index == -1)
-            {
-                Debug.LogError("[UIInventoryPage] EL ITEM NO EXISTE EN listOfUIItems");
                 return;
-            }
-
-            Debug.Log($"[UIInventoryPage] Lanzando OnDescriptionRequested({index})");
 
             OnDescriptionRequested?.Invoke(index);
         }
 
-        /*private void HandleShowItemActions(UIInventoryItem item)
-        {
-            int index = listOfUIItems.IndexOf(item);
-
-            if (index != -1)
-                OnItemActionRequested?.Invoke(index);
-        }*/
-
         public void HideItemActionPanel()
         {
-            actionPanel.Clear();
+            actionPanel?.Clear();
         }
 
         private void HandleBeginDrag(UIInventoryItem item)
         {
-            Debug.Log($"[UIInventoryPage] BeginDrag {item.name}");
+            if (item == null)
+                return;
 
             int index = listOfUIItems.IndexOf(item);
 
-            Debug.Log($"[UIInventoryPage] INDEX = {index}");
-
             if (index == -1)
-            {
-                Debug.LogError("[UIInventoryPage] Drag sobre item no registrado");
                 return;
-            }
 
             currentlyDraggedItemIndex = index;
-
-            Debug.Log($"[UIInventoryPage] OnStartDragging({index})");
 
             OnStartDragging?.Invoke(index);
         }
 
         private void HandleEndDrag(UIInventoryItem item)
         {
-            Debug.Log($"[UIInventoryPage] EndDrag {item.name}");
+            if (mouseFollower != null)
+                mouseFollower.Toggle(false);
 
-            mouseFollower.Toggle(false);
             currentlyDraggedItemIndex = -1;
         }
 
         private void HandleSwap(UIInventoryItem item)
         {
-            Debug.Log($"[UIInventoryPage] Drop sobre {item.name}");
+            if (item == null)
+                return;
 
             int index = listOfUIItems.IndexOf(item);
 
-            Debug.Log($"[UIInventoryPage] FROM = {currentlyDraggedItemIndex}");
-            Debug.Log($"[UIInventoryPage] TO = {index}");
-
             if (index == -1)
-            {
-                Debug.LogError("[UIInventoryPage] Destino de swap no registrado");
                 return;
-            }
 
             OnSwapItems?.Invoke(currentlyDraggedItemIndex, index);
         }
 
         public void CreateDraggedItem(Sprite sprite, int quantity)
         {
-            Debug.Log($"[UIInventoryPage] CreateDraggedItem Qty:{quantity}");
+            if (mouseFollower == null)
+                return;
 
             mouseFollower.Toggle(true);
             mouseFollower.SetData(sprite, quantity);
         }
 
-        /*public void AddAction(string name, Action action)
-        {
-            actionPanel.AddButon(name, action);
-        }
-
-        public void ShowItemAction(int index)
-        {
-            actionPanel.Toggle(true);
-            actionPanel.transform.position = listOfUIItems[index].transform.position;
-        }*/
-
         public void UpdateDescription(int index, Sprite img, string name, string desc)
         {
-            itemDescription.SetDescription(img, name, desc);
+            itemDescription?.SetDescription(img, name, desc);
         }
+
         public void AddStat(Sprite icon, float value)
         {
-            itemDescription.AddStat(icon, value);
+            itemDescription?.AddStat(icon, value);
         }
-        public void ShowActions(string leftName,Action leftAction, string rightName,Action rightAction)
+
+        public void ShowActions(
+            string leftName,
+            Action leftAction,
+            string rightName,
+            Action rightAction)
         {
-            actionPanel.Show(leftName,leftAction,rightName,rightAction);
+            actionPanel?.Show(leftName, leftAction, rightName, rightAction);
         }
+
         public void ClearStats()
         {
-            itemDescription.ClearStats();
+            itemDescription?.ClearStats();
         }
+
         public void ResetUI()
         {
-            actionPanel.Clear();
-            mouseFollower.Toggle(false);
+            actionPanel?.Clear();
+
+            if (mouseFollower != null)
+                mouseFollower.Toggle(false);
+
             ResetSelection();
         }
 
         public void ResetSelection()
         {
-            itemDescription.ResetDescription();
+            itemDescription?.ResetDescription();
         }
     }
 }

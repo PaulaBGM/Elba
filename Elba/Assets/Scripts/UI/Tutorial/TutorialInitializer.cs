@@ -7,11 +7,9 @@ public class TutorialInitializer : MonoBehaviour
         TutorialPopup.Instance.Show(
             "StartTutorial",
             "MISION",
-            "Sobrevive el mayor tiempo posible.\n\n" +
-            "• Click izquierdo: Atacar y talar.\n" +
-            "• E: Interactuar con objetos.\n" +
-            "• Reúne recursos para fabricar herramientas.\n" +
-            "• Construye y mejora tu refugio."
+            "Sobrevive el mayor tiempo posible, reÃºne recursos para fabricar objetos y mejora tu refugio.\n\n" +
+            "ï¿½ Click izquierdo: Atacar y talar.\n" +
+            "ï¿½ E: Interactuar con objetos.\n" 
         );
     }
 }

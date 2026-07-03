@@ -75,29 +75,47 @@ namespace Inventory
             }
 
             InventoryItem inventoryItem = inventoryData.GetItemAt(realSlot);
+
             if (inventoryItem.IsEmpty)
             {
                 inventoryView.UI.ClearActions();
                 return;
             }
-            // Comida
+
+            inventoryView.UI.ClearActions();
+
+            if (inventoryItem.item is EquippableItemSO)
+            {
+                inventoryView.UI.ShowActions(
+                    "Equipar", () => PerformAction(realSlot),
+                    "Sacar", () => HoldItem(realSlot));
+                return;
+            }
+
             if (inventoryItem.item is EdibleItemSO edible)
             {
-                inventoryView.UI.ShowActions(edible.ActionName,() => PerformAction(realSlot),"Sacar",() => HoldItem(realSlot));
+                inventoryView.UI.ShowActions(
+                    edible.ActionName, () => PerformAction(realSlot),
+                    "Sacar", () => HoldItem(realSlot));
                 return;
             }
-            // Herramientas
+
             if (inventoryItem.item is ToolItemSO tool)
             {
-                inventoryView.UI.ShowActions(tool.ActionName,() => PerformAction(realSlot),"Sacar",() => HoldItem(realSlot));
+                inventoryView.UI.ShowActions(
+                    tool.ActionName, () => PerformAction(realSlot),
+                    "Sacar", () => HoldItem(realSlot));
                 return;
             }
-            // Materiales
+
             if (inventoryItem.item is MaterialItemSO)
             {
-                inventoryView.UI.ShowActions("Tirar stack",() => DropStack(realSlot),"Sacar",() => HoldItem(realSlot));
+                inventoryView.UI.ShowActions(
+                    "Tirar stack", () => DropStack(realSlot),
+                    "Sacar", () => HoldItem(realSlot));
                 return;
             }
+
             inventoryView.UI.ClearActions();
         }
         private void DropStack(int itemIndex)

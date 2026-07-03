@@ -15,9 +15,11 @@ MonoBehaviour:
   <IsStackable>k__BackingField: 1
   <ItemID>k__BackingField: piedra
   <MaxStackSize>k__BackingField: 50
-  <Name>k__BackingField: piedra
-  <Description>k__BackingField: 
+  <Name>k__BackingField: Piedra
+  <Description>k__BackingField: Sirve para fabricar objetos
   <ItemImage>k__BackingField: {fileID: 383515590, guid: c8cc1ca7d8ac84a4d8c084d62b1e507b, type: 3}
   <WorldPrefab>k__BackingField: {fileID: 2327505127333388803, guid: c2b463d4031a82d4298450ccf2a40e56, type: 3}
   <DefaultParametersList>k__BackingField: []
   <Categories>k__BackingField: 4
+  canCook: 0
+  cookedResult: {fileID: 0}

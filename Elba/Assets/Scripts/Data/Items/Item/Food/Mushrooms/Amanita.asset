@@ -16,11 +16,13 @@ MonoBehaviour:
   <ItemID>k__BackingField: amanitac
   <MaxStackSize>k__BackingField: 2
   <Name>k__BackingField: Amanita Caesarea
-  <Description>k__BackingField: 
+  <Description>k__BackingField: "Seta de forma extra\xF1a pero apetecible"
   <ItemImage>k__BackingField: {fileID: -1578599348, guid: c8cc1ca7d8ac84a4d8c084d62b1e507b, type: 3}
   <WorldPrefab>k__BackingField: {fileID: 6583846839510121956, guid: 07c8a0f36a460a44dae3a7596d020137, type: 3}
   <DefaultParametersList>k__BackingField: []
   <Categories>k__BackingField: 1
+  canCook: 0
+  cookedResult: {fileID: 0}
   modifiersData:
   - statModifier: {fileID: 11400000, guid: de17128eaa1e4a04583f6e3aa788881b, type: 2}
     value: 35

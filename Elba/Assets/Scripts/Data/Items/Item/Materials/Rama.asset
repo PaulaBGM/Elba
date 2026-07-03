@@ -15,9 +15,11 @@ MonoBehaviour:
   <IsStackable>k__BackingField: 1
   <ItemID>k__BackingField: rama
   <MaxStackSize>k__BackingField: 50
-  <Name>k__BackingField: rama
-  <Description>k__BackingField: rama
+  <Name>k__BackingField: Rama
+  <Description>k__BackingField: Sirve para fabricar objetos
   <ItemImage>k__BackingField: {fileID: -414409338, guid: c8cc1ca7d8ac84a4d8c084d62b1e507b, type: 3}
   <WorldPrefab>k__BackingField: {fileID: 862322508388049533, guid: e53400c43088a1d468da86b5c07b0198, type: 3}
   <DefaultParametersList>k__BackingField: []
   <Categories>k__BackingField: 4
+  canCook: 0
+  cookedResult: {fileID: 0}

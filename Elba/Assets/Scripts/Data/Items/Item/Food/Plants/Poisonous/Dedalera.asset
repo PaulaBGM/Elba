@@ -16,11 +16,13 @@ MonoBehaviour:
   <ItemID>k__BackingField: dedalera
   <MaxStackSize>k__BackingField: 20
   <Name>k__BackingField: Dedalera
-  <Description>k__BackingField: 
+  <Description>k__BackingField: Planta cuyas flores desprenden un dulce olor.
   <ItemImage>k__BackingField: {fileID: -1934806754, guid: cdcadffb5e21b8848a6931f4f24208c0, type: 3}
   <WorldPrefab>k__BackingField: {fileID: 5256298499302526851, guid: 4a5019c5a4fbc36439bef71af28c821c, type: 3}
   <DefaultParametersList>k__BackingField: []
   <Categories>k__BackingField: 1
+  canCook: 0
+  cookedResult: {fileID: 0}
   modifiersData:
   - statModifier: {fileID: 11400000, guid: a108b4b6caf20d14f8c89a19329b2b39, type: 2}
     value: -10

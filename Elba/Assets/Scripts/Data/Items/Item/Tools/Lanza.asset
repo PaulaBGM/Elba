@@ -16,13 +16,15 @@ MonoBehaviour:
   <ItemID>k__BackingField: Lanza
   <MaxStackSize>k__BackingField: 1
   <Name>k__BackingField: Lanza
-  <Description>k__BackingField: Lanza
+  <Description>k__BackingField: Arma de largo alcance que permite cazar animales
   <ItemImage>k__BackingField: {fileID: -1518415913, guid: c8cc1ca7d8ac84a4d8c084d62b1e507b, type: 3}
   <WorldPrefab>k__BackingField: {fileID: 3710388715342165931, guid: 490d27610f37f44419c40202ddeaa248, type: 3}
   <DefaultParametersList>k__BackingField:
   - itemParameter: {fileID: 11400000, guid: fbdaa81e02e233e4f858d0c346e62148, type: 2}
     value: 10
   <Categories>k__BackingField: 2
+  canCook: 0
+  cookedResult: {fileID: 0}
   <actionSFX>k__BackingField: {fileID: 0}
   <ToolType>k__BackingField: 2
   <ResourceDamage>k__BackingField: 2

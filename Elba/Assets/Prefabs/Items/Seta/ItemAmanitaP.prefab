@@ -112,7 +112,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 2
   m_Sprite: {fileID: 853218825, guid: c8cc1ca7d8ac84a4d8c084d62b1e507b, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -137,10 +137,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   inventoryItem: {fileID: 11400000, guid: 7d748a819812e2944ac1230a3de25447, type: 2}
+  isHighObject: 0
   <Quantity>k__BackingField: 1
   interactionAnchor: {fileID: 5395142606884380072}
   spriteRenderer: {fileID: 4204708205406730141}
   itemCollider: {fileID: 3943881688897266011}
+  cupFilled: 0
 --- !u!82 &1097890425154727715
 AudioSource:
   m_ObjectHideFlags: 0
@@ -251,6 +253,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   anchor: {fileID: 1292199314860043436}
+  sortingOffset: 0
 --- !u!61 &3943881688897266011
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -322,7 +325,7 @@ Transform:
   m_GameObject: {fileID: 8622524856570361414}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: -0.174, z: 0}
+  m_LocalPosition: {x: 0, y: -0.13, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []

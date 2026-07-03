@@ -15,12 +15,15 @@ MonoBehaviour:
   <IsStackable>k__BackingField: 1
   <ItemID>k__BackingField: ortiga
   <MaxStackSize>k__BackingField: 1
-  <Name>k__BackingField: ortiga
-  <Description>k__BackingField: 
+  <Name>k__BackingField: Ortiga
+  <Description>k__BackingField: Planta que se suele usar para hacer cuerdas y curarse
+    del veneno.
   <ItemImage>k__BackingField: {fileID: -433282539, guid: c8cc1ca7d8ac84a4d8c084d62b1e507b, type: 3}
   <WorldPrefab>k__BackingField: {fileID: 3779483868435256953, guid: fe01fc6ca33ea054ba717aabddc51527, type: 3}
   <DefaultParametersList>k__BackingField: []
   <Categories>k__BackingField: 5
+  canCook: 0
+  cookedResult: {fileID: 0}
   modifiersData:
   - statModifier: {fileID: 11400000, guid: de17128eaa1e4a04583f6e3aa788881b, type: 2}
     value: 10

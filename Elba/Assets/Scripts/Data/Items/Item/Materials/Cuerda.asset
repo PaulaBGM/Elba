@@ -15,9 +15,11 @@ MonoBehaviour:
   <IsStackable>k__BackingField: 1
   <ItemID>k__BackingField: cuerda
   <MaxStackSize>k__BackingField: 20
-  <Name>k__BackingField: cuerda
-  <Description>k__BackingField: 
+  <Name>k__BackingField: Cuerda
+  <Description>k__BackingField: Puede usarse para fabricar objetos.
   <ItemImage>k__BackingField: {fileID: -426753083, guid: c8cc1ca7d8ac84a4d8c084d62b1e507b, type: 3}
   <WorldPrefab>k__BackingField: {fileID: 9091656748291410208, guid: 05ee0b90ed9696041bf530d5b1256272, type: 3}
   <DefaultParametersList>k__BackingField: []
   <Categories>k__BackingField: 4
+  canCook: 0
+  cookedResult: {fileID: 0}

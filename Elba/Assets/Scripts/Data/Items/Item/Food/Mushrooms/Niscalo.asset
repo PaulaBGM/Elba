@@ -15,12 +15,14 @@ MonoBehaviour:
   <IsStackable>k__BackingField: 1
   <ItemID>k__BackingField: niscalo
   <MaxStackSize>k__BackingField: 20
-  <Name>k__BackingField: 
-  <Description>k__BackingField: 
+  <Name>k__BackingField: "N\xEDscalo"
+  <Description>k__BackingField: Seta jugosa y blanda
   <ItemImage>k__BackingField: {fileID: -853597735, guid: c8cc1ca7d8ac84a4d8c084d62b1e507b, type: 3}
   <WorldPrefab>k__BackingField: {fileID: 4648915773738607236, guid: e0f4124b84c322941b66f7b64e2ba88a, type: 3}
   <DefaultParametersList>k__BackingField: []
   <Categories>k__BackingField: 1
+  canCook: 0
+  cookedResult: {fileID: 0}
   modifiersData:
   - statModifier: {fileID: 11400000, guid: de17128eaa1e4a04583f6e3aa788881b, type: 2}
     value: 20

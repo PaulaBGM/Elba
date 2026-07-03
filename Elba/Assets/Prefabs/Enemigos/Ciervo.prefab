@@ -90,7 +90,7 @@ Transform:
   m_GameObject: {fileID: 2804407379547988000}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.77, y: 0, z: 0}
+  m_LocalPosition: {x: -0.09, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -253,6 +253,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   anchor: {fileID: 6104925232064637246}
+  sortingOffset: 0
 --- !u!114 &3895574889418286319
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -500,7 +501,7 @@ MonoBehaviour:
   hitRange: 5
   knockbackForce: 12
   stunDuration: 4
-  attackRunTime: 0.25
+  impactEventTimeout: 1
   spriteRenderer: {fileID: 5641183736240217827}
 --- !u!114 &1953806613854862140
 MonoBehaviour:

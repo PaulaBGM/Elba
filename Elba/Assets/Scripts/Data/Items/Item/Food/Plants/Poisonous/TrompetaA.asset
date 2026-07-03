@@ -16,11 +16,13 @@ MonoBehaviour:
   <ItemID>k__BackingField: trompetaangeles
   <MaxStackSize>k__BackingField: 20
   <Name>k__BackingField: "Trompeta de los \xC1ngeles"
-  <Description>k__BackingField: 
+  <Description>k__BackingField: Flores con buen olor y llamativas.
   <ItemImage>k__BackingField: {fileID: 778307525, guid: c8cc1ca7d8ac84a4d8c084d62b1e507b, type: 3}
   <WorldPrefab>k__BackingField: {fileID: 5385949389920963901, guid: 9ac20a2e178938d4ba67b7a2971c7592, type: 3}
   <DefaultParametersList>k__BackingField: []
   <Categories>k__BackingField: 1
+  canCook: 0
+  cookedResult: {fileID: 0}
   modifiersData:
   - statModifier: {fileID: 11400000, guid: a108b4b6caf20d14f8c89a19329b2b39, type: 2}
     value: -10

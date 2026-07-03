@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 5850986010727118794}
   - component: {fileID: 18133610731718551}
   - component: {fileID: 3199529727289324750}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Arbol_trompeta
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -260,7 +260,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3367503667238452273}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: InteractionPoint
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -291,7 +291,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 253440129410035610}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: ramas
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -326,7 +326,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2749191803159893552}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: ZOrderAnchor
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -357,7 +357,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2735022784921154575}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: fruit
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -394,7 +394,7 @@ GameObject:
   - component: {fileID: 2776575566782433803}
   - component: {fileID: 2121746001534336464}
   - component: {fileID: 3404189746426933261}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Visual
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -556,6 +556,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 2735022784921154575}
     m_Modifications:
+    - target: {fileID: 1670626518501096707, guid: 9ac20a2e178938d4ba67b7a2971c7592, type: 3}
+      propertyPath: m_Layer
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 5023999330923071391, guid: 9ac20a2e178938d4ba67b7a2971c7592, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -600,6 +604,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: ItemTrompetaA
       objectReference: {fileID: 0}
+    - target: {fileID: 5385949389920963901, guid: 9ac20a2e178938d4ba67b7a2971c7592, type: 3}
+      propertyPath: m_Layer
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 6664576083223303980, guid: 9ac20a2e178938d4ba67b7a2971c7592, type: 3}
+      propertyPath: m_Layer
+      value: 3
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -618,6 +630,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 2735022784921154575}
     m_Modifications:
+    - target: {fileID: 1670626518501096707, guid: 9ac20a2e178938d4ba67b7a2971c7592, type: 3}
+      propertyPath: m_Layer
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 5023999330923071391, guid: 9ac20a2e178938d4ba67b7a2971c7592, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -661,6 +677,14 @@ PrefabInstance:
     - target: {fileID: 5385949389920963901, guid: 9ac20a2e178938d4ba67b7a2971c7592, type: 3}
       propertyPath: m_Name
       value: ItemTrompetaA (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 5385949389920963901, guid: 9ac20a2e178938d4ba67b7a2971c7592, type: 3}
+      propertyPath: m_Layer
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 6664576083223303980, guid: 9ac20a2e178938d4ba67b7a2971c7592, type: 3}
+      propertyPath: m_Layer
+      value: 3
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -742,6 +766,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 2735022784921154575}
     m_Modifications:
+    - target: {fileID: 1670626518501096707, guid: 9ac20a2e178938d4ba67b7a2971c7592, type: 3}
+      propertyPath: m_Layer
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 5023999330923071391, guid: 9ac20a2e178938d4ba67b7a2971c7592, type: 3}
       propertyPath: m_LocalPosition.x
       value: 1.16
@@ -786,6 +814,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: ItemTrompetaA (3)
       objectReference: {fileID: 0}
+    - target: {fileID: 5385949389920963901, guid: 9ac20a2e178938d4ba67b7a2971c7592, type: 3}
+      propertyPath: m_Layer
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 6664576083223303980, guid: 9ac20a2e178938d4ba67b7a2971c7592, type: 3}
+      propertyPath: m_Layer
+      value: 3
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -804,6 +840,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 2735022784921154575}
     m_Modifications:
+    - target: {fileID: 1670626518501096707, guid: 9ac20a2e178938d4ba67b7a2971c7592, type: 3}
+      propertyPath: m_Layer
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 5023999330923071391, guid: 9ac20a2e178938d4ba67b7a2971c7592, type: 3}
       propertyPath: m_LocalPosition.x
       value: -1.1
@@ -847,6 +887,14 @@ PrefabInstance:
     - target: {fileID: 5385949389920963901, guid: 9ac20a2e178938d4ba67b7a2971c7592, type: 3}
       propertyPath: m_Name
       value: ItemTrompetaA (2)
+      objectReference: {fileID: 0}
+    - target: {fileID: 5385949389920963901, guid: 9ac20a2e178938d4ba67b7a2971c7592, type: 3}
+      propertyPath: m_Layer
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 6664576083223303980, guid: 9ac20a2e178938d4ba67b7a2971c7592, type: 3}
+      propertyPath: m_Layer
+      value: 3
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

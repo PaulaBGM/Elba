@@ -16,11 +16,13 @@ MonoBehaviour:
   <ItemID>k__BackingField: amanitavirosa
   <MaxStackSize>k__BackingField: 20
   <Name>k__BackingField: Amanita virosa
-  <Description>k__BackingField: 
+  <Description>k__BackingField: Seta llamativa y con buen olor
   <ItemImage>k__BackingField: {fileID: 21300000, guid: 9ad6519166e3f884aa7ee19eeb3ef14d, type: 3}
   <WorldPrefab>k__BackingField: {fileID: 1056098900995174427, guid: 85f455a024b825446a45de1a2c385a5f, type: 3}
   <DefaultParametersList>k__BackingField: []
   <Categories>k__BackingField: 1
+  canCook: 0
+  cookedResult: {fileID: 0}
   modifiersData:
   - statModifier: {fileID: 11400000, guid: a108b4b6caf20d14f8c89a19329b2b39, type: 2}
     value: -10

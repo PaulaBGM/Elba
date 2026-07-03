@@ -16,11 +16,13 @@ MonoBehaviour:
   <ItemID>k__BackingField: cicuta
   <MaxStackSize>k__BackingField: 20
   <Name>k__BackingField: Cicuta
-  <Description>k__BackingField: 
+  <Description>k__BackingField: Planta llamativa que suelen decir que es venenosa
   <ItemImage>k__BackingField: {fileID: -1300925848, guid: cdcadffb5e21b8848a6931f4f24208c0, type: 3}
   <WorldPrefab>k__BackingField: {fileID: 3893283076602086125, guid: 3d4b22f8fa9f3334db8d16ad7d8fbb82, type: 3}
   <DefaultParametersList>k__BackingField: []
   <Categories>k__BackingField: 1
+  canCook: 0
+  cookedResult: {fileID: 0}
   modifiersData:
   - statModifier: {fileID: 11400000, guid: a108b4b6caf20d14f8c89a19329b2b39, type: 2}
     value: -100

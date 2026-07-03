@@ -16,7 +16,7 @@ MonoBehaviour:
   <ItemID>k__BackingField: carnejabali
   <MaxStackSize>k__BackingField: 20
   <Name>k__BackingField: "Carne de Jabal\xED"
-  <Description>k__BackingField: 
+  <Description>k__BackingField: "Carne jugosa de jabal\xED que puede cocinarse."
   <ItemImage>k__BackingField: {fileID: -1241145916, guid: c8cc1ca7d8ac84a4d8c084d62b1e507b, type: 3}
   <WorldPrefab>k__BackingField: {fileID: 1122373944443877070, guid: 28bde6857b432e941a04c8f1c3b1772e, type: 3}
   <DefaultParametersList>k__BackingField: []

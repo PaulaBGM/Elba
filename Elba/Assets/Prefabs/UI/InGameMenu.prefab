@@ -1686,7 +1686,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_SizeDelta: {x: 107.5, y: 40}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &9178290533003192382
 CanvasRenderer:
@@ -2272,7 +2272,7 @@ MonoBehaviour:
   m_PreferredHeight: 80
   m_FlexibleWidth: -1
   m_FlexibleHeight: -1
-  m_LayoutPriority: 1
+  m_LayoutPriority: 4
 --- !u!114 &6137416384047610593
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2290,7 +2290,7 @@ MonoBehaviour:
     m_Right: 200
     m_Top: 0
     m_Bottom: 50
-  m_ChildAlignment: 8
+  m_ChildAlignment: 2
   m_Spacing: -1500
   m_ChildForceExpandWidth: 1
   m_ChildForceExpandHeight: 1

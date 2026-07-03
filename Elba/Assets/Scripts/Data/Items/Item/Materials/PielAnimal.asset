@@ -15,8 +15,8 @@ MonoBehaviour:
   <IsStackable>k__BackingField: 1
   <ItemID>k__BackingField: piel
   <MaxStackSize>k__BackingField: 20
-  <Name>k__BackingField: piel
-  <Description>k__BackingField: 
+  <Name>k__BackingField: Piedra
+  <Description>k__BackingField: Sirve para fabricar objetos
   <ItemImage>k__BackingField: {fileID: 21300000, guid: 1d267fdec2092c946b62b7e77beaae86, type: 3}
   <WorldPrefab>k__BackingField: {fileID: 0}
   <DefaultParametersList>k__BackingField: []

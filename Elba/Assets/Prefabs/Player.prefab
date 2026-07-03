@@ -46,7 +46,6 @@ Transform:
   - {fileID: 5344812550750089134}
   - {fileID: 4879856116882482812}
   - {fileID: 6059828838471576777}
-  - {fileID: 4581245341965251160}
   - {fileID: 3084749652360005018}
   - {fileID: 4899196795280434627}
   m_Father: {fileID: 0}
@@ -802,7 +801,8 @@ Transform:
   m_LocalPosition: {x: 0.3600001, y: -0.2200003, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 4581245341965251160}
   m_Father: {fileID: 5344812550750089134}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &4408595007363504364
@@ -1038,12 +1038,12 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8124823599780742372}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 1, w: 0}
-  m_LocalPosition: {x: 0, y: -0.358, z: 0}
+  m_LocalRotation: {x: -0, y: -0, z: 1, w: 0}
+  m_LocalPosition: {x: 0.012, y: -0.338, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 8271977339600567490}
+  m_Father: {fileID: 114367463813259330}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 180}
 --- !u!1001 &4899196795280375611
 PrefabInstance:
@@ -1101,6 +1101,10 @@ PrefabInstance:
       propertyPath: Camera
       value: 
       objectReference: {fileID: 3299244489729492055}
+    - target: {fileID: 11475408, guid: b046278bb9b6e104790392b566667ba5, type: 3}
+      propertyPath: RainSoundAudioMixer
+      value: 
+      objectReference: {fileID: 24300002, guid: 539705875000d164191a020e96ee1336, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

@@ -16,11 +16,13 @@ MonoBehaviour:
   <ItemID>k__BackingField: strawberry
   <MaxStackSize>k__BackingField: 20
   <Name>k__BackingField: Fresas
-  <Description>k__BackingField: it's a strawberry, you eat it
+  <Description>k__BackingField: Fresas muy dulces y jugosas
   <ItemImage>k__BackingField: {fileID: -1558581260, guid: c8cc1ca7d8ac84a4d8c084d62b1e507b, type: 3}
   <WorldPrefab>k__BackingField: {fileID: 6094749979129503835, guid: 10164568e80ff4d408197d86c732ad55, type: 3}
   <DefaultParametersList>k__BackingField: []
   <Categories>k__BackingField: 1
+  canCook: 0
+  cookedResult: {fileID: 0}
   modifiersData:
   - statModifier: {fileID: 11400000, guid: de17128eaa1e4a04583f6e3aa788881b, type: 2}
     value: 15

@@ -16,11 +16,13 @@ MonoBehaviour:
   <ItemID>k__BackingField: blueberry
   <MaxStackSize>k__BackingField: 20
   <Name>k__BackingField: "Ar\xE1ndano"
-  <Description>k__BackingField: it's a blueberry, you eat it
+  <Description>k__BackingField: "Peque\xF1os ar\xE1ndanos maduros"
   <ItemImage>k__BackingField: {fileID: 709332865, guid: c8cc1ca7d8ac84a4d8c084d62b1e507b, type: 3}
   <WorldPrefab>k__BackingField: {fileID: 6094749979129503835, guid: 36d0dc7e2758f9e41b5db3117b63c13e, type: 3}
   <DefaultParametersList>k__BackingField: []
   <Categories>k__BackingField: 1
+  canCook: 0
+  cookedResult: {fileID: 0}
   modifiersData:
   - statModifier: {fileID: 11400000, guid: de17128eaa1e4a04583f6e3aa788881b, type: 2}
     value: 8

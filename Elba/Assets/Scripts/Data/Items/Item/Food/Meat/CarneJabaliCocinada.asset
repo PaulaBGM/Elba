@@ -16,11 +16,13 @@ MonoBehaviour:
   <ItemID>k__BackingField: carnejabali
   <MaxStackSize>k__BackingField: 20
   <Name>k__BackingField: "Carne de Jabal\xED Asada"
-  <Description>k__BackingField: "Est\xE1 Asada"
+  <Description>k__BackingField: "Carne de jabal\xED asada"
   <ItemImage>k__BackingField: {fileID: 1938453958, guid: c8cc1ca7d8ac84a4d8c084d62b1e507b, type: 3}
   <WorldPrefab>k__BackingField: {fileID: 4307576789097922667, guid: 48f7e29262cece941a035e87f51ac278, type: 3}
   <DefaultParametersList>k__BackingField: []
   <Categories>k__BackingField: 1
+  canCook: 0
+  cookedResult: {fileID: 0}
   modifiersData:
   - statModifier: {fileID: 11400000, guid: de17128eaa1e4a04583f6e3aa788881b, type: 2}
     value: 40

@@ -15,12 +15,14 @@ MonoBehaviour:
   <IsStackable>k__BackingField: 1
   <ItemID>k__BackingField: apple
   <MaxStackSize>k__BackingField: 10
-  <Name>k__BackingField: Apple
-  <Description>k__BackingField: it's an apple, you eat it
+  <Name>k__BackingField: Manzana
+  <Description>k__BackingField: Una manzana muy jugosa
   <ItemImage>k__BackingField: {fileID: -803305277, guid: c8cc1ca7d8ac84a4d8c084d62b1e507b, type: 3}
   <WorldPrefab>k__BackingField: {fileID: 6094749979129503835, guid: 14d95a0d8d64c8748bc044f709258d55, type: 3}
   <DefaultParametersList>k__BackingField: []
   <Categories>k__BackingField: 1
+  canCook: 0
+  cookedResult: {fileID: 0}
   modifiersData:
   - statModifier: {fileID: 11400000, guid: de17128eaa1e4a04583f6e3aa788881b, type: 2}
     value: 25

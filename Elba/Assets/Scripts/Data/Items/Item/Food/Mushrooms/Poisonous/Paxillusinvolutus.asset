@@ -16,11 +16,13 @@ MonoBehaviour:
   <ItemID>k__BackingField: paxillusinvolutus
   <MaxStackSize>k__BackingField: 20
   <Name>k__BackingField: Paxillus involutus
-  <Description>k__BackingField: 
+  <Description>k__BackingField: "Seta peque\xF1a de carne blanda."
   <ItemImage>k__BackingField: {fileID: 21300000, guid: 3795a678c957a8c4b884554c62ac8f2d, type: 3}
   <WorldPrefab>k__BackingField: {fileID: 5840382728185780564, guid: c3000d3af11a0d046b1a7f18509d5820, type: 3}
   <DefaultParametersList>k__BackingField: []
   <Categories>k__BackingField: 1
+  canCook: 0
+  cookedResult: {fileID: 0}
   modifiersData:
   - statModifier: {fileID: 11400000, guid: a108b4b6caf20d14f8c89a19329b2b39, type: 2}
     value: -10

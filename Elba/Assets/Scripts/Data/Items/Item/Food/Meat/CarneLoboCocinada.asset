@@ -16,11 +16,13 @@ MonoBehaviour:
   <ItemID>k__BackingField: carnelobo
   <MaxStackSize>k__BackingField: 20
   <Name>k__BackingField: Carne de lobo
-  <Description>k__BackingField: 
+  <Description>k__BackingField: Carne de lobi asada
   <ItemImage>k__BackingField: {fileID: 2073593905, guid: c8cc1ca7d8ac84a4d8c084d62b1e507b, type: 3}
   <WorldPrefab>k__BackingField: {fileID: 363962542811802795, guid: 734c3567966c5cb43b0b9ecb1470822c, type: 3}
   <DefaultParametersList>k__BackingField: []
   <Categories>k__BackingField: 1
+  canCook: 0
+  cookedResult: {fileID: 0}
   modifiersData:
   - statModifier: {fileID: 11400000, guid: de17128eaa1e4a04583f6e3aa788881b, type: 2}
     value: 50

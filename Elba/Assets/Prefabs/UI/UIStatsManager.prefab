@@ -928,7 +928,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8473197135774310822, guid: 5cc34afc972190047a6b7f24839db7be, type: 3}
       propertyPath: m_Name
-      value: Temperature
+      value: Temperatura
       objectReference: {fileID: 0}
     - target: {fileID: 8473197135774310822, guid: 5cc34afc972190047a6b7f24839db7be, type: 3}
       propertyPath: m_IsActive
@@ -1090,7 +1090,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8473197135774310822, guid: 5cc34afc972190047a6b7f24839db7be, type: 3}
       propertyPath: m_Name
-      value: ThirstBar
+      value: BarraSed
       objectReference: {fileID: 0}
     - target: {fileID: 8848855247673708313, guid: 5cc34afc972190047a6b7f24839db7be, type: 3}
       propertyPath: m_AnchorMax.y
@@ -1255,7 +1255,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8473197135774310822, guid: 5cc34afc972190047a6b7f24839db7be, type: 3}
       propertyPath: m_Name
-      value: StaminaBar
+      value: BarraEstamina
       objectReference: {fileID: 0}
     - target: {fileID: 8848855247673708313, guid: 5cc34afc972190047a6b7f24839db7be, type: 3}
       propertyPath: m_AnchorMax.y
@@ -1412,7 +1412,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8473197135774310822, guid: 5cc34afc972190047a6b7f24839db7be, type: 3}
       propertyPath: m_Name
-      value: HungerBar
+      value: BarraHambre
       objectReference: {fileID: 0}
     - target: {fileID: 8848855247673708313, guid: 5cc34afc972190047a6b7f24839db7be, type: 3}
       propertyPath: m_AnchorMax.x
@@ -1569,7 +1569,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8473197135774310822, guid: 5cc34afc972190047a6b7f24839db7be, type: 3}
       propertyPath: m_Name
-      value: HealthBar
+      value: BarraVida
       objectReference: {fileID: 0}
     - target: {fileID: 8848855247673708313, guid: 5cc34afc972190047a6b7f24839db7be, type: 3}
       propertyPath: m_AnchorMax.y

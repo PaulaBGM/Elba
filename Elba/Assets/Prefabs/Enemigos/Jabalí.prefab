@@ -74,6 +74,7 @@ GameObject:
   - component: {fileID: 6949968628281946334}
   - component: {fileID: 1499843646875603239}
   - component: {fileID: 5467771630077382522}
+  - component: {fileID: 3165626069480224821}
   m_Layer: 0
   m_Name: Visual
   m_TagString: Untagged
@@ -189,6 +190,20 @@ MonoBehaviour:
   controller: {fileID: 3466738416805995079}
   health: {fileID: 5270387502188595239}
   chargeBehaviour: {fileID: 1579825367759465826}
+--- !u!114 &3165626069480224821
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3556549058522802727}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e0eb55661d4b42e459889ac400bbe222, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  anchor: {fileID: 764941230402636066}
+  sortingOffset: 0
 --- !u!1 &4017460115279435125
 GameObject:
   m_ObjectHideFlags: 0
@@ -469,7 +484,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   sensorDistance: 2
-  sensorAngle: 60
+  sensorAngle: 90
   whatIsObstacle:
     serializedVersion: 2
     m_Bits: 0

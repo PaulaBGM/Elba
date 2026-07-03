@@ -191,7 +191,7 @@ GameObject:
   - component: {fileID: 4535336890807693739}
   - component: {fileID: 3919853847855251579}
   m_Layer: 0
-  m_Name: UICraftingRecipe
+  m_Name: UIRecetaCrafteo
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

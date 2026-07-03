@@ -403,7 +403,7 @@ GameObject:
   - component: {fileID: 3084749652360005018}
   - component: {fileID: 5908770105960765188}
   m_Layer: 0
-  m_Name: InteractionPoint
+  m_Name: PuntoInteraccion
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1055,7 +1055,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 191326, guid: b046278bb9b6e104790392b566667ba5, type: 3}
       propertyPath: m_Name
-      value: RainPrefab2D
+      value: Lluvia
       objectReference: {fileID: 0}
     - target: {fileID: 465656, guid: b046278bb9b6e104790392b566667ba5, type: 3}
       propertyPath: m_LocalPosition.x

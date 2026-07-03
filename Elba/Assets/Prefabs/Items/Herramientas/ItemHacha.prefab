@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 3906178350786884514}
   - component: {fileID: 6378511657212996372}
   m_Layer: 0
-  m_Name: ItemAxe
+  m_Name: ItemHacha
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

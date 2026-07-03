@@ -301,7 +301,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   damage: 10
-  grabDuration: 2
+  grabDuration: 3
 --- !u!114 &7561550477762651299
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -126,6 +126,13 @@ public class StructureUpgradeUI : MonoBehaviour
         if (!currentStructure.Upgrade())
             return;
 
+        bool finishedGame = currentStructure.NextUpgrade == null;
+
         Close();
+
+        if (finishedGame)
+        {
+            GameEndUI.Instance.Show();
+        }
     }
 }

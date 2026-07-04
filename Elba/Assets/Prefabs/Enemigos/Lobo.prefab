@@ -363,6 +363,10 @@ MonoBehaviour:
     minAmount: 1
     maxAmount: 3
     dropChance: 100
+  - item: {fileID: 11400000, guid: cda39ab9e4091374b86902bcb707b8bc, type: 2}
+    minAmount: 1
+    maxAmount: 3
+    dropChance: 72
 --- !u!61 &6743708651240837035
 BoxCollider2D:
   m_ObjectHideFlags: 0

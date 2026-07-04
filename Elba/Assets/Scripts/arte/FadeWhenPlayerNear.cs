@@ -26,8 +26,24 @@ public class FadeWhenPlayerNear : MonoBehaviour
 
     private void Update()
     {
-        float currentAlpha = spriteRenderers.Length > 0 ? spriteRenderers[0].color.a : 1f;
-        float newAlpha = Mathf.MoveTowards(currentAlpha, targetAlpha, fadeSpeed * Time.deltaTime);
+        SpriteRenderer renderer = null;
+
+        foreach (var sr in spriteRenderers)
+        {
+            if (sr != null)
+            {
+                renderer = sr;
+                break;
+            }
+        }
+
+        if (renderer == null)
+            return;
+
+        float newAlpha = Mathf.MoveTowards(
+            renderer.color.a,
+            targetAlpha,
+            fadeSpeed * Time.deltaTime);
 
         ApplyAlpha(newAlpha);
     }

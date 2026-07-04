@@ -117,11 +117,18 @@ public class Shelter : MonoBehaviour, IInteractable, IUpgradeableStructure
 
         currentInventory.ConsumeIngredients(nextUpgrade.Requirements);
 
-        Instantiate(
+        GameObject upgraded = Instantiate(
             nextUpgrade.UpgradedPrefab,
             transform.position,
             transform.rotation,
             transform.parent);
+
+        Shelter newShelter = upgraded.GetComponent<Shelter>();
+
+        if (newShelter != null && newShelter.NextUpgrade == null)
+        {
+            GameEndUI.Instance.Show();
+        }
 
         Destroy(gameObject);
 

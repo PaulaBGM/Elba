@@ -16,7 +16,7 @@ public class MainMenuController : MonoBehaviour
 
     public void StartGame()
     {
-        SceneController.Instance.LoadScene("Level");
+        SceneController.Instance.LoadScene("Nivel");
     }
 
     public void ExitGame()

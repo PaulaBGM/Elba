@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class WeatherManager : MonoBehaviour
 {
-    public static WeatherManager Instance;
+    public static WeatherManager Instance { get; private set; }
 
     public WeatherType CurrentWeather { get; private set; }
 
@@ -14,25 +14,36 @@ public class WeatherManager : MonoBehaviour
     [SerializeField] private float minTime = 120f;
     [SerializeField] private float maxTime = 240f;
 
+    private Coroutine weatherRoutine;
+
     private void Awake()
     {
+        if (Instance != null)
+        {
+            Destroy(gameObject);
+            return;
+        }
+
         Instance = this;
     }
 
     private void Start()
     {
         SetWeather(WeatherType.Clear);
-        StartCoroutine(WeatherLoop());
+
+        weatherRoutine = StartCoroutine(WeatherLoop());
     }
 
-    IEnumerator WeatherLoop()
+    private IEnumerator WeatherLoop()
     {
         while (true)
         {
             yield return new WaitForSeconds(UnityEngine.Random.Range(minTime, maxTime));
 
             WeatherType next =
-                (WeatherType)UnityEngine.Random.Range(0, Enum.GetValues(typeof(WeatherType)).Length);
+                CurrentWeather == WeatherType.Clear
+                ? WeatherType.Rain
+                : WeatherType.Clear;
 
             SetWeather(next);
         }
@@ -45,6 +56,16 @@ public class WeatherManager : MonoBehaviour
 
         CurrentWeather = weather;
 
-        OnWeatherChanged?.Invoke(weather);
+        OnWeatherChanged?.Invoke(CurrentWeather);
+    }
+
+    public bool IsRaining()
+    {
+        return CurrentWeather == WeatherType.Rain;
+    }
+
+    public bool IsClear()
+    {
+        return CurrentWeather == WeatherType.Clear;
     }
 }

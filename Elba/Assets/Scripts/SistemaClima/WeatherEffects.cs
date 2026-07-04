@@ -4,19 +4,21 @@ using DigitalRuby.RainMaker;
 
 public class WeatherEffects : MonoBehaviour
 {
+    [Header("References")]
     [SerializeField] private RainScript2D rain;
-    [SerializeField] private PlayerStatsSystem stats;
-
     [SerializeField] private Image coldOverlay;
 
-    [SerializeField] private float overlaySpeed = 1.5f;
+    [Header("Overlay")]
+    [SerializeField] private float overlaySpeed = 2f;
+    [SerializeField] private float secondsToMaxOverlay = 30f;
 
-    [SerializeField] private float startOverlayPercent = 0.7f;
-    [SerializeField] private float maxOverlayPercent = 0.2f;
+    private bool isRaining;
+    private float rainExposure;
 
     private void Start()
     {
         WeatherManager.Instance.OnWeatherChanged += ChangeWeather;
+        ChangeWeather(WeatherManager.Instance.CurrentWeather);
     }
 
     private void OnDestroy()
@@ -27,39 +29,25 @@ public class WeatherEffects : MonoBehaviour
 
     private void Update()
     {
-        float percent = stats.GetPercent(StatType.Temperature);
+        if (isRaining)
+            rainExposure += Time.deltaTime;
+        else
+            rainExposure -= Time.deltaTime * 2f;
+        rainExposure = Mathf.Clamp(rainExposure, 0f, secondsToMaxOverlay);
+        float targetAlpha = rainExposure / secondsToMaxOverlay;
 
-        float alpha = 0f;
-
-        if (percent <= startOverlayPercent)
+        if (UIManager.Instance.IsInventoryOpen ||UIManager.Instance.IsExternalMenuOpen)
         {
-            alpha = Mathf.InverseLerp(
-                startOverlayPercent,
-                maxOverlayPercent,
-                percent);
+            targetAlpha = 0f;
         }
-
-        Color c = coldOverlay.color;
-
-        c.a = Mathf.MoveTowards(
-            c.a,
-            alpha,
-            overlaySpeed * Time.deltaTime);
-
-        coldOverlay.color = c;
+        Color color = coldOverlay.color;
+        color.a = Mathf.MoveTowards(color.a,targetAlpha,overlaySpeed * Time.deltaTime);
+        coldOverlay.color = color;
     }
 
-    void ChangeWeather(WeatherType weather)
+    private void ChangeWeather(WeatherType weather)
     {
-        switch (weather)
-        {
-            case WeatherType.Clear:
-                rain.RainIntensity = 0f;
-                break;
-
-            case WeatherType.Rain:
-                rain.RainIntensity = 0.8f;
-                break;
-        }
+        isRaining = weather == WeatherType.Rain;
+        rain.RainIntensity = isRaining ? 0.8f : 0f;
     }
 }

@@ -280,7 +280,7 @@ MonoBehaviour:
   shelterPoint: {fileID: 3114438349557933407}
   storage: {fileID: 1867320942250945731}
   interactionAnchor: {fileID: 5448263324616459501}
-  nextUpgrade: {fileID: 11400000, guid: 8762970416035f5469317e90349f6b41, type: 2}
+  nextUpgrade: {fileID: 0}
 --- !u!114 &1867320942250945731
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -308,6 +308,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   anchor: {fileID: 7631718712093438980}
+  sortingOffset: 0
 --- !u!61 &5156289487439192439
 BoxCollider2D:
   m_ObjectHideFlags: 0

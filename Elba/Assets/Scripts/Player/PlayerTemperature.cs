@@ -3,13 +3,8 @@ using UnityEngine;
 public class PlayerTemperature : MonoBehaviour
 {
     [SerializeField] private PlayerStatsSystem stats;
-
-    [SerializeField] private float coldDamage = 3f;
-
-    [SerializeField] private float coldRecovery = 5f;
-
+    [SerializeField] private float coldDamage = 2f;
     [SerializeField] private float tick = 1f;
-
     private float timer;
 
     private void Awake()
@@ -20,45 +15,16 @@ public class PlayerTemperature : MonoBehaviour
 
     private void Update()
     {
-        timer += Time.deltaTime;
+        if (!WeatherManager.Instance.IsRaining())
+            return;
 
+        timer += Time.deltaTime;
         if (timer < tick)
             return;
 
-        timer = 0;
-
-        switch (WeatherManager.Instance.CurrentWeather)
-        {
-            case WeatherType.Clear:
-
-                stats.ModifyStat(
-                    StatType.Temperature,
-                    coldRecovery);
-
-                break;
-
-            case WeatherType.Rain:
-
-                stats.ModifyStat(
-                    StatType.Temperature,
-                    -coldDamage);
-
-                break;
-
-            case WeatherType.Cold:
-
-                stats.ModifyStat(
-                    StatType.Temperature,
-                    -coldDamage * 2);
-
-                break;
-        }
-
-        if (stats.IsLow(StatType.Temperature))
-        {
-            stats.ModifyStat(
-                StatType.Health,
-                -2f);
-        }
+        timer = 0f;
+        if (Campfire.PlayerNearLitCampfire)
+            return;
+        stats.ModifyStat(StatType.Health,-coldDamage);
     }
 }

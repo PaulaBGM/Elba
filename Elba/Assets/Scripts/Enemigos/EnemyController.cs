@@ -15,7 +15,7 @@ public class EnemyController : FSMController<EnemyController>
     private EnemyHealthSystem healthSystem;
     private EnemyLoot enemyLoot;
 
-    [SerializeField] private float timeToDestroy = 2f;
+    [SerializeField] private float timeToDestroy = 0.3f;
     public bool IsBusy { get; set; }
     [SerializeField] private MonoBehaviour animalBehaviour;
     public IAnimalBehaviour AnimalBehaviour =>animalBehaviour as IAnimalBehaviour;

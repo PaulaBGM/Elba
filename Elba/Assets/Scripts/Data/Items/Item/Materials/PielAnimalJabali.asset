@@ -10,15 +10,15 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ec5de9769a667284d8d21d13b12c473c, type: 3}
-  m_Name: PielAnimal
+  m_Name: PielAnimalJabali
   m_EditorClassIdentifier: 
   <IsStackable>k__BackingField: 1
   <ItemID>k__BackingField: piel
   <MaxStackSize>k__BackingField: 20
-  <Name>k__BackingField: Piedra
+  <Name>k__BackingField: "Piel de Jabal\xED"
   <Description>k__BackingField: Sirve para fabricar objetos
   <ItemImage>k__BackingField: {fileID: 21300000, guid: 1d267fdec2092c946b62b7e77beaae86, type: 3}
-  <WorldPrefab>k__BackingField: {fileID: 0}
+  <WorldPrefab>k__BackingField: {fileID: 607431276443299330, guid: 86b98a293d546e34691c80dd72e4310c, type: 3}
   <DefaultParametersList>k__BackingField: []
   <Categories>k__BackingField: 4
   canCook: 0

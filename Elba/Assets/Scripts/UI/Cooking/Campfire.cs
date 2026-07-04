@@ -12,14 +12,19 @@ public class Campfire : MonoBehaviour, IInteractable, IUpgradeableStructure
     [Header("Upgrade")]
     [SerializeField] private StructureUpgradeSO nextUpgrade;
 
+    [Header("Cooking")]
+    [SerializeField] private bool startLit;
+
     private InventoryController currentInventory;
 
     private static readonly List<ActionData> emptyActions = new();
 
+    public static bool PlayerNearLitCampfire { get; private set; }
+
     public Transform InteractionAnchor => interactionAnchor;
     public StructureUpgradeSO NextUpgrade => nextUpgrade;
-    [SerializeField]
-    private bool startLit;
+    public bool IsLit => fireAnimator != null && fireAnimator.enabled;
+
     private void Awake()
     {
         if (fireAnimator == null)
@@ -49,10 +54,15 @@ public class Campfire : MonoBehaviour, IInteractable, IUpgradeableStructure
         if (currentInventory == null)
             return;
 
-        if (StructureUpgradeUI.Instance == null)
+        if (IsLit)
+        {
+            // Aquí irá tu sistema de cocina
+            Debug.Log("Abrir cocina");
             return;
+        }
 
-        StructureUpgradeUI.Instance.Open(this, currentInventory);
+        if (StructureUpgradeUI.Instance != null)
+            StructureUpgradeUI.Instance.Open(this, currentInventory);
     }
 
     public bool CanUpgrade()
@@ -93,5 +103,17 @@ public class Campfire : MonoBehaviour, IInteractable, IUpgradeableStructure
         Destroy(gameObject);
 
         return true;
+    }
+
+    private void OnTriggerEnter2D(Collider2D other)
+    {
+        if (IsLit && other.CompareTag("Player"))
+            PlayerNearLitCampfire = true;
+    }
+
+    private void OnTriggerExit2D(Collider2D other)
+    {
+        if (other.CompareTag("Player"))
+            PlayerNearLitCampfire = false;
     }
 }

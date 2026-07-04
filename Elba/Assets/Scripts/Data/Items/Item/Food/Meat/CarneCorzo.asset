@@ -10,10 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: c99cc5c8bf1f7044dab5fb5a50837b19, type: 3}
-  m_Name: CarneUro
+  m_Name: CarneCorzo
   m_EditorClassIdentifier: 
   <IsStackable>k__BackingField: 0
-  <ItemID>k__BackingField: carneuro
+  <ItemID>k__BackingField: carnecorzo
   <MaxStackSize>k__BackingField: 1
   <Name>k__BackingField: Carne de corzo
   <Description>k__BackingField: Carne jugosa de corzo que puede cocinarse.

@@ -8,6 +8,7 @@ public class EnemyAnimationController : MonoBehaviour
     [SerializeField] private ChargeAnimalBehaviour chargeBehaviour;
 
     private Animator animator;
+    private bool isDead;
 
     private static readonly int IsMoving = Animator.StringToHash("isMoving");
     private static readonly int Attack = Animator.StringToHash("Attack");
@@ -54,6 +55,9 @@ public class EnemyAnimationController : MonoBehaviour
 
     private void Update()
     {
+        if (isDead)
+            return;
+
         bool moving =
             controller != null &&
             controller.Rigidbody != null &&
@@ -64,23 +68,34 @@ public class EnemyAnimationController : MonoBehaviour
 
     public void PlayAttack()
     {
+        if (isDead)
+            return;
+
         animator.SetTrigger(Attack);
     }
 
     private void HandleStunned(bool stunned)
     {
+        if (isDead)
+            return;
+
         animator.SetBool(IsStunned, stunned);
     }
 
     private void HandleDeath()
     {
-        animator.SetBool(Dead, true);
+        isDead = true;
+
+        animator.ResetTrigger(Attack);
+        animator.SetBool(IsMoving, false);
+        animator.SetBool(IsStunned, false);
+        animator.SetTrigger(Dead);
     }
 
-    // Este método lo llamas con un Animation Event dentro del clip de ataque
+    // Animation Event
     public void DealDamage()
     {
-        if (chargeBehaviour != null)
+        if (!isDead && chargeBehaviour != null)
             chargeBehaviour.DealDamage();
     }
 }

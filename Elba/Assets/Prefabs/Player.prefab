@@ -314,8 +314,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   stats: {fileID: 1888820010737167267}
-  coldDamage: 3
-  coldRecovery: 5
+  coldDamage: 2
   tick: 1
 --- !u!1 &2176814024600059378
 GameObject:

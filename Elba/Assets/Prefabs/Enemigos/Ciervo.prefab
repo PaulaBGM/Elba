@@ -520,6 +520,10 @@ MonoBehaviour:
     minAmount: 1
     maxAmount: 3
     dropChance: 84.9
+  - item: {fileID: 11400000, guid: 42a82dd3f4145b04f82ff8e6a49beffa, type: 2}
+    minAmount: 1
+    maxAmount: 3
+    dropChance: 84.9
 --- !u!1 &8707721320718010757
 GameObject:
   m_ObjectHideFlags: 0
